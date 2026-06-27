@@ -1,0 +1,3452 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>50 Arduino Projekte für Anfänger</title>
+<style>
+  :root{
+    --bg:#080c10;--surface:#0d1117;--card:#111720;
+    --border:#1c2330;--border-hi:#2a3850;
+    --text:#c9d8e8;--muted:#556070;
+    --accent:#00e5ff;--accent2:#ff6b35;
+    --green:#00e676;--yellow:#ffd740;--red:#ff5252;
+    --glow:rgba(0,229,255,0.12);
+    --licht:#ffd740;--audio:#c264ff;--sensor:#00e676;
+    --anzeige:#00e5ff;--motor:#ff5252;--spiel:#ff6b35;
+    --komm:#29b6f6;--iot:#7c4dff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Courier New',monospace;background:var(--bg);color:var(--text);line-height:1.6;}
+
+  /* ── HEADER / HERO ── */
+  header{
+    background:var(--surface);
+    border-bottom:1px solid var(--border);
+    padding:3rem 2rem 2rem;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  header::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--glow),transparent);
+    pointer-events:none;
+  }
+  .hero-eyebrow{
+    font-size:.78rem;letter-spacing:.15em;color:var(--accent);
+    text-transform:uppercase;margin-bottom:1rem;opacity:.8;
+  }
+  header h1{
+    font-size:2.6rem;font-weight:900;letter-spacing:-1px;
+    color:#e8f4ff;line-height:1.1;margin-bottom:.8rem;
+  }
+  header h1 span{color:var(--accent);}
+  header p{color:var(--muted);font-size:.95rem;max-width:600px;margin:0 auto 1.5rem;font-family:'Segoe UI',sans-serif;}
+  .hero-stats{display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;margin-top:1.2rem;}
+  .stat{text-align:center;}
+  .stat-val{font-size:1.8rem;font-weight:800;color:var(--accent);}
+  .stat-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+
+  /* ── NAV ── */
+  nav{
+    background:var(--surface);border-bottom:1px solid var(--border);
+    padding:.7rem 1.5rem;display:flex;flex-wrap:wrap;gap:.4rem;
+    position:sticky;top:0;z-index:10;
+    justify-content:center;
+  }
+  nav a{
+    color:var(--muted);text-decoration:none;font-size:.78rem;font-weight:600;
+    padding:.25rem .6rem;border-radius:4px;border:1px solid var(--border);
+    transition:all .15s;font-family:monospace;
+  }
+  nav a:hover{color:var(--accent);border-color:var(--accent);background:var(--glow);}
+
+  /* ── CONTAINER ── */
+  .container{max-width:1000px;margin:0 auto;padding:2rem 1rem;}
+
+  /* ── SECTION TITLES ── */
+  .section-title{
+    font-size:1rem;font-weight:700;
+    margin:2.5rem 0 1rem;
+    padding:.4rem .8rem;
+    border-radius:4px;
+    color:var(--bg);
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    font-family:monospace;
+    display:inline-block;
+  }
+
+  /* ── PROJECT CARDS ── */
+  .project{
+    background:var(--card);
+    border-radius:8px;
+    border:1px solid var(--border);
+    margin-bottom:1rem;
+    overflow:hidden;
+    border-left:3px solid var(--accent);
+    transition:border-color .2s,box-shadow .2s;
+  }
+  .project:hover{border-color:var(--border-hi);box-shadow:0 0 0 1px var(--border-hi);}
+  .project-header{
+    display:flex;align-items:center;gap:.9rem;
+    padding:.85rem 1.1rem;cursor:pointer;user-select:none;
+  }
+  .project-header:hover{background:rgba(255,255,255,.02);}
+  .proj-num{
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:.78rem;color:var(--bg);flex-shrink:0;
+    font-family:monospace;
+  }
+  .proj-title{font-size:1rem;font-weight:700;flex:1;color:#e8f4ff;}
+  .diff{display:flex;gap:3px;}
+  .diff span{width:8px;height:8px;border-radius:50%;background:var(--border-hi);}
+  .toggle{font-size:1rem;color:var(--muted);transition:transform .2s;font-family:monospace;}
+
+  /* ── PROJECT BODY ── */
+  .project-body{display:none;padding:0 1.1rem 1.1rem;border-top:1px solid var(--border);}
+  .project-body.open{display:block;}
+  .desc{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:6px;padding:.7rem .9rem;margin:.8rem 0;
+    font-size:.88rem;color:var(--text);
+    font-family:'Segoe UI',sans-serif;line-height:1.55;
+  }
+  .section-label{
+    font-weight:700;font-size:.72rem;text-transform:uppercase;
+    letter-spacing:.12em;color:var(--accent);
+    margin:.9rem 0 .45rem;display:block;
+  }
+  .components{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem;}
+  .comp{
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:6px;padding:.5rem .65rem;
+    min-width:75px;max-width:105px;
+    transition:border-color .15s;
+  }
+  .comp:hover{border-color:var(--accent);}
+  .comp-img{width:56px;height:46px;display:flex;align-items:center;justify-content:center;}
+  .comp-img svg{width:100%;height:100%;}
+  .comp-name{font-size:.67rem;font-weight:600;text-align:center;color:var(--muted);line-height:1.25;font-family:'Segoe UI',sans-serif;}
+  .learn-list{list-style:none;display:flex;flex-direction:column;gap:.35rem;}
+  .learn-list li{
+    display:flex;align-items:flex-start;gap:.5rem;
+    font-size:.86rem;color:var(--text);
+    font-family:'Segoe UI',sans-serif;
+  }
+  .learn-list li::before{content:"▸";color:var(--green);font-weight:800;flex-shrink:0;}
+
+  /* ── LEGEND ── */
+  .diff-legend{
+    display:flex;gap:1.5rem;margin-bottom:1.5rem;
+    font-size:.78rem;color:var(--muted);font-family:monospace;
+    flex-wrap:wrap;
+  }
+  .diff-legend span{display:flex;align-items:center;gap:.4rem;}
+  .dot-row{display:flex;gap:3px;}
+  .dot{width:8px;height:8px;border-radius:50%;}
+
+  /* ── GALLERY ── */
+  .comp-gallery{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:10px;padding:1.6rem 1.8rem;margin-bottom:2rem;
+  }
+  .comp-gallery h2{
+    font-size:.8rem;font-weight:700;margin-bottom:1.4rem;
+    color:var(--accent);text-transform:uppercase;letter-spacing:.12em;font-family:monospace;
+    text-align:center;
+  }
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(108px,1fr));
+    gap:1rem;
+    justify-items:center;
+  }
+  .gallery-item{
+    display:flex;flex-direction:column;align-items:center;gap:.5rem;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:10px;padding:.9rem .6rem .7rem;
+    width:100%;max-width:130px;
+    transition:border-color .2s, box-shadow .2s, transform .15s;
+    cursor:default;
+  }
+  .gallery-item:hover{
+    border-color:var(--accent);
+    box-shadow:0 0 18px var(--glow);
+    transform:translateY(-3px);
+  }
+  .gallery-item svg{width:68px;height:56px;overflow:visible;}
+  .gallery-item span{
+    font-size:.68rem;font-weight:700;text-align:center;
+    color:var(--text);font-family:'Segoe UI',sans-serif;
+    line-height:1.3;letter-spacing:.02em;
+  }
+
+  /* ── BADGE ROW in header ── */
+  .badge-row{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-top:1rem;}
+  .cat-badge{
+    padding:.2rem .6rem;border-radius:3px;font-size:.72rem;
+    font-weight:700;color:var(--bg);font-family:monospace;letter-spacing:.04em;
+  }
+
+  /* ── FOOTER ── */
+  footer{
+    background:var(--surface);border-top:1px solid var(--border);
+    color:var(--muted);text-align:center;padding:1.2rem;
+    margin-top:2rem;font-size:.78rem;font-family:monospace;
+  }
+  footer strong{color:var(--accent);}
+
+  @media(max-width:600px){
+    header h1{font-size:1.8rem;}
+    .project-header{flex-wrap:wrap;}
+    .hero-stats{gap:1.2rem;}
+  }
+
+  /* ── FORTSCHRITTS-TRACKER ── */
+  .prog-box{
+    background:var(--card);border:1px solid var(--border-hi);
+    border-radius:10px;padding:1.1rem 1.4rem;margin-bottom:1.5rem;
+    position:relative;overflow:hidden;
+  }
+  .prog-box::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse 60% 80% at 0% 50%,rgba(0,229,255,.06),transparent);
+    pointer-events:none;
+  }
+  .prog-top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:.65rem;}
+  .prog-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-family:monospace;}
+  .prog-count{font-size:1.6rem;font-weight:900;color:var(--text);font-family:monospace;line-height:1;}
+  .prog-count em{font-style:normal;font-size:.9rem;color:var(--muted);font-weight:400;}
+  .prog-pct{font-size:.75rem;color:var(--muted);font-family:monospace;margin-left:.4rem;}
+  .prog-outer{height:8px;background:var(--surface);border-radius:6px;overflow:hidden;margin-bottom:.75rem;}
+  .prog-fill{
+    height:100%;border-radius:6px;width:0%;
+    background:linear-gradient(90deg,var(--accent) 0%,var(--green) 100%);
+    transition:width .5s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 0 6px rgba(0,229,255,.3);
+  }
+  .prog-milestones{display:flex;gap:.4rem;flex-wrap:wrap;}
+  .milestone{
+    font-size:.7rem;padding:.18rem .5rem;border-radius:4px;
+    border:1px solid var(--border);color:var(--muted);
+    font-family:monospace;transition:all .3s;white-space:nowrap;
+  }
+  .milestone.achieved{color:var(--green);border-color:var(--green);background:rgba(0,230,118,.08);}
+
+  /* Checkbox im Projektkopf */
+  .proj-cb{
+    width:22px;height:22px;border-radius:5px;flex-shrink:0;
+    border:2px solid var(--border-hi);background:var(--surface);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:border-color .15s,background .15s;
+    font-size:.8rem;line-height:1;
+  }
+  .proj-cb:hover{border-color:var(--green);}
+  .proj-cb.checked{background:var(--green);border-color:var(--green);color:#080c10;font-weight:900;}
+  .project.done .proj-title{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(85,96,112,.5);}
+  .project.done .proj-num{opacity:.55;}
+  .proj-cb-reset{
+    font-size:.68rem;color:var(--muted);font-family:monospace;cursor:pointer;
+    padding:.15rem .4rem;border:1px solid var(--border);border-radius:3px;
+    background:transparent;transition:all .15s;
+  }
+  .proj-cb-reset:hover{color:var(--red);border-color:var(--red);}
+</style>
+</head>
+<body>
+<header>
+  <div class="hero-eyebrow">// arduino · mikrocontroller · prototyping</div>
+  <h1><span>50</span> Projekte<br>für Einsteiger</h1>
+  <p>Von LED-Blinker bis balancierendem Roboter — sortiert nach Kategorie und Schwierigkeit.<br>Klick auf ein Projekt für Bauteile und Lernziele.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-val">50</div><div class="stat-label">Projekte gesamt</div></div>
+    <div class="stat"><div class="stat-val" style="color:var(--green)">13</div><div class="stat-label">Einfach</div></div>
+    <div class="stat"><div class="stat-val" style="color:var(--yellow)">24</div><div class="stat-label">Mittel</div></div>
+    <div class="stat"><div class="stat-val" style="color:var(--red)">13</div><div class="stat-label">Fortgeschritten</div></div>
+  </div>
+  <div class="badge-row" style="margin-top:1.5rem;">
+    <span class="cat-badge" style="background:var(--licht)">💡 Licht (8)</span>
+    <span class="cat-badge" style="background:var(--audio)">🔊 Audio (4)</span>
+    <span class="cat-badge" style="background:var(--sensor);color:#0d1117">🌡 Sensoren (8)</span>
+    <span class="cat-badge" style="background:var(--anzeige);color:#0d1117">📺 Anzeige (7)</span>
+    <span class="cat-badge" style="background:var(--motor)">⚙️ Motor (8)</span>
+    <span class="cat-badge" style="background:var(--spiel)">🎮 Spiel (4)</span>
+    <span class="cat-badge" style="background:var(--komm);color:#0d1117">📡 Komm. (7)</span>
+    <span class="cat-badge" style="background:var(--iot)">🌐 IoT (4)</span>
+  </div>
+</header>
+<nav>
+  <a href="#licht">💡 Licht</a><a href="#audio">🔊 Audio</a><a href="#sensoren">🌡 Sensoren</a>
+  <a href="#anzeige">📺 Anzeige</a><a href="#motor">⚙️ Motor</a><a href="#spiel">🎮 Spiel</a>
+  <a href="#komm">📡 Kommunikation</a><a href="#iot">🌐 IoT</a>
+</nav>
+
+<div class="container">
+
+<!-- FORTSCHRITTS-TRACKER -->
+<div class="prog-box" id="prog-box">
+  <div class="prog-top">
+    <span class="prog-label">// Mein Lernfortschritt</span>
+    <span>
+      <span class="prog-count" id="prog-num">0</span><span class="prog-count em" style="font-size:.9rem;color:var(--muted);font-weight:400;"> / 50</span>
+      <span class="prog-pct" id="prog-pct">0%</span>
+    </span>
+  </div>
+  <div class="prog-outer"><div class="prog-fill" id="prog-fill"></div></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+    <div class="prog-milestones">
+      <span class="milestone" data-n="1">🌱 Erstes Projekt</span>
+      <span class="milestone" data-n="5">⚡ 5 Projekte</span>
+      <span class="milestone" data-n="10">🔥 10 Projekte</span>
+      <span class="milestone" data-n="25">🚀 Halbzeit!</span>
+      <span class="milestone" data-n="40">💎 40 Projekte</span>
+      <span class="milestone" data-n="50">🏆 Arduino-Meister!</span>
+    </div>
+    <button class="proj-cb-reset" onclick="resetProgress()" title="Fortschritt zurücksetzen">↺ Reset</button>
+  </div>
+</div>
+
+<!-- BAUTEIL-BILD-GALERIE -->
+<div class="comp-gallery">
+  <h2>// Die wichtigsten Bauteile</h2>
+  <div class="gallery-grid">
+
+    <!-- Arduino Uno -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 68 56" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gPCB" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a7a4a"/><stop offset="100%" stop-color="#0f5030"/></linearGradient></defs>
+        <rect x="4" y="7" width="60" height="42" rx="4" fill="url(#gPCB)" stroke="#0a3a22" stroke-width="1"/>
+        <!-- USB port -->
+        <rect x="2" y="19" width="9" height="14" rx="2" fill="#888" stroke="#555" stroke-width=".5"/>
+        <rect x="3.5" y="21" width="6" height="10" rx="1" fill="#444"/>
+        <!-- top pin header -->
+        <rect x="14" y="5" width="40" height="5" rx="1" fill="#222"/>
+        <rect x="16" y="4" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="20" y="4" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="24" y="4" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="28" y="4" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="32" y="4" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="36" y="4" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="40" y="4" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="44" y="4" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <!-- bottom pin header -->
+        <rect x="14" y="46" width="46" height="5" rx="1" fill="#222"/>
+        <rect x="16" y="47" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="20" y="47" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="24" y="47" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="28" y="47" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="32" y="47" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="36" y="47" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <rect x="40" y="47" width="2.5" height="5" rx=".5" fill="#bbb"/>
+        <!-- Main chip ATmega -->
+        <rect x="30" y="21" width="16" height="13" rx="1.5" fill="#111" stroke="#333" stroke-width=".5"/>
+        <text x="38" y="29.5" text-anchor="middle" fill="#555" font-size="3.5" font-family="monospace">ATmega</text>
+        <!-- Small chip -->
+        <rect x="15" y="22" width="9" height="7" rx="1" fill="#111" stroke="#333" stroke-width=".5"/>
+        <!-- Power LED -->
+        <circle cx="57" cy="14" r="2.5" fill="#00ff88" opacity=".9"/>
+        <circle cx="57" cy="14" r="1.2" fill="#fff" opacity=".6"/>
+        <!-- Reset button -->
+        <rect x="53" y="36" width="8" height="6" rx="1.5" fill="#1a5c2a"/>
+        <circle cx="57" cy="39" r="2" fill="#dd3333"/>
+        <!-- UNO text -->
+        <text x="21" y="43" fill="#4dff90" font-size="5.5" font-family="monospace" font-weight="bold">UNO</text>
+        <!-- Holes -->
+        <circle cx="8" cy="11" r="1.5" fill="#083a1a"/>
+        <circle cx="62" cy="11" r="1.5" fill="#083a1a"/>
+        <circle cx="62" cy="45" r="1.5" fill="#083a1a"/>
+      </svg>
+      <span>Arduino Uno</span>
+    </div>
+
+    <!-- LED 5mm -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 68 56" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="gLED" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#aaff44"/><stop offset="60%" stop-color="#44dd00"/><stop offset="100%" stop-color="#1a7700"/></radialGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <!-- Dome -->
+        <ellipse cx="34" cy="23" rx="13" ry="13" fill="url(#gLED)" filter="url(#glow)" opacity=".95"/>
+        <ellipse cx="30" cy="19" rx="4" ry="3" fill="#ccff88" opacity=".5"/>
+        <!-- Flat bottom of dome -->
+        <rect x="21" y="23" width="26" height="4" rx="0" fill="#2a8800"/>
+        <!-- Body -->
+        <rect x="25" y="27" width="18" height="8" rx="0" fill="#22aa00"/>
+        <!-- Legs -->
+        <line x1="29" y1="35" x2="27" y2="52" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="39" y1="35" x2="41" y2="52" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Cathode notch -->
+        <rect x="25" y="27" width="8" height="8" rx="0" fill="#1a8800"/>
+        <!-- + - labels -->
+        <text x="27" y="51" fill="#888" font-size="6" font-family="monospace">−</text>
+        <text x="38" y="51" fill="#888" font-size="6" font-family="monospace">+</text>
+      </svg>
+      <span>LED 5mm</span>
+    </div>
+
+    <!-- Widerstand -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 68 56" xmlns="http://www.w3.org/2000/svg">
+        <!-- Legs -->
+        <line x1="4" y1="28" x2="18" y2="28" stroke="#bbb" stroke-width="2" stroke-linecap="round"/>
+        <line x1="50" y1="28" x2="64" y2="28" stroke="#bbb" stroke-width="2" stroke-linecap="round"/>
+        <!-- Body -->
+        <rect x="17" y="21" width="34" height="14" rx="7" fill="#d4a44a"/>
+        <!-- Stripes -->
+        <rect x="24" y="21" width="4" height="14" rx="0" fill="#333" opacity=".9"/>
+        <rect x="30" y="21" width="4" height="14" rx="0" fill="#f90" opacity=".9"/>
+        <rect x="36" y="21" width="4" height="14" rx="0" fill="#333" opacity=".9"/>
+        <rect x="43" y="21" width="4" height="14" rx="0" fill="#c0a000" opacity=".9"/>
+        <!-- End caps -->
+        <rect x="17" y="21" width="6" height="14" rx="7" fill="#c8943e"/>
+        <rect x="45" y="21" width="6" height="14" rx="7" fill="#c8943e"/>
+        <text x="34" y="46" text-anchor="middle" fill="#888" font-size="6" font-family="monospace">220Ω</text>
+      </svg>
+      <span>Widerstand</span>
+    </div>
+
+    <!-- Breadboard -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 68 56" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="6" width="62" height="44" rx="3" fill="#e8e0c8" stroke="#ccc" stroke-width=".5"/>
+        <!-- Power rails top -->
+        <rect x="5" y="8" width="58" height="6" rx="2" fill="#fff" stroke="#ddd" stroke-width=".3"/>
+        <rect x="5" y="8" width="58" height="3" rx="2" fill="#ffcccc" opacity=".7"/>
+        <rect x="5" y="11" width="58" height="3" rx="2" fill="#cce0ff" opacity=".7"/>
+        <!-- Red + line -->
+        <line x1="8" y1="9.5" x2="60" y2="9.5" stroke="#e00" stroke-width=".8" stroke-dasharray="3,2"/>
+        <!-- Blue - line -->
+        <line x1="8" y1="12.5" x2="60" y2="12.5" stroke="#00e" stroke-width=".8" stroke-dasharray="3,2"/>
+        <!-- Center groove -->
+        <rect x="3" y="28" width="62" height="2" rx="1" fill="#bbb" opacity=".4"/>
+        <!-- Power rails bottom -->
+        <rect x="5" y="42" width="58" height="6" rx="2" fill="#fff" stroke="#ddd" stroke-width=".3"/>
+        <line x1="8" y1="43.5" x2="60" y2="43.5" stroke="#e00" stroke-width=".8" stroke-dasharray="3,2"/>
+        <line x1="8" y1="46.5" x2="60" y2="46.5" stroke="#00e" stroke-width=".8" stroke-dasharray="3,2"/>
+        <!-- Holes grid -->
+        <g fill="#bbb">
+          <circle cx="10" cy="18" r="1.2"/><circle cx="15" cy="18" r="1.2"/><circle cx="20" cy="18" r="1.2"/><circle cx="25" cy="18" r="1.2"/><circle cx="30" cy="18" r="1.2"/><circle cx="35" cy="18" r="1.2"/><circle cx="40" cy="18" r="1.2"/><circle cx="45" cy="18" r="1.2"/><circle cx="50" cy="18" r="1.2"/><circle cx="55" cy="18" r="1.2"/>
+          <circle cx="10" cy="22" r="1.2"/><circle cx="15" cy="22" r="1.2"/><circle cx="20" cy="22" r="1.2"/><circle cx="25" cy="22" r="1.2"/><circle cx="30" cy="22" r="1.2"/><circle cx="35" cy="22" r="1.2"/><circle cx="40" cy="22" r="1.2"/><circle cx="45" cy="22" r="1.2"/><circle cx="50" cy="22" r="1.2"/><circle cx="55" cy="22" r="1.2"/>
+          <circle cx="10" cy="32" r="1.2"/><circle cx="15" cy="32" r="1.2"/><circle cx="20" cy="32" r="1.2"/><circle cx="25" cy="32" r="1.2"/><circle cx="30" cy="32" r="1.2"/><circle cx="35" cy="32" r="1.2"/><circle cx="40" cy="32" r="1.2"/><circle cx="45" cy="32" r="1.2"/><circle cx="50" cy="32" r="1.2"/><circle cx="55" cy="32" r="1.2"/>
+          <circle cx="10" cy="36" r="1.2"/><circle cx="15" cy="36" r="1.2"/><circle cx="20" cy="36" r="1.2"/><circle cx="25" cy="36" r="1.2"/><circle cx="30" cy="36" r="1.2"/><circle cx="35" cy="36" r="1.2"/><circle cx="40" cy="36" r="1.2"/><circle cx="45" cy="36" r="1.2"/><circle cx="50" cy="36" r="1.2"/><circle cx="55" cy="36" r="1.2"/>
+        </g>
+      </svg>
+      <span>Breadboard</span>
+    </div>
+
+    <!-- Potentiometer -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 68 56" xmlns="http://www.w3.org/2000/svg">
+        <!-- Body -->
+        <rect x="14" y="14" width="40" height="30" rx="3" fill="#222" stroke="#444" stroke-width="1"/>
+        <!-- Knob -->
+        <circle cx="34" cy="26" r="11" fill="#555" stroke="#666" stroke-width="1"/>
+        <circle cx="34" cy="26" r="8" fill="#3a3a3a"/>
+        <circle cx="34" cy="26" r="2.5" fill="#888"/>
+        <!-- Indicator line -->
+        <line x1="34" y1="26" x2="34" y2="17.5" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Arc marks -->
+        <path d="M 24 35 A 11 11 0 0 1 44 35" fill="none" stroke="#555" stroke-width="1.5"/>
+        <circle cx="24" cy="35" r="1" fill="#888"/>
+        <circle cx="44" cy="35" r="1" fill="#888"/>
+        <!-- Legs -->
+        <line x1="20" y1="44" x2="20" y2="52" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="34" y1="44" x2="34" y2="52" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="48" y1="44" x2="48" y2="52" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span>Potentiometer</span>
+    </div>
+
+    <!-- HC-SR04 Ultraschall -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 68 56" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gPCB2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a7a4a"/><stop offset="100%" stop-color="#0d5030"/></linearGradient></defs>
+        <!-- PCB -->
+        <rect x="4" y="10" width="60" height="32" rx="3" fill="url(#gPCB2)" stroke="#0a3a22" stroke-width="1"/>
+        <!-- Left transducer -->
+        <circle cx="18" cy="26" r="9" fill="#ccc" stroke="#888" stroke-width="1"/>
+        <circle cx="18" cy="26" r="6.5" fill="#ddd"/>
+        <circle cx="18" cy="26" r="4" fill="#bbb"/>
+        <circle cx="18" cy="26" r="2" fill="#999"/>
+        <circle cx="18" cy="26" r=".8" fill="#555"/>
+        <!-- Right transducer -->
+        <circle cx="50" cy="26" r="9" fill="#ccc" stroke="#888" stroke-width="1"/>
+        <circle cx="50" cy="26" r="6.5" fill="#ddd"/>
+        <circle cx="50" cy="26" r="4" fill="#bbb"/>
+        <circle cx="50" cy="26" r="2" fill="#999"/>
+        <circle cx="50" cy="26" r=".8" fill="#555"/>
+        <!-- Text -->
+        <text x="34" y="22" text-anchor="middle" fill="#4dff90" font-size="4" font-family="monospace">HC-SR04</text>
+        <!-- Pins -->
+        <line x1="26" y1="42" x2="26" y2="52" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="30" y1="42" x2="30" y2="52" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="34" y1="42" x2="34" y2="52" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="38" y1="42" x2="38" y2="52" stroke="#bbb" stroke-width="1.5"/>
+        <!-- Sound waves -->
+        <path d="M 5 20 Q 1 26 5 32" fill="none" stroke="#00e5ff" stroke-width="1" opacity=".6"/>
+        <path d="M 2 18 Q -3 26 2 34" fill="none" stroke="#00e5ff" stroke-width="1" opacity=".3"/>
+        <path d="M 63 20 Q 67 26 63 32" fill="none" stroke="#00e5ff" stroke-width="1" opacity=".6"/>
+        <path d="M 66 18 Q 71 26 66 34" fill="none" stroke="#00e5ff" stroke-width="1" opacity=".3"/>
+      </svg>
+      <span>HC-SR04</span>
+    </div>
+
+    <!-- Servo SG90 -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 68 56" xmlns="http://www.w3.org/2000/svg">
+        <!-- Body -->
+        <rect x="8" y="14" width="42" height="30" rx="4" fill="#1155cc" stroke="#0033aa" stroke-width="1"/>
+        <!-- Top fin -->
+        <rect x="10" y="8" width="38" height="8" rx="2" fill="#1155cc" stroke="#0033aa" stroke-width="1"/>
+        <!-- Bottom fin -->
+        <rect x="10" y="42" width="38" height="8" rx="2" fill="#1155cc" stroke="#0033aa" stroke-width="1"/>
+        <!-- Gear wheel -->
+        <circle cx="52" cy="29" r="9" fill="#ddd" stroke="#bbb" stroke-width=".5"/>
+        <circle cx="52" cy="29" r="6" fill="#ccc"/>
+        <circle cx="52" cy="29" r="3" fill="#aaa"/>
+        <!-- Horn arm -->
+        <rect x="50" y="20" width="6" height="19" rx="3" fill="#eee" stroke="#ccc" stroke-width=".5"/>
+        <circle cx="53" cy="20" r="3" fill="#fff" stroke="#ccc" stroke-width=".5"/>
+        <circle cx="53" cy="38" r="2" fill="#fff" stroke="#ccc" stroke-width=".5"/>
+        <!-- Label -->
+        <text x="28" y="31" text-anchor="middle" fill="#7aafff" font-size="5.5" font-family="monospace">SG90</text>
+        <!-- Cable -->
+        <line x1="8" y1="23" x2="2" y2="23" stroke="#f55" stroke-width="2"/>
+        <line x1="8" y1="28" x2="2" y2="28" stroke="#e00" stroke-width="2"/>
+        <line x1="8" y1="33" x2="2" y2="33" stroke="#f90" stroke-width="2"/>
+      </svg>
+      <span>Servo SG90</span>
+    </div>
+
+    <!-- Piezo-Buzzer -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 68 56" xmlns="http://www.w3.org/2000/svg">
+        <defs><radialGradient id="gBuz" cx="40%" cy="35%" r="65%"><stop offset="0%" stop-color="#555"/><stop offset="100%" stop-color="#111"/></radialGradient></defs>
+        <!-- Outer disc -->
+        <circle cx="34" cy="26" r="20" fill="url(#gBuz)" stroke="#333" stroke-width="1.5"/>
+        <!-- Top label bump -->
+        <ellipse cx="34" cy="14" rx="8" ry="3" fill="#444"/>
+        <text x="34" y="15.5" text-anchor="middle" fill="#888" font-size="4" font-family="monospace">+</text>
+        <!-- Concentric rings -->
+        <circle cx="34" cy="26" r="15" fill="none" stroke="#333" stroke-width="1"/>
+        <circle cx="34" cy="26" r="10" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+        <circle cx="34" cy="26" r="5" fill="#222" stroke="#2a2a2a" stroke-width="1"/>
+        <!-- Center dot -->
+        <circle cx="34" cy="26" r="2" fill="#555"/>
+        <!-- Holes -->
+        <circle cx="22" cy="26" r="2.5" fill="#0d1117"/>
+        <circle cx="46" cy="26" r="2.5" fill="#0d1117"/>
+        <!-- Legs -->
+        <line x1="34" y1="46" x2="30" y2="54" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="34" y1="46" x2="38" y2="54" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Sound waves -->
+        <path d="M 57 20 Q 62 26 57 32" fill="none" stroke="#c264ff" stroke-width="1.5" opacity=".7"/>
+        <path d="M 61 17 Q 67 26 61 35" fill="none" stroke="#c264ff" stroke-width="1.5" opacity=".4"/>
+      </svg>
+      <span>Piezo-Buzzer</span>
+    </div>
+
+    <!-- LDR Fotowiderstand -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 68 56" xmlns="http://www.w3.org/2000/svg">
+        <!-- Leads -->
+        <line x1="4" y1="28" x2="18" y2="28" stroke="#bbb" stroke-width="2"/>
+        <line x1="50" y1="28" x2="64" y2="28" stroke="#bbb" stroke-width="2"/>
+        <!-- Body disc -->
+        <ellipse cx="34" cy="28" rx="16" ry="14" fill="#e8b84a" stroke="#c89030" stroke-width="1"/>
+        <!-- Photoresistive zigzag -->
+        <polyline points="22,28 24,22 28,34 32,22 36,34 40,22 44,28 46,28" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Light arrows -->
+        <line x1="34" y1="8" x2="34" y2="14" stroke="#ffd740" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="26" y1="10" x2="28" y2="15" stroke="#ffd740" stroke-width="1.5"/>
+        <line x1="42" y1="10" x2="40" y2="15" stroke="#ffd740" stroke-width="1.5"/>
+        <!-- Arrowheads -->
+        <polygon points="34,14 32,10 36,10" fill="#ffd740"/>
+        <polygon points="28,15 25,12 29,11" fill="#ffd740"/>
+        <polygon points="40,15 39,11 43,12" fill="#ffd740"/>
+      </svg>
+      <span>LDR Fotow.</span>
+    </div>
+
+    <!-- LCD 16x2 -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 68 56" xmlns="http://www.w3.org/2000/svg">
+        <!-- PCB -->
+        <rect x="2" y="16" width="64" height="34" rx="3" fill="#1a5c2a" stroke="#0a3a18" stroke-width="1"/>
+        <!-- Screen -->
+        <rect x="7" y="20" width="54" height="24" rx="2" fill="#3a7a00"/>
+        <rect x="8" y="21" width="52" height="22" rx="1.5" fill="#4a9a00" opacity=".8"/>
+        <!-- Character cells row 1 -->
+        <rect x="10" y="23" width="6" height="8" rx=".5" fill="#5abb00" opacity=".6"/>
+        <rect x="17" y="23" width="6" height="8" rx=".5" fill="#5abb00" opacity=".6"/>
+        <rect x="24" y="23" width="6" height="8" rx=".5" fill="#5abb00" opacity=".6"/>
+        <rect x="31" y="23" width="6" height="8" rx=".5" fill="#5abb00" opacity=".6"/>
+        <rect x="38" y="23" width="6" height="8" rx=".5" fill="#5abb00" opacity=".6"/>
+        <rect x="45" y="23" width="6" height="8" rx=".5" fill="#5abb00" opacity=".6"/>
+        <rect x="52" y="23" width="5" height="8" rx=".5" fill="#5abb00" opacity=".6"/>
+        <!-- Pixel text row 1 -->
+        <text x="34" y="30" text-anchor="middle" fill="#aaffaa" font-size="5.5" font-family="monospace" font-weight="bold">Hello!</text>
+        <!-- Character cells row 2 -->
+        <rect x="10" y="34" width="6" height="8" rx=".5" fill="#5abb00" opacity=".4"/>
+        <rect x="17" y="34" width="6" height="8" rx=".5" fill="#5abb00" opacity=".4"/>
+        <rect x="24" y="34" width="6" height="8" rx=".5" fill="#5abb00" opacity=".4"/>
+        <text x="34" y="41" text-anchor="middle" fill="#88cc88" font-size="5.5" font-family="monospace">World</text>
+        <!-- Pins below -->
+        <line x1="10" y1="50" x2="10" y2="56" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="14" y1="50" x2="14" y2="56" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="18" y1="50" x2="18" y2="56" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="22" y1="50" x2="22" y2="56" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="26" y1="50" x2="26" y2="56" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="30" y1="50" x2="30" y2="56" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="34" y1="50" x2="34" y2="56" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="38" y1="50" x2="38" y2="56" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="42" y1="50" x2="42" y2="56" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="46" y1="50" x2="46" y2="56" stroke="#bbb" stroke-width="1.5"/>
+        <line x1="50" y1="50" x2="50" y2="56" stroke="#bbb" stroke-width="1.5"/>
+        <!-- I2C backpack area -->
+        <rect x="54" y="18" width="10" height="18" rx="2" fill="#0d3a1a" stroke="#0a3a18" stroke-width=".5"/>
+        <circle cx="59" cy="27" r="4" fill="#111" stroke="#333" stroke-width=".5"/>
+        <text x="59" y="29" text-anchor="middle" fill="#555" font-size="3" font-family="monospace">I2C</text>
+      </svg>
+      <span>LCD 16x2</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="diff-legend">
+  <span><span class="dot-row"><span class="dot" style="background:var(--green)"></span><span class="dot" style="background:var(--border-hi)"></span><span class="dot" style="background:var(--border-hi)"></span></span>&nbsp;● Einfach</span>
+  <span><span class="dot-row"><span class="dot" style="background:var(--yellow)"></span><span class="dot" style="background:var(--yellow)"></span><span class="dot" style="background:var(--border-hi)"></span></span>&nbsp;●● Mittel</span>
+  <span><span class="dot-row"><span class="dot" style="background:var(--red)"></span><span class="dot" style="background:var(--red)"></span><span class="dot" style="background:var(--red)"></span></span>&nbsp;●●● Fortgeschritten</span>
+</div>
+
+<!-- ==================== LICHT ==================== -->
+<div id="licht" class="section-title" style="background:var(--licht);color:#080c10">💡 Licht-Projekte</div>
+
+<!-- SVG-Definitionen (wiederverwendbar) -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="ic-arduino" viewBox="0 0 80 55">
+    <rect x="2" y="5" width="76" height="45" rx="6" fill="#008B8B" stroke="#006666" stroke-width="1.5"/>
+    <rect x="8" y="12" width="28" height="30" rx="3" fill="#000" opacity=".7"/>
+    <rect x="42" y="8" width="6" height="38" rx="2" fill="#c0c0c0" opacity=".6"/>
+    <rect x="52" y="8" width="6" height="38" rx="2" fill="#c0c0c0" opacity=".6"/>
+    <rect x="62" y="8" width="6" height="38" rx="2" fill="#c0c0c0" opacity=".6"/>
+    <rect x="2" y="20" width="8" height="14" rx="2" fill="#222"/>
+    <text x="14" y="30" font-size="7" fill="#fff" font-family="monospace">UNO</text>
+  </symbol>
+  <symbol id="ic-led" viewBox="0 0 30 50">
+    <ellipse cx="15" cy="16" rx="12" ry="13" fill="#22c55e" opacity=".85" stroke="#15803d" stroke-width="1.2"/>
+    <rect x="13" y="29" width="2" height="14" fill="#555"/>
+    <rect x="17" y="31" width="2" height="12" fill="#555"/>
+    <line x1="14" y1="43" x2="14" y2="50" stroke="#555" stroke-width="2"/>
+    <line x1="18" y1="43" x2="18" y2="50" stroke="#555" stroke-width="2"/>
+    <text x="22" y="10" font-size="8" fill="#f0f" font-family="Arial">+</text>
+  </symbol>
+  <symbol id="ic-led-red" viewBox="0 0 30 50">
+    <ellipse cx="15" cy="16" rx="12" ry="13" fill="#ef4444" opacity=".85" stroke="#dc2626" stroke-width="1.2"/>
+    <rect x="13" y="29" width="2" height="14" fill="#555"/>
+    <rect x="17" y="31" width="2" height="12" fill="#555"/>
+    <line x1="14" y1="43" x2="14" y2="50" stroke="#555" stroke-width="2"/>
+    <line x1="18" y1="43" x2="18" y2="50" stroke="#555" stroke-width="2"/>
+  </symbol>
+  <symbol id="ic-led-rgb" viewBox="0 0 40 50">
+    <ellipse cx="20" cy="16" rx="16" ry="13" fill="url(#rgb-grad)" stroke="#555" stroke-width="1.2"/>
+    <defs><linearGradient id="rgb-grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ef4444"/><stop offset="50%" stop-color="#22c55e"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs>
+    <rect x="18" y="29" width="2" height="14" fill="#555"/>
+    <rect x="22" y="31" width="2" height="12" fill="#555"/>
+    <line x1="19" y1="43" x2="19" y2="50" stroke="#555" stroke-width="2"/>
+    <line x1="23" y1="43" x2="23" y2="50" stroke="#555" stroke-width="2"/>
+  </symbol>
+  <symbol id="ic-resistor" viewBox="0 0 70 22">
+    <line x1="0" y1="11" x2="12" y2="11" stroke="#555" stroke-width="2"/>
+    <rect x="12" y="4" width="46" height="14" rx="4" fill="#c9934a"/>
+    <rect x="18" y="4" width="4" height="14" fill="#f59e0b"/>
+    <rect x="26" y="4" width="4" height="14" fill="#222"/>
+    <rect x="34" y="4" width="4" height="14" fill="#ef4444"/>
+    <rect x="46" y="4" width="4" height="14" fill="#ffd700"/>
+    <line x1="58" y1="11" x2="70" y2="11" stroke="#555" stroke-width="2"/>
+  </symbol>
+  <symbol id="ic-breadboard" viewBox="0 0 80 55">
+    <rect x="1" y="1" width="78" height="53" rx="4" fill="#f5f5dc" stroke="#ccc" stroke-width="1.5"/>
+    <rect x="6" y="8" width="68" height="16" rx="2" fill="#fff" stroke="#ddd" stroke-width="1"/>
+    <rect x="6" y="30" width="68" height="16" rx="2" fill="#fff" stroke="#ddd" stroke-width="1"/>
+    <!-- dots -->
+    <g fill="#555" opacity=".5">
+      <circle cx="12" cy="16" r="1.5"/><circle cx="20" cy="16" r="1.5"/><circle cx="28" cy="16" r="1.5"/>
+      <circle cx="36" cy="16" r="1.5"/><circle cx="44" cy="16" r="1.5"/><circle cx="52" cy="16" r="1.5"/>
+      <circle cx="60" cy="16" r="1.5"/><circle cx="68" cy="16" r="1.5"/>
+      <circle cx="12" cy="38" r="1.5"/><circle cx="20" cy="38" r="1.5"/><circle cx="28" cy="38" r="1.5"/>
+      <circle cx="36" cy="38" r="1.5"/><circle cx="44" cy="38" r="1.5"/><circle cx="52" cy="38" r="1.5"/>
+      <circle cx="60" cy="38" r="1.5"/><circle cx="68" cy="38" r="1.5"/>
+    </g>
+    <rect x="2" y="26" width="76" height="4" rx="2" fill="#c8a"/>
+  </symbol>
+  <symbol id="ic-poti" viewBox="0 0 50 55">
+    <rect x="5" y="10" width="40" height="32" rx="5" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1.5"/>
+    <circle cx="25" cy="26" r="10" fill="#1d4ed8"/>
+    <line x1="25" y1="16" x2="25" y2="22" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="10" y1="42" x2="10" y2="52" stroke="#555" stroke-width="2"/>
+    <line x1="25" y1="42" x2="25" y2="52" stroke="#555" stroke-width="2"/>
+    <line x1="40" y1="42" x2="40" y2="52" stroke="#555" stroke-width="2"/>
+  </symbol>
+  <symbol id="ic-pir" viewBox="0 0 60 55">
+    <rect x="2" y="20" width="56" height="32" rx="4" fill="#2d6a4f" stroke="#1a4731" stroke-width="1.5"/>
+    <ellipse cx="30" cy="22" rx="22" ry="20" fill="#f0f0f0" stroke="#ccc" stroke-width="1.5"/>
+    <ellipse cx="30" cy="22" rx="14" ry="13" fill="#e8e8e8"/>
+    <ellipse cx="30" cy="22" rx="6" ry="6" fill="#ccc"/>
+    <line x1="15" y1="52" x2="15" y2="60" stroke="#555" stroke-width="2"/>
+    <line x1="30" y1="52" x2="30" y2="60" stroke="#555" stroke-width="2"/>
+    <line x1="45" y1="52" x2="45" y2="60" stroke="#555" stroke-width="2"/>
+  </symbol>
+  <symbol id="ic-ldr" viewBox="0 0 50 50">
+    <circle cx="25" cy="22" r="18" fill="#ffec8b" stroke="#d4ac0d" stroke-width="1.5"/>
+    <path d="M17 22 q4-8 8 0 q4 8 8 0" fill="none" stroke="#555" stroke-width="2"/>
+    <line x1="18" y1="40" x2="18" y2="52" stroke="#555" stroke-width="2"/>
+    <line x1="32" y1="40" x2="32" y2="52" stroke="#555" stroke-width="2"/>
+    <text x="8" y="14" font-size="8" fill="#888">☀</text>
+    <text x="32" y="14" font-size="8" fill="#888">☀</text>
+  </symbol>
+  <symbol id="ic-buzzer" viewBox="0 0 40 45">
+    <ellipse cx="20" cy="30" rx="16" ry="14" fill="#111" stroke="#333" stroke-width="1.5"/>
+    <ellipse cx="20" cy="26" rx="10" ry="10" fill="#222"/>
+    <circle cx="20" cy="25" r="4" fill="#333"/>
+    <circle cx="20" cy="25" r="2" fill="#555"/>
+    <line x1="12" y1="44" x2="12" y2="52" stroke="#555" stroke-width="2"/>
+    <line x1="28" y1="44" x2="28" y2="52" stroke="#555" stroke-width="2"/>
+  </symbol>
+  <symbol id="ic-hcsr04" viewBox="0 0 80 50">
+    <rect x="2" y="8" width="76" height="34" rx="4" fill="#2d6a4f" stroke="#1a4731" stroke-width="1.5"/>
+    <circle cx="20" cy="25" r="12" fill="#c0c0c0" stroke="#888" stroke-width="1.5"/>
+    <circle cx="20" cy="25" r="8" fill="#a0a0a0"/>
+    <circle cx="20" cy="25" r="4" fill="#888"/>
+    <circle cx="60" cy="25" r="12" fill="#c0c0c0" stroke="#888" stroke-width="1.5"/>
+    <circle cx="60" cy="25" r="8" fill="#a0a0a0"/>
+    <circle cx="60" cy="25" r="4" fill="#888"/>
+    <text x="33" y="20" font-size="6" fill="#fff" font-family="monospace">HC</text>
+    <text x="30" y="29" font-size="6" fill="#fff" font-family="monospace">SR04</text>
+  </symbol>
+  <symbol id="ic-servo" viewBox="0 0 70 55">
+    <rect x="2" y="12" width="50" height="35" rx="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <rect x="8" y="18" width="20" height="22" rx="3" fill="#94a3b8"/>
+    <circle cx="45" cy="30" r="12" fill="#64748b" stroke="#475569" stroke-width="1.5"/>
+    <circle cx="45" cy="30" r="5" fill="#fff"/>
+    <rect x="45" y="4" width="6" height="16" rx="3" fill="#94a3b8" transform="rotate(-20,48,12)"/>
+    <line x1="55" y1="47" x2="55" y2="57" stroke="#ef4444" stroke-width="2"/>
+    <line x1="60" y1="47" x2="60" y2="57" stroke="#555" stroke-width="2"/>
+    <line x1="65" y1="47" x2="65" y2="57" stroke="#f59e0b" stroke-width="2"/>
+  </symbol>
+  <symbol id="ic-dcmotor" viewBox="0 0 50 60">
+    <ellipse cx="25" cy="30" rx="20" ry="28" fill="#64748b" stroke="#475569" stroke-width="1.5"/>
+    <ellipse cx="25" cy="28" rx="14" ry="22" fill="#94a3b8"/>
+    <rect x="22" y="2" width="6" height="10" rx="2" fill="#475569"/>
+    <rect x="22" y="50" width="6" height="10" rx="2" fill="#475569"/>
+    <line x1="5" y1="30" x2="-5" y2="30" stroke="#555" stroke-width="3"/>
+  </symbol>
+  <symbol id="ic-l298n" viewBox="0 0 80 55">
+    <rect x="2" y="5" width="76" height="45" rx="4" fill="#c0392b" stroke="#922b21" stroke-width="1.5"/>
+    <rect x="25" y="12" width="30" height="22" rx="3" fill="#222"/>
+    <rect x="5" y="8" width="14" height="38" rx="2" fill="#e8e8e8"/>
+    <rect x="62" y="8" width="14" height="38" rx="2" fill="#e8e8e8"/>
+    <text x="27" y="26" font-size="7" fill="#fff" font-family="monospace">L298N</text>
+  </symbol>
+  <symbol id="ic-stepper" viewBox="0 0 55 60">
+    <rect x="5" y="8" width="45" height="44" rx="6" fill="#1d6fa4" stroke="#155a84" stroke-width="1.5"/>
+    <circle cx="28" cy="30" rx="15" r="15" fill="#155a84"/>
+    <circle cx="28" cy="30" rx="8" r="8" fill="#0f3e5c"/>
+    <circle cx="28" cy="30" rx="3" r="3" fill="#fff"/>
+    <rect x="0" y="20" width="8" height="20" rx="2" fill="#888"/>
+  </symbol>
+  <symbol id="ic-lcd" viewBox="0 0 90 45">
+    <rect x="2" y="2" width="86" height="41" rx="5" fill="#4ade80" stroke="#16a34a" stroke-width="1.5"/>
+    <rect x="8" y="8" width="74" height="28" rx="3" fill="#15803d"/>
+    <g fill="#a7f3d0" font-family="monospace" font-size="7">
+      <text x="12" y="20">ARDUINO LCD 16x2</text>
+      <text x="12" y="30">HALLO WELT :-)</text>
+    </g>
+  </symbol>
+  <symbol id="ic-oled" viewBox="0 0 70 45">
+    <rect x="2" y="2" width="66" height="41" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="6" y="6" width="58" height="33" rx="3" fill="#000"/>
+    <g fill="#60a5fa" font-family="monospace" font-size="7">
+      <text x="10" y="18">12:34:56</text>
+      <text x="10" y="29">22.5°C</text>
+    </g>
+  </symbol>
+  <symbol id="ic-dht22" viewBox="0 0 40 55">
+    <rect x="5" y="5" width="30" height="38" rx="4" fill="#fff" stroke="#94a3b8" stroke-width="1.5"/>
+    <rect x="9" y="10" width="8" height="8" rx="1" fill="#64748b"/>
+    <rect x="23" y="10" width="8" height="8" rx="1" fill="#64748b"/>
+    <line x1="9" y1="28" x2="31" y2="28" stroke="#e2e8f0" stroke-width="1"/>
+    <line x1="9" y1="33" x2="31" y2="33" stroke="#e2e8f0" stroke-width="1"/>
+    <line x1="12" y1="43" x2="12" y2="55" stroke="#ef4444" stroke-width="2"/>
+    <line x1="20" y1="43" x2="20" y2="55" stroke="#555" stroke-width="2"/>
+    <line x1="28" y1="43" x2="28" y2="55" stroke="#22c55e" stroke-width="2"/>
+    <text x="6" y="24" font-size="6" fill="#64748b" font-family="monospace">DHT22</text>
+  </symbol>
+  <symbol id="ic-mq2" viewBox="0 0 55 55">
+    <rect x="2" y="20" width="51" height="30" rx="4" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1.5"/>
+    <ellipse cx="28" cy="20" rx="18" ry="16" fill="#c0c0c0" stroke="#888" stroke-width="1.5"/>
+    <ellipse cx="28" cy="18" rx="10" ry="10" fill="#888"/>
+    <ellipse cx="28" cy="17" rx="5" ry="5" fill="#555"/>
+    <line x1="10" y1="50" x2="10" y2="58" stroke="#555" stroke-width="2"/>
+    <line x1="20" y1="50" x2="20" y2="58" stroke="#555" stroke-width="2"/>
+    <line x1="36" y1="50" x2="36" y2="58" stroke="#555" stroke-width="2"/>
+    <line x1="46" y1="50" x2="46" y2="58" stroke="#555" stroke-width="2"/>
+  </symbol>
+  <symbol id="ic-rfid" viewBox="0 0 80 55">
+    <rect x="2" y="2" width="76" height="51" rx="5" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1.5"/>
+    <rect x="8" y="8" width="30" height="38" rx="3" fill="none" stroke="#93c5fd" stroke-width="2"/>
+    <rect x="14" y="14" width="18" height="26" rx="2" fill="none" stroke="#93c5fd" stroke-width="1.5"/>
+    <rect x="20" y="20" width="6" height="14" rx="1" fill="#93c5fd" opacity=".5"/>
+    <text x="45" y="30" font-size="8" fill="#fff" font-family="monospace">RC522</text>
+  </symbol>
+  <symbol id="ic-bluetooth" viewBox="0 0 50 65">
+    <rect x="5" y="5" width="40" height="55" rx="5" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="1.5"/>
+    <text x="14" y="38" font-size="20" fill="#fff">⬡</text>
+    <text x="17" y="34" font-size="14" fill="#93c5fd">B</text>
+    <line x1="15" y1="60" x2="15" y2="68" stroke="#ef4444" stroke-width="2"/>
+    <line x1="25" y1="60" x2="25" y2="68" stroke="#555" stroke-width="2"/>
+    <line x1="35" y1="60" x2="35" y2="68" stroke="#22c55e" stroke-width="2"/>
+  </symbol>
+  <symbol id="ic-esp8266" viewBox="0 0 65 45">
+    <rect x="2" y="5" width="61" height="35" rx="4" fill="#1a4731" stroke="#15391f" stroke-width="1.5"/>
+    <rect x="8" y="10" width="20" height="20" rx="3" fill="#111"/>
+    <rect x="34" y="6" width="6" height="32" rx="2" fill="#c0c0c0" opacity=".5"/>
+    <rect x="44" y="6" width="6" height="32" rx="2" fill="#c0c0c0" opacity=".5"/>
+    <text x="8" y="40" font-size="7" fill="#fff" font-family="monospace">ESP8266</text>
+  </symbol>
+  <symbol id="ic-gps" viewBox="0 0 70 55">
+    <rect x="2" y="8" width="66" height="38" rx="4" fill="#2d6a4f" stroke="#1a4731" stroke-width="1.5"/>
+    <rect x="8" y="14" width="25" height="20" rx="3" fill="#111"/>
+    <line x1="55" y1="2" x2="55" y2="46" stroke="#888" stroke-width="2"/>
+    <rect x="49" y="2" width="12" height="4" rx="2" fill="#555"/>
+    <text x="7" y="43" font-size="6" fill="#fff" font-family="monospace">NEO-6M GPS</text>
+  </symbol>
+  <symbol id="ic-ir" viewBox="0 0 40 50">
+    <rect x="5" y="15" width="30" height="28" rx="4" fill="#2d6a4f" stroke="#1a4731" stroke-width="1.5"/>
+    <circle cx="20" cy="22" r="8" fill="#222" stroke="#555" stroke-width="1.5"/>
+    <circle cx="20" cy="22" r="4" fill="#444"/>
+    <line x1="12" y1="43" x2="12" y2="52" stroke="#555" stroke-width="2"/>
+    <line x1="20" y1="43" x2="20" y2="52" stroke="#555" stroke-width="2"/>
+    <line x1="28" y1="43" x2="28" y2="52" stroke="#555" stroke-width="2"/>
+    <text x="7" y="13" font-size="6" fill="#888">IR</text>
+  </symbol>
+  <symbol id="ic-joystick" viewBox="0 0 60 60">
+    <rect x="5" y="25" width="50" height="30" rx="5" fill="#2d6a4f" stroke="#1a4731" stroke-width="1.5"/>
+    <circle cx="30" cy="28" r="14" fill="#64748b" stroke="#475569" stroke-width="1.5"/>
+    <circle cx="30" cy="25" r="8" fill="#475569"/>
+    <rect x="28" y="8" width="4" height="20" rx="2" fill="#94a3b8"/>
+    <circle cx="30" cy="8" r="5" fill="#64748b"/>
+    <line x1="12" y1="55" x2="12" y2="63" stroke="#ef4444" stroke-width="2"/>
+    <line x1="20" y1="55" x2="20" y2="63" stroke="#555" stroke-width="2"/>
+    <line x1="28" y1="55" x2="28" y2="63" stroke="#555" stroke-width="2"/>
+    <line x1="36" y1="55" x2="36" y2="63" stroke="#22c55e" stroke-width="2"/>
+    <line x1="44" y1="55" x2="44" y2="63" stroke="#3b82f6" stroke-width="2"/>
+  </symbol>
+  <symbol id="ic-keypad" viewBox="0 0 60 75">
+    <rect x="2" y="2" width="56" height="71" rx="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <g fill="#64748b">
+      <rect x="8" y="10" width="12" height="10" rx="2"/><rect x="24" y="10" width="12" height="10" rx="2"/><rect x="40" y="10" width="12" height="10" rx="2"/>
+      <rect x="8" y="25" width="12" height="10" rx="2"/><rect x="24" y="25" width="12" height="10" rx="2"/><rect x="40" y="25" width="12" height="10" rx="2"/>
+      <rect x="8" y="40" width="12" height="10" rx="2"/><rect x="24" y="40" width="12" height="10" rx="2"/><rect x="40" y="40" width="12" height="10" rx="2"/>
+      <rect x="8" y="55" width="12" height="10" rx="2" fill="#3b82f6"/><rect x="24" y="55" width="12" height="10" rx="2"/><rect x="40" y="55" width="12" height="10" rx="2" fill="#ef4444"/>
+    </g>
+    <g fill="#fff" font-size="6" font-family="monospace" text-anchor="middle">
+      <text x="14" y="18">1</text><text x="30" y="18">2</text><text x="46" y="18">3</text>
+      <text x="14" y="33">4</text><text x="30" y="33">5</text><text x="46" y="33">6</text>
+      <text x="14" y="48">7</text><text x="30" y="48">8</text><text x="46" y="48">9</text>
+      <text x="14" y="63">*</text><text x="30" y="63">0</text><text x="46" y="63">#</text>
+    </g>
+  </symbol>
+  <symbol id="ic-taster" viewBox="0 0 40 45">
+    <rect x="8" y="18" width="24" height="18" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <circle cx="20" cy="18" r="10" fill="#64748b" stroke="#475569" stroke-width="1.5"/>
+    <circle cx="20" cy="18" r="6" fill="#94a3b8"/>
+    <line x1="8" y1="36" x2="8" y2="46" stroke="#555" stroke-width="2"/>
+    <line x1="16" y1="36" x2="16" y2="46" stroke="#555" stroke-width="2"/>
+    <line x1="24" y1="36" x2="24" y2="46" stroke="#555" stroke-width="2"/>
+    <line x1="32" y1="36" x2="32" y2="46" stroke="#555" stroke-width="2"/>
+  </symbol>
+  <symbol id="ic-hx711" viewBox="0 0 70 45">
+    <rect x="2" y="5" width="66" height="35" rx="4" fill="#dc2626" stroke="#991b1b" stroke-width="1.5"/>
+    <rect x="12" y="12" width="22" height="16" rx="3" fill="#111"/>
+    <rect x="40" y="8" width="6" height="28" rx="2" fill="#c0c0c0" opacity=".5"/>
+    <rect x="50" y="8" width="6" height="28" rx="2" fill="#c0c0c0" opacity=".5"/>
+    <text x="8" y="42" font-size="7" fill="#fff" font-family="monospace">HX711</text>
+  </symbol>
+  <symbol id="ic-bme280" viewBox="0 0 55 40">
+    <rect x="2" y="5" width="51" height="30" rx="4" fill="#6d28d9" stroke="#4c1d95" stroke-width="1.5"/>
+    <rect x="16" y="10" width="14" height="10" rx="2" fill="#111"/>
+    <circle cx="40" cy="16" r="5" fill="#111"/>
+    <rect x="5" y="35" width="6" height="10" rx="1" fill="#555"/>
+    <rect x="15" y="35" width="6" height="10" rx="1" fill="#555"/>
+    <rect x="25" y="35" width="6" height="10" rx="1" fill="#555"/>
+    <rect x="35" y="35" width="6" height="10" rx="1" fill="#555"/>
+    <text x="4" y="28" font-size="6" fill="#fff" font-family="monospace">BME280</text>
+  </symbol>
+  <symbol id="ic-mpugyro" viewBox="0 0 60 45">
+    <rect x="2" y="5" width="56" height="35" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+    <rect x="15" y="10" width="18" height="14" rx="2" fill="#334155"/>
+    <rect x="38" y="10" width="14" height="14" rx="2" fill="#334155"/>
+    <text x="4" y="40" font-size="6" fill="#94a3b8" font-family="monospace">MPU-6050</text>
+  </symbol>
+  <symbol id="ic-rtc" viewBox="0 0 70 45">
+    <rect x="2" y="5" width="66" height="35" rx="4" fill="#dc2626" stroke="#991b1b" stroke-width="1.5"/>
+    <rect x="8" y="10" width="22" height="16" rx="3" fill="#111"/>
+    <circle cx="48" cy="20" r="12" fill="#c0c0c0" stroke="#888" stroke-width="1.5"/>
+    <circle cx="48" cy="20" r="8" fill="#aaa"/>
+    <text x="44" y="24" font-size="8" fill="#555" font-family="monospace">+</text>
+    <text x="4" y="42" font-size="6" fill="#fff" font-family="monospace">DS3231 RTC</text>
+  </symbol>
+  <symbol id="ic-uln2003" viewBox="0 0 70 45">
+    <rect x="2" y="5" width="66" height="35" rx="4" fill="#f59e0b" stroke="#d97706" stroke-width="1.5"/>
+    <rect x="20" y="12" width="20" height="16" rx="3" fill="#111"/>
+    <rect x="4" y="8" width="6" height="28" rx="2" fill="#c0c0c0" opacity=".5"/>
+    <rect x="60" y="8" width="6" height="28" rx="2" fill="#c0c0c0" opacity=".5"/>
+    <text x="4" y="42" font-size="6" fill="#fff" font-family="monospace">ULN2003</text>
+  </symbol>
+  <symbol id="ic-microphone" viewBox="0 0 45 55">
+    <rect x="5" y="20" width="35" height="30" rx="4" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
+    <ellipse cx="22" cy="16" rx="10" ry="14" fill="#334155" stroke="#475569" stroke-width="1.5"/>
+    <ellipse cx="22" cy="14" rx="6" ry="9" fill="#475569"/>
+    <line x1="10" y1="50" x2="10" y2="58" stroke="#ef4444" stroke-width="2"/>
+    <line x1="22" y1="50" x2="22" y2="58" stroke="#555" stroke-width="2"/>
+    <line x1="34" y1="50" x2="34" y2="58" stroke="#22c55e" stroke-width="2"/>
+  </symbol>
+  <symbol id="ic-7seg" viewBox="0 0 50 65">
+    <rect x="2" y="2" width="46" height="61" rx="4" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
+    <!-- segments -->
+    <rect x="10" y="8" width="30" height="5" rx="2" fill="#ef4444"/>
+    <rect x="6" y="13" width="5" height="20" rx="2" fill="#ef4444"/>
+    <rect x="39" y="13" width="5" height="20" rx="2" fill="#ef4444"/>
+    <rect x="10" y="33" width="30" height="5" rx="2" fill="#ef4444"/>
+    <rect x="6" y="38" width="5" height="20" rx="2" fill="#333"/>
+    <rect x="39" y="38" width="5" height="20" rx="2" fill="#ef4444"/>
+    <rect x="10" y="58" width="30" height="5" rx="2" fill="#333"/>
+  </symbol>
+  <symbol id="ic-tm1637" viewBox="0 0 90 45">
+    <rect x="2" y="5" width="86" height="35" rx="4" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
+    <!-- 4 digits -->
+    <g fill="#ef4444">
+      <rect x="8" y="10" width="14" height="3" rx="1"/><rect x="6" y="13" width="3" height="8" rx="1"/>
+      <rect x="19" y="13" width="3" height="8" rx="1"/><rect x="8" y="21" width="14" height="3" rx="1"/>
+      <rect x="6" y="24" width="3" height="8" rx="1"/><rect x="19" y="24" width="3" height="8" rx="1"/>
+      <rect x="8" y="32" width="14" height="3" rx="1"/>
+      <rect x="28" y="10" width="14" height="3" rx="1"/><rect x="26" y="13" width="3" height="8" rx="1"/>
+      <rect x="39" y="13" width="3" height="8" rx="1"/><rect x="28" y="21" width="14" height="3" rx="1"/>
+      <rect x="26" y="24" width="3" height="8" rx="1"/><rect x="39" y="24" width="3" height="8" rx="1"/>
+      <rect x="28" y="32" width="14" height="3" rx="1"/>
+      <rect x="48" y="10" width="14" height="3" rx="1"/><rect x="46" y="13" width="3" height="8" rx="1"/>
+      <rect x="59" y="13" width="3" height="8" rx="1"/><rect x="48" y="21" width="14" height="3" rx="1"/>
+      <rect x="46" y="24" width="3" height="8" rx="1"/><rect x="59" y="24" width="3" height="8" rx="1"/>
+      <rect x="48" y="32" width="14" height="3" rx="1"/>
+      <rect x="68" y="10" width="14" height="3" rx="1"/><rect x="66" y="13" width="3" height="8" rx="1"/>
+      <rect x="79" y="13" width="3" height="8" rx="1"/><rect x="68" y="21" width="14" height="3" rx="1"/>
+      <rect x="66" y="24" width="3" height="8" rx="1"/><rect x="79" y="24" width="3" height="8" rx="1"/>
+      <rect x="68" y="32" width="14" height="3" rx="1"/>
+    </g>
+    <circle cx="44" cy="21" r="2" fill="#ef4444"/>
+    <circle cx="44" cy="28" r="2" fill="#ef4444"/>
+  </symbol>
+  <symbol id="ic-loadcell" viewBox="0 0 90 30">
+    <rect x="2" y="8" width="86" height="14" rx="4" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+    <rect x="5" y="5" width="12" height="20" rx="3" fill="#64748b"/>
+    <rect x="73" y="5" width="12" height="20" rx="3" fill="#64748b"/>
+    <rect x="35" y="10" width="20" height="10" rx="2" fill="#ef4444"/>
+    <line x1="85" y1="15" x2="95" y2="15" stroke="#555" stroke-width="2"/>
+  </symbol>
+</svg>
+
+<!-- helper macro for project -->
+<style>
+  .wiring{margin-top:.9rem;}
+  .wiring-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent2);margin:.9rem 0 .45rem;display:block;}
+  .pin-table{width:100%;border-collapse:collapse;font-size:.8rem;font-family:'Courier New',monospace;margin-bottom:.6rem;}
+  .pin-table th{background:var(--surface);color:var(--accent);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;padding:.35rem .6rem;border:1px solid var(--border);text-align:left;}
+  .pin-table td{padding:.3rem .6rem;border:1px solid var(--border);color:var(--text);vertical-align:top;}
+  .pin-table tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+  .pin-table td:first-child{color:var(--accent2);white-space:nowrap;}
+  .steps-list{list-style:none;display:flex;flex-direction:column;gap:.3rem;font-family:'Segoe UI',sans-serif;font-size:.85rem;}
+  .steps-list li{display:flex;gap:.55rem;align-items:flex-start;}
+  .steps-list li .step-n{color:var(--accent);font-family:monospace;font-weight:700;flex-shrink:0;min-width:1.4rem;}
+  .note-box{background:rgba(255,215,64,.07);border:1px solid rgba(255,215,64,.25);border-radius:5px;padding:.5rem .75rem;font-size:.8rem;color:var(--yellow);margin-top:.5rem;font-family:'Segoe UI',sans-serif;}
+</style>
+<script>
+function toggle(id){const b=document.getElementById('b'+id);b.classList.toggle('open');const t=b.previousElementSibling.querySelector('.toggle');t.textContent=b.classList.contains('open')?'▲':'▼';}
+
+// ── WIRING DATA für alle 50 Projekte ──────────────────────────────────────
+const WIRING = {
+  1:{
+    pins:[
+      ['Arduino Pin 13','→','220Ω Widerstand → LED Anode (+)'],
+      ['LED Kathode (−)','→','Arduino GND'],
+      ['Arduino 5V','→','Breadboard + Schiene'],
+      ['Arduino GND','→','Breadboard − Schiene'],
+    ],
+    steps:[
+      'Stecke die LED in das Breadboard (längeres Bein = + = Anode).',
+      'Verbinde Arduino Pin 13 mit dem 220Ω Widerstand.',
+      'Verbinde den Widerstand mit der Anode der LED.',
+      'Verbinde die Kathode (−) der LED mit Arduino GND.',
+      'Lade den Sketch hoch → LED blinkt im 1s-Takt.',
+    ],
+    note:'Immer einen Vorwiderstand (220Ω–1kΩ) verwenden, sonst brennt die LED durch!'
+  },
+  2:{
+    pins:[
+      ['Arduino Pin 9 (PWM~)','→','220Ω → LED Anode'],
+      ['LED Kathode','→','GND'],
+      ['Poti Pin 1 (links)','→','GND'],
+      ['Poti Pin 2 (Mitte)','→','Arduino A0'],
+      ['Poti Pin 3 (rechts)','→','Arduino 5V'],
+    ],
+    steps:[
+      'Verbinde das Potentiometer: GND – Mittelpin zu A0 – 5V.',
+      'Verbinde Arduino Pin 9 (muss PWM~ haben) mit dem 220Ω Widerstand.',
+      'Widerstand → LED Anode, LED Kathode → GND.',
+      'Im Sketch: analogRead(A0) liefert 0–1023 → map() auf 0–255 → analogWrite(9, …).',
+    ],
+    note:'Nur PWM-fähige Pins (3, 5, 6, 9, 10, 11, markiert mit ~) funktionieren für analogWrite().'
+  },
+  3:{
+    pins:[
+      ['RGB-LED Common Cathode','→','GND'],
+      ['RGB-LED Rot-Pin','→','220Ω → Arduino Pin 9 (PWM)'],
+      ['RGB-LED Grün-Pin','→','220Ω → Arduino Pin 10 (PWM)'],
+      ['RGB-LED Blau-Pin','→','220Ω → Arduino Pin 11 (PWM)'],
+      ['Poti 1 Mitte','→','A0 (Rot)'],
+      ['Poti 2 Mitte','→','A1 (Grün)'],
+      ['Poti 3 Mitte','→','A2 (Blau)'],
+      ['Alle Poti-Außenpins','→','GND und 5V'],
+    ],
+    steps:[
+      'RGB-LED: Common Cathode (längstes Bein) → GND.',
+      'Die 3 Farb-Pins jeweils über 220Ω an Pins 9, 10, 11.',
+      'Drei Potentiometer aufbauen: je GND – Mitte zu A0/A1/A2 – 5V.',
+      'Sketch: jeden Poti-Wert lesen, mit map() auf 0–255 skalieren, per analogWrite() ausgeben.',
+    ],
+    note:'Common Cathode = alle Minus-Anschlüsse verbunden. Common Anode = alle Plus-Anschlüsse verbunden (dann Logik umkehren).'
+  },
+  4:{
+    pins:[
+      ['Arduino Pin 2','→','220Ω → Rote LED → GND'],
+      ['Arduino Pin 3','→','220Ω → Gelbe LED → GND'],
+      ['Arduino Pin 4','→','220Ω → Grüne LED → GND'],
+    ],
+    steps:[
+      'Drei LEDs nebeneinander ins Breadboard stecken (rot, gelb, grün).',
+      'Je einen 220Ω Widerstand zwischen Arduino-Pin und LED-Anode.',
+      'Alle LED-Kathoden an GND-Schiene.',
+      'Sketch: delay()-basierte Sequenz – Rot 3s → Rot+Gelb 1s → Grün 2s → Gelb 1s → Rot.',
+    ],
+    note:'Realistischere Ampel: Fußgänger-Ampel auf Pin 5 hinzufügen!'
+  },
+  5:{
+    pins:[
+      ['Arduino Pin 13','→','220Ω → LED Anode'],
+      ['LED Kathode','→','GND'],
+    ],
+    steps:[
+      'LED mit Vorwiderstand an Pin 13 anschließen (wie Projekt 1).',
+      'SOS-Muster im Sketch als Array: { 3x kurz, 3x lang, 3x kurz }.',
+      'Kurzes Blinken = 200ms an / 200ms aus. Langes Blinken = 600ms an / 200ms aus.',
+      'Pause zwischen Buchstaben: 600ms. Pause zwischen SOS-Wiederholung: 2000ms.',
+    ]
+  },
+  6:{
+    pins:[
+      ['PIR HC-SR501 VCC','→','5V'],
+      ['PIR HC-SR501 GND','→','GND'],
+      ['PIR HC-SR501 OUT','→','Arduino Pin 2'],
+      ['LED Anode','→','220Ω → Pin 13'],
+      ['LED Kathode','→','GND'],
+      ['Buzzer +','→','Pin 8'],
+      ['Buzzer −','→','GND'],
+    ],
+    steps:[
+      'PIR-Sensor mit 5V und GND verbinden.',
+      'OUT-Pin des PIR an Arduino Pin 2.',
+      'LED mit Vorwiderstand an Pin 13.',
+      'Buzzer (passiv oder aktiv) an Pin 8.',
+      'Am PIR-Sensor: Empfindlichkeits-Poti (links) und Zeit-Poti (rechts) mit Schraubenzieher einstellen.',
+      'Sketch: digitalRead(2) == HIGH → LED ein + tone(8, 1000) für Alarmton.',
+    ],
+    note:'PIR braucht 30–60 Sek. Aufwärmzeit nach dem Einschalten bevor er zuverlässig misst.'
+  },
+  7:{
+    pins:[
+      ['5V','→','LDR Pin 1'],
+      ['LDR Pin 2','→','A0 und 10kΩ Widerstand'],
+      ['10kΩ Widerstand (anderes Ende)','→','GND'],
+      ['LED Anode','→','220Ω → Pin 13'],
+      ['LED Kathode','→','GND'],
+    ],
+    steps:[
+      'LDR und 10kΩ Widerstand als Spannungsteiler: 5V → LDR → A0 → 10kΩ → GND.',
+      'Der Mittelabgriff (A0) liefert hohe Spannung bei hell, niedrige bei dunkel.',
+      'LED mit 220Ω an Pin 13.',
+      'Sketch: analogRead(A0) < Schwellenwert → LED ein. Schwellenwert durch Serial Monitor kalibrieren.',
+    ],
+    note:'LDR = Light Dependent Resistor. Bei Licht: niedriger Widerstand. Im Dunkeln: hoher Widerstand.'
+  },
+  8:{
+    pins:[
+      ['Arduino Pin 2','→','220Ω → LED 1 → GND'],
+      ['Arduino Pin 3','→','220Ω → LED 2 → GND'],
+      ['Arduino Pin 4','→','220Ω → LED 3 → GND'],
+      ['Arduino Pin 5','→','220Ω → LED 4 → GND'],
+      ['Arduino Pin 6','→','220Ω → LED 5 → GND'],
+      ['Arduino Pin 7','→','220Ω → LED 6 → GND'],
+      ['Arduino Pin 8','→','220Ω → LED 7 → GND'],
+      ['Arduino Pin 9','→','220Ω → LED 8 → GND'],
+    ],
+    steps:[
+      '8 LEDs in einer Reihe ins Breadboard, jede mit eigenem 220Ω Widerstand.',
+      'Alle Kathoden (−) auf die GND-Schiene.',
+      'Anoden über Widerstand zu Pins 2–9.',
+      'Sketch: int leds[]={2,3,4,5,6,7,8,9}; → for-Schleife vorwärts dann rückwärts.',
+    ]
+  },
+  9:{
+    pins:[
+      ['KY-038 VCC','→','5V'],
+      ['KY-038 GND','→','GND'],
+      ['KY-038 AO','→','A0'],
+      ['LED 1–8 Anoden','→','je 220Ω → Pins 2–9'],
+      ['LED 1–8 Kathoden','→','GND'],
+    ],
+    steps:[
+      'Mikrofon-Modul KY-038 an 5V, GND, AO → A0.',
+      '8 LEDs mit Widerständen an Pins 2–9.',
+      'Sketch: Wert von A0 lesen (0–1023), in 8 Stufen einteilen (0–127, 128–255 usw.).',
+      'Je nach Stufe entsprechend viele LEDs einschalten.',
+    ],
+    note:'Das KY-038 hat ein eingebautes Poti zur Empfindlichkeitseinstellung – mit Schraubenzieher anpassen.'
+  },
+  10:{
+    pins:[
+      ['Passiver Buzzer +','→','Arduino Pin 8'],
+      ['Passiver Buzzer −','→','GND'],
+    ],
+    steps:[
+      'Passiven Buzzer (nicht aktiven!) an Pin 8 und GND.',
+      'Im Sketch: tone(8, 262, 500) spielt das mittlere C für 500ms.',
+      'Melodie als zwei Arrays: int noten[] und int dauern[].',
+      'for-Schleife spielt jede Note ab, danach noTone(8).',
+    ],
+    note:'Passiver Buzzer = braucht PWM-Signal vom Arduino. Aktiver Buzzer = piepst von alleine bei Spannung. Für Melodien PASSIVEN nehmen!'
+  },
+  11:{
+    pins:[
+      ['Taster 1–8 (eine Seite)','→','Pins 2–9'],
+      ['Taster 1–8 (andere Seite)','→','GND'],
+      ['10kΩ Pull-up je Taster','→','Pin zu 5V'],
+      ['Passiver Buzzer +','→','Pin 10'],
+      ['Passiver Buzzer −','→','GND'],
+    ],
+    steps:[
+      'Je einen Taster zwischen Pin und GND schalten.',
+      'Einen 10kΩ Pull-up-Widerstand zwischen Pin und 5V (oder intern per INPUT_PULLUP).',
+      'Passiven Buzzer an Pin 10.',
+      'Sketch: in loop() alle 8 Pins abfragen, bei Tastendruck tone() mit entsprechender Frequenz.',
+      'Frequenzen: C4=262Hz, D4=294, E4=330, F4=349, G4=392, A4=440, B4=494, C5=523.',
+    ]
+  },
+  12:{
+    pins:[
+      ['HC-SR04 VCC','→','5V'],
+      ['HC-SR04 GND','→','GND'],
+      ['HC-SR04 TRIG','→','Pin 9'],
+      ['HC-SR04 ECHO','→','Pin 10'],
+      ['Passiver Buzzer +','→','Pin 8'],
+      ['Passiver Buzzer −','→','GND'],
+    ],
+    steps:[
+      'HC-SR04 anschließen: VCC→5V, GND→GND, TRIG→9, ECHO→10.',
+      'Passiven Buzzer an Pin 8.',
+      'Sketch: Abstand messen → map(abstand, 5, 50, 2000, 200) für Frequenz.',
+      'tone(8, frequenz) ohne Dauer → Ton klingt kontinuierlich, ändert sich mit Abstand.',
+    ]
+  },
+  13:{
+    pins:[
+      ['HC-SR04 VCC','→','5V'],
+      ['HC-SR04 GND','→','GND'],
+      ['HC-SR04 TRIG','→','Pin 9'],
+      ['HC-SR04 ECHO','→','Pin 10'],
+    ],
+    steps:[
+      'HC-SR04 mit 4 Drähten verbinden: VCC, GND, TRIG, ECHO.',
+      'Sketch: Pin 9 kurz HIGH (10µs) → Ultraschallimpuls ausgesendet.',
+      'Pin 10 (ECHO) misst mit pulseIn() wie lange das Echo braucht.',
+      'Distanz = Dauer × 0,0343 / 2 (cm). Im Serial Monitor anzeigen.',
+    ],
+    note:'Messbereich: 2cm bis 400cm. Genaue Messung nur für flache, parallele Oberflächen.'
+  },
+  14:{
+    pins:[
+      ['5V','→','10kΩ Widerstand'],
+      ['10kΩ Widerstand (anderes Ende)','→','A0 und NTC Thermistor'],
+      ['NTC Thermistor (anderes Ende)','→','GND'],
+    ],
+    steps:[
+      'Spannungsteiler aufbauen: 5V → 10kΩ → A0 → NTC → GND.',
+      'Sketch: Spannung am A0 messen, Widerstand des NTC berechnen.',
+      'Steinhart-Hart-Gleichung: 1/T = A + B·ln(R) + C·(ln(R))³ anwenden.',
+      'Temperatur in Kelvin → Celsius umrechnen (T − 273.15).',
+    ],
+    note:'NTC = Negative Temperature Coefficient. Bei Wärme sinkt der Widerstand.'
+  },
+  15:{
+    pins:[
+      ['FC-37 VCC','→','5V'],
+      ['FC-37 GND','→','GND'],
+      ['FC-37 AO','→','A0'],
+      ['FC-37 DO','→','Pin 2'],
+      ['Buzzer +','→','Pin 8'],
+      ['Buzzer −','→','GND'],
+      ['LED Anode','→','220Ω → Pin 13'],
+    ],
+    steps:[
+      'Regensensor an 5V, GND, AO → A0.',
+      'DO (Digitalausgang) an Pin 2 – liefert HIGH bei Regen.',
+      'Buzzer an Pin 8, LED an Pin 13.',
+      'Auf dem Modul: Empfindlichkeits-Poti einstellen bis DO bei leichter Feuchtigkeit schaltet.',
+      'Sketch: digitalRead(2) == LOW (invertiert!) → Alarm auslösen.',
+    ]
+  },
+  16:{
+    pins:[
+      ['Bodenfeuchte-Sensor VCC','→','5V'],
+      ['Bodenfeuchte-Sensor GND','→','GND'],
+      ['Bodenfeuchte-Sensor AOUT','→','A0'],
+      ['LCD I²C VCC','→','5V'],
+      ['LCD I²C GND','→','GND'],
+      ['LCD I²C SDA','→','Arduino A4'],
+      ['LCD I²C SCL','→','Arduino A5'],
+      ['Buzzer +','→','Pin 8'],
+    ],
+    steps:[
+      'Kapazitiven Bodenfeuchte-Sensor in die Erde stecken, Kabel zu A0.',
+      'LCD I²C mit nur 4 Drähten: 5V, GND, SDA→A4, SCL→A5.',
+      'Buzzer an Pin 8.',
+      'Sketch: Rohwert von A0 lesen, kalibrieren (trocken ≈ 800, nass ≈ 300).',
+      'LCD zeigt Feuchtigkeitsprozent an, Buzzer piept wenn zu trocken.',
+    ],
+    note:'I²C LCD Standard-Adresse ist 0x27 – falls kein Display, 0x3F probieren.'
+  },
+  17:{
+    pins:[
+      ['MQ-2 VCC','→','5V'],
+      ['MQ-2 GND','→','GND'],
+      ['MQ-2 AO','→','A0'],
+      ['MQ-2 DO','→','Pin 2'],
+      ['Buzzer +','→','Pin 8'],
+      ['Rote LED','→','220Ω → Pin 13'],
+    ],
+    steps:[
+      'MQ-2 Sensor an 5V, GND. AO → A0, DO → Pin 2.',
+      'Buzzer an Pin 8, rote LED an Pin 13.',
+      'Sensor MUSS 1–2 Minuten aufwärmen bevor er zuverlässig misst!',
+      'Empfindlichkeits-Poti auf dem Modul einstellen.',
+      'Sketch: analogRead(A0) > Schwellenwert (z.B. 400) → Alarm.',
+    ],
+    note:'⚠️ MQ-2 erkennt LPG, Propan, Wasserstoff, Rauch, Alkohol. Nicht für CO!'
+  },
+  18:{
+    pins:[
+      ['HX711 VCC','→','5V'],
+      ['HX711 GND','→','GND'],
+      ['HX711 DT','→','Pin 3'],
+      ['HX711 SCK','→','Pin 2'],
+      ['Load Cell rot','→','HX711 E+'],
+      ['Load Cell schwarz','→','HX711 E−'],
+      ['Load Cell weiß','→','HX711 A−'],
+      ['Load Cell grün','→','HX711 A+'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'Wägezelle (Load Cell) mit 4 Drähten am HX711 anschließen (Farben lt. Tabelle).',
+      'HX711 an Arduino: VCC→5V, GND→GND, DT→3, SCK→2.',
+      'LCD I²C an A4 (SDA) und A5 (SCL).',
+      'Sketch: HX711-Library installieren → hx711.begin() → hx711.set_scale(Kalibrierfaktor).',
+      'Kalibrierung: Bekanntes Gewicht (z.B. 100g) auf Waage → Faktor anpassen bis korrekt.',
+    ]
+  },
+  19:{
+    pins:[
+      ['BME280 VCC','→','3,3V (nicht 5V!)'],
+      ['BME280 GND','→','GND'],
+      ['BME280 SDA','→','Arduino A4'],
+      ['BME280 SCL','→','Arduino A5'],
+      ['LCD I²C SDA','→','A4 (gleicher Bus)'],
+      ['LCD I²C SCL','→','A5 (gleicher Bus)'],
+    ],
+    steps:[
+      'BME280 an 3,3V (nicht 5V – sonst defekt!) und GND.',
+      'SDA und SCL vom BME280 an A4 und A5.',
+      'LCD I²C an die gleichen A4/A5-Pins (I²C Bus unterstützt mehrere Geräte).',
+      'Sketch: #include <Adafruit_BME280.h> → bme.begin() → bme.readTemperature() / .readHumidity() / .readPressure().',
+    ],
+    note:'BME280 I²C-Adresse: 0x76 oder 0x77 je nach Modul. Mit I²C-Scanner prüfen!'
+  },
+  20:{
+    pins:[
+      ['DHT22 Pin 1 (VCC)','→','5V'],
+      ['DHT22 Pin 2 (DATA)','→','Pin 7 + 10kΩ Pull-up zu 5V'],
+      ['DHT22 Pin 4 (GND)','→','GND'],
+      ['LCD SDA','→','A4'],
+      ['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'DHT22 Pin 2 (DATA) an Arduino Pin 7.',
+      'Einen 10kΩ Pull-up-Widerstand zwischen Pin 7 und 5V schalten.',
+      'LCD I²C an A4, A5.',
+      'Library: DHT sensor library von Adafruit installieren.',
+      'Sketch: dht.readTemperature() und dht.readHumidity() → auf LCD ausgeben.',
+    ],
+    note:'DHT22 benötigt mindestens 2 Sekunden zwischen Messungen. dht.read() höchstens alle 2s aufrufen.'
+  },
+  21:{
+    pins:[
+      ['Segment A','→','220Ω → Pin 2'],
+      ['Segment B','→','220Ω → Pin 3'],
+      ['Segment C','→','220Ω → Pin 4'],
+      ['Segment D','→','220Ω → Pin 5'],
+      ['Segment E','→','220Ω → Pin 6'],
+      ['Segment F','→','220Ω → Pin 7'],
+      ['Segment G','→','220Ω → Pin 8'],
+      ['Common Cathode','→','GND'],
+    ],
+    steps:[
+      'Common Cathode-Display: gemeinsamer GND-Pin → Arduino GND.',
+      'Segment A–G jeweils über 220Ω an Pins 2–8.',
+      'Sketch: für jede Ziffer 0–9 ein Bitmuster definieren (welche Segmente an).',
+      'Byte-Array: segmente[10][7] = {{1,1,1,1,1,1,0}, {0,1,1,0,0,0,0}, ...}',
+    ],
+    note:'Das Pinout von 7-Segment-Displays variiert – immer Datenblatt prüfen!'
+  },
+  22:{
+    pins:[
+      ['TM1637 VCC','→','5V'],
+      ['TM1637 GND','→','GND'],
+      ['TM1637 CLK','→','Pin 2'],
+      ['TM1637 DIO','→','Pin 3'],
+    ],
+    steps:[
+      'TM1637-Modul mit 4 Drähten anschließen: VCC, GND, CLK→2, DIO→3.',
+      'TM1637-Library installieren (TM1637Display von Avishkar Bhoopchand).',
+      'Sketch: display.setBrightness(7) → display.showNumberDecEx(1234) zeigt 12:34.',
+      'Für Zähler: Variable bei jedem millis()-Interval hochzählen → display.showNumberDec(zahl).',
+    ]
+  },
+  23:{
+    pins:[
+      ['DHT22 DATA','→','Pin 7 + 10kΩ zu 5V'],
+      ['DHT22 VCC','→','5V'],['DHT22 GND','→','GND'],
+      ['LCD I²C SDA','→','A4'],
+      ['LCD I²C SCL','→','A5'],
+      ['LCD I²C VCC','→','5V'],['LCD I²C GND','→','GND'],
+    ],
+    steps:[
+      'DHT22 an 5V, GND, Datenpin an Pin 7 mit 10kΩ Pull-up.',
+      'LCD I²C mit 4 Drähten an Arduino.',
+      'Sketch: #include <LiquidCrystal_I2C.h> → lcd.init() → lcd.backlight().',
+      'Erste Zeile: Temperatur, zweite Zeile: Luftfeuchtigkeit.',
+      'Alle 2 Sekunden neu messen und Display aktualisieren.',
+    ]
+  },
+  24:{
+    pins:[
+      ['OLED SDA','→','A4'],['OLED SCL','→','A5'],
+      ['OLED VCC','→','3,3V oder 5V (je nach Modul)'],
+      ['OLED GND','→','GND'],
+      ['DS3231 SDA','→','A4 (gleicher I²C Bus)'],
+      ['DS3231 SCL','→','A5'],
+      ['DS3231 VCC','→','3,3V'],['DS3231 GND','→','GND'],
+    ],
+    steps:[
+      'OLED und DS3231 beide an den I²C-Bus (A4=SDA, A5=SCL).',
+      'Libraries: Adafruit SSD1306 + RTClib installieren.',
+      'Beim ersten Upload: Uhrzeit setzen mit rtc.adjust(DateTime(2026,6,26,12,0,0)).',
+      'Danach Zeile auskommentieren → Uhrzeit bleibt im DS3231 durch Knopfzelle gespeichert.',
+      'Sketch: Uhrzeit vom RTC lesen, auf OLED mit display.print() ausgeben.',
+    ],
+    note:'DS3231 ist deutlich genauer als DS1307. Die Knopfzelle (CR2032) hält die Uhrzeit auch ohne USB.'
+  },
+  25:{
+    pins:[
+      ['4×4 Keypad R1–R4','→','Pins 2–5'],
+      ['4×4 Keypad C1–C4','→','Pins 6–9'],
+      ['LCD I²C SDA','→','A4'],
+      ['LCD I²C SCL','→','A5'],
+    ],
+    steps:[
+      'Keypad-Flachbandkabel anschließen: 4 Zeilen-Pins → 2–5, 4 Spalten-Pins → 6–9.',
+      'LCD I²C an A4 und A5.',
+      'Library: Keypad-Library von Mark Stanley installieren.',
+      'Sketch: Zahl 1 eingeben → Operator (*, +, -, #=/=) → Zahl 2 → # = Ergebnis auf LCD.',
+      'Zustandsmaschine: state=0 (Zahl1), state=1 (Operator), state=2 (Zahl2), state=3 (Ergebnis).',
+    ]
+  },
+  26:{
+    pins:[
+      ['Servo Signal (orange)','→','Arduino Pin 9'],
+      ['Servo VCC (rot)','→','5V'],
+      ['Servo GND (braun/schwarz)','→','GND'],
+      ['Poti Mitte','→','A0'],
+      ['Poti links','→','GND'],['Poti rechts','→','5V'],
+    ],
+    steps:[
+      'Servo direkt an Arduino: Signal→Pin 9, Rot→5V, Schwarz/Braun→GND.',
+      'Potentiometer: GND – Mitte zu A0 – 5V.',
+      'Sketch: #include <Servo.h> → myServo.attach(9).',
+      'In loop(): int winkel = map(analogRead(A0), 0, 1023, 0, 180); → myServo.write(winkel);',
+    ],
+    note:'Für mehrere Servos oder größere Servos externe 5V-Stromversorgung verwenden – Arduino-5V reicht oft nicht!'
+  },
+  27:{
+    pins:[
+      ['HC-SR04 TRIG','→','Pin 10'],
+      ['HC-SR04 ECHO','→','Pin 11'],
+      ['HC-SR04 VCC','→','5V'],['HC-SR04 GND','→','GND'],
+      ['Servo Signal','→','Pin 9'],
+      ['Servo VCC','→','5V'],['Servo GND','→','GND'],
+    ],
+    steps:[
+      'HC-SR04 auf dem Servo-Arm befestigen (mit doppelseitigem Klebeband).',
+      'Servo-Kabel ausreichend lang lassen damit Sensor mitdrehen kann.',
+      'Sketch: Servo dreht von 0° bis 180° in 2°-Schritten.',
+      'Bei jedem Winkel: Abstand messen → Winkel + Abstand per Serial.print() ausgeben.',
+      'Im Arduino IDE Serial Plotter: Radar-Visualisierung sichtbar!',
+    ]
+  },
+  28:{
+    pins:[
+      ['L298N ENA','→','Arduino Pin 3 (PWM)'],
+      ['L298N IN1','→','Pin 4'],
+      ['L298N IN2','→','Pin 5'],
+      ['L298N +12V','→','Externe 9V oder 12V Batterie +'],
+      ['L298N GND','→','Batterie − UND Arduino GND'],
+      ['L298N 5V OUT','→','Arduino 5V (optional)'],
+      ['DC-Motor','→','L298N OUT1 und OUT2'],
+      ['Poti Mitte','→','A0'],
+    ],
+    steps:[
+      'Externe Batterie (9V) an L298N +12V und GND anschließen.',
+      'Wichtig: L298N GND mit Arduino GND verbinden (gemeinsame Masse)!',
+      'Motor an OUT1 und OUT2 des L298N.',
+      'ENA → Pin 3 (PWM steuert Geschwindigkeit), IN1/IN2 → Pins 4,5 (Richtung).',
+      'Sketch: analogWrite(3, geschw) für Speed, digitalWrite(4,5) für Richtung.',
+    ],
+    note:'Niemals Motor direkt ans Arduino anschließen – zu viel Strom! Immer Motortreiber verwenden.'
+  },
+  29:{
+    pins:[
+      ['ULN2003 IN1','→','Pin 8'],
+      ['ULN2003 IN2','→','Pin 9'],
+      ['ULN2003 IN3','→','Pin 10'],
+      ['ULN2003 IN4','→','Pin 11'],
+      ['ULN2003 VCC','→','5V'],
+      ['ULN2003 GND','→','GND'],
+      ['28BYJ-48','→','Stecker auf ULN2003-Modul'],
+    ],
+    steps:[
+      'Den 5-poligen Stecker des 28BYJ-48 auf das ULN2003-Modul stecken.',
+      'ULN2003 IN1–IN4 an Arduino Pins 8–11.',
+      'ULN2003 VCC und GND an Arduino 5V und GND.',
+      'Library: Stepper.h (eingebaut) → Stepper stepper(2048, 8, 10, 9, 11);',
+      'stepper.setSpeed(10); → stepper.step(2048); dreht eine volle Umdrehung.',
+    ],
+    note:'28BYJ-48 hat 2048 Schritte pro Umdrehung bei Halbschrittbetrieb. Sehr präzise aber langsam!'
+  },
+  30:{
+    pins:[
+      ['IR-Sensor links OUT','→','Pin 2'],
+      ['IR-Sensor rechts OUT','→','Pin 3'],
+      ['IR-Sensoren VCC','→','5V'],['IR-Sensoren GND','→','GND'],
+      ['L298N ENA','→','Pin 5 (PWM)'],
+      ['L298N IN1','→','Pin 6'],['L298N IN2','→','Pin 7'],
+      ['L298N ENB','→','Pin 10 (PWM)'],
+      ['L298N IN3','→','Pin 8'],['L298N IN4','→','Pin 9'],
+      ['Motor links','→','OUT1/OUT2'],['Motor rechts','→','OUT3/OUT4'],
+    ],
+    steps:[
+      'Chassis aufbauen: 2 Motoren + L298N + Arduino + Batteriehalter montieren.',
+      'IR-Tracking-Sensoren vorne an Chassis, ~1cm über dem Boden.',
+      'L298N mit externer Batterie (6–12V) und gemeinsamen GND mit Arduino.',
+      'Sketch: links=schwarz→links langsamer, rechts=schwarz→rechts langsamer.',
+      'Schwarzen Strich auf weißem Papier auf dem Boden als Strecke aufkleben.',
+    ]
+  },
+  31:{
+    pins:[
+      ['HC-SR04 TRIG','→','Pin 12'],
+      ['HC-SR04 ECHO','→','Pin 13'],
+      ['Servo Signal','→','Pin 11'],
+      ['L298N ENA','→','Pin 3'],['L298N IN1','→','Pin 4'],['L298N IN2','→','Pin 5'],
+      ['L298N ENB','→','Pin 6'],['L298N IN3','→','Pin 7'],['L298N IN4','→','Pin 8'],
+    ],
+    steps:[
+      'Wie Linienfolge-Roboter aufbauen, aber ohne IR-Sensoren.',
+      'HC-SR04 auf SG90-Servo montieren (vorne am Chassis).',
+      'Sketch: vorwärts fahren → Abstand messen → unter 20cm: stopp.',
+      'Servo nach links/rechts schwenken, Abstände messen → in freie Richtung fahren.',
+    ]
+  },
+  32:{
+    pins:[
+      ['MPU-6050 SDA','→','A4'],['MPU-6050 SCL','→','A5'],
+      ['MPU-6050 VCC','→','3,3V'],['MPU-6050 GND','→','GND'],
+      ['L298N ENA','→','Pin 3 (PWM)'],['L298N IN1','→','Pin 4'],['L298N IN2','→','Pin 5'],
+      ['L298N ENB','→','Pin 6 (PWM)'],['L298N IN3','→','Pin 7'],['L298N IN4','→','Pin 8'],
+    ],
+    steps:[
+      'MPU-6050 am I²C-Bus (A4/A5) anschließen.',
+      'L298N mit 2 Motoren an externe 7,4V LiPo-Batterie.',
+      'Library: MPU6050 von Jeff Rowberg installieren.',
+      'Sketch: Neigungswinkel mit Complementary Filter oder Kalman Filter berechnen.',
+      'PID-Regler: P, I, D Parameter schrittweise einstellen bis Roboter balanciert.',
+    ],
+    note:'Das schwierigste Projekt! PID-Tuning erfordert Geduld. Mit P-Regler anfangen, dann I und D hinzufügen.'
+  },
+  33:{
+    pins:[
+      ['Stepper X IN1–IN4','→','Pins 2–5'],
+      ['Stepper Y IN1–IN4','→','Pins 8–11'],
+      ['Servo (Stiftlift) Signal','→','Pin 6'],
+      ['Beide ULN2003 VCC','→','5V'],['Beide ULN2003 GND','→','GND'],
+    ],
+    steps:[
+      'Zwei Schrittmotoren als X- und Y-Achse auf einem Chassis montieren.',
+      'Servo hebt und senkt den Stift (Stift up=90°, Stift down=0°).',
+      'Sketch: G-Code-Parser oder vordefinierte Koordinatenliste.',
+      'Grundbewegungen: moveTo(x, y) berechnet Schritte für beide Achsen.',
+      'Stift senken → Linie zeichnen → Stift heben → Leerfahrt.',
+    ]
+  },
+  34:{
+    pins:[
+      ['Taster Zählen (eine Seite)','→','Pin 2'],
+      ['Taster Zählen (andere Seite)','→','GND'],
+      ['10kΩ Pull-up','→','Pin 2 zu 5V'],
+      ['Taster Reset','→','Pin 3 (gleich verkabelt)'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'Zwei Taster mit je einem 10kΩ Pull-up-Widerstand an Pins 2 und 3.',
+      'LCD I²C an A4 und A5.',
+      'Sketch: bei fallendem Flankenwechsel (FALLING) auf Pin 2 → Zähler +1.',
+      'Bei Pin 3 → Zähler = 0.',
+      'Debounce einbauen: nach Tastendruck 50ms warten vor nächster Erkennung.',
+    ]
+  },
+  35:{
+    pins:[
+      ['Joystick VRX','→','A0'],
+      ['Joystick VRY','→','A1'],
+      ['Joystick SW (Taster)','→','Pin 2'],
+      ['Joystick VCC','→','5V'],['Joystick GND','→','GND'],
+      ['Servo Pan Signal','→','Pin 9'],
+      ['Servo Tilt Signal','→','Pin 10'],
+    ],
+    steps:[
+      'Joystick-Modul: VCC→5V, GND→GND, VRX→A0, VRY→A1, SW→Pin 2.',
+      'Servo 1 (Pan) an Pin 9, Servo 2 (Tilt) an Pin 10.',
+      'Sketch: A0/A1 lesen → map(wert, 0, 1023, 0, 180) → Servo schreiben.',
+      'Deadzone: Bereich um 512 ignorieren um Zittern zu vermeiden.',
+    ]
+  },
+  36:{
+    pins:[
+      ['LED Anode','→','220Ω → Pin 13'],['LED Kathode','→','GND'],
+      ['Taster (eine Seite)','→','Pin 2'],['Taster (andere Seite)','→','GND'],
+      ['10kΩ Pull-up','→','Pin 2 zu 5V'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'LED mit Widerstand an Pin 13.',
+      'Taster mit Pull-up an Pin 2.',
+      'LCD I²C an A4/A5.',
+      'Sketch: zufällige Wartezeit (random(2000, 5000) ms) → LED ein → Zeitpunkt merken.',
+      'Bei Tastendruck: Reaktionszeit = millis() − startzeit → auf LCD anzeigen.',
+    ]
+  },
+  37:{
+    pins:[
+      ['LED Rot','→','220Ω → Pin 2'],['LED Grün','→','220Ω → Pin 3'],
+      ['LED Blau','→','220Ω → Pin 4'],['LED Gelb','→','220Ω → Pin 5'],
+      ['Taster 1–4','→','Pins 8–11 (mit Pull-down zu GND)'],
+      ['Buzzer +','→','Pin 12'],['Buzzer −','→','GND'],
+    ],
+    steps:[
+      '4 LEDs mit je 220Ω an Pins 2–5.',
+      '4 Taster: je eine Seite an Pins 8–11, andere Seite an GND, 10kΩ Pull-up zu 5V.',
+      'Buzzer an Pin 12.',
+      'Sketch: Sequenz-Array zufällig erweitern → anzeigen → Eingabe abwarten → vergleichen.',
+      'Richtiger Ton: kurzer Piep. Falscher Ton: langer Alarm-Ton → Game Over.',
+    ]
+  },
+  38:{
+    pins:[
+      ['LEDs 1–7 Anoden','→','je 220Ω → Pins 2–8'],
+      ['Alle LED-Kathoden','→','GND'],
+      ['Taster','→','Pin 12 + 10kΩ Pull-down zu GND'],
+    ],
+    steps:[
+      '7 LEDs anordnen wie die Punkte auf einem echten Würfel (Rauten-Muster).',
+      'Pins 2–8 mit je 220Ω Widerstand an die LEDs.',
+      'Taster an Pin 12.',
+      'Sketch: bei Tastendruck random(1, 7) → passendes LED-Muster aus 2D-Array ausgeben.',
+      'Würfel-Animation: kurz schnell durch alle Muster zufällig blitzen (500ms).',
+    ]
+  },
+  39:{
+    pins:[
+      ['RC522 SDA (SS)','→','Pin 10'],
+      ['RC522 SCK','→','Pin 13'],
+      ['RC522 MOSI','→','Pin 11'],
+      ['RC522 MISO','→','Pin 12'],
+      ['RC522 RST','→','Pin 9'],
+      ['RC522 VCC','→','3,3V (nicht 5V!)'],
+      ['RC522 GND','→','GND'],
+      ['LED grün','→','220Ω → Pin 2'],
+      ['LED rot','→','220Ω → Pin 3'],
+      ['Buzzer +','→','Pin 4'],
+    ],
+    steps:[
+      'RC522 MUSS mit 3,3V betrieben werden – bei 5V wird er beschädigt!',
+      'SPI-Pins: MOSI→11, MISO→12, SCK→13, SS→10, RST→9.',
+      'Library: MFRC522 von miguelbalboa installieren.',
+      'Sketch: Karten-UID auslesen → mit gespeicherter UID vergleichen.',
+      'Zugang OK: grüne LED ein + kurzer Piepton. Abgelehnt: rote LED + langer Piepton.',
+    ],
+    note:'UID der eigenen Karte vorher per Serial Monitor auslesen und im Sketch eintragen!'
+  },
+  40:{
+    pins:[
+      ['IR-Empfänger OUT','→','Pin 11'],
+      ['IR-Empfänger VCC','→','5V'],
+      ['IR-Empfänger GND','→','GND'],
+      ['LED 1–3','→','220Ω → Pins 3, 4, 5'],
+    ],
+    steps:[
+      'IR-Empfänger VS1838B: Flaches Ende zeigt zur Fernbedienung.',
+      'Anschluss: linker Pin → GND, Mitte → 5V, rechts → Pin 11.',
+      'Library: IRremote von shirriff installieren.',
+      'Sketch: IrReceiver.decode() → Code ausgeben im Serial Monitor.',
+      'Codes der gewünschten Tasten notieren → im Sketch switch/case für Aktionen.',
+    ]
+  },
+  41:{
+    pins:[
+      ['HC-05 VCC','→','5V'],['HC-05 GND','→','GND'],
+      ['HC-05 TX','→','Arduino Pin 10 (RX via SoftwareSerial)'],
+      ['HC-05 RX','→','Spannungsteiler → Arduino Pin 11 (TX)'],
+      ['Spannungsteiler','→','1kΩ (Pin11→HC05 RX) + 2kΩ (HC05 RX→GND)'],
+      ['LED Anode','→','220Ω → Pin 13'],
+    ],
+    steps:[
+      'HC-05 läuft mit 5V, aber RX-Pin nur 3,3V-tolerant!',
+      'Spannungsteiler für TX→HC05 RX: 1kΩ + 2kΩ teilt 5V auf 3,3V.',
+      'Library: SoftwareSerial → SoftwareSerial btSerial(10, 11);',
+      'App auf Smartphone: "Bluetooth Terminal HC-05" (Android) herunterladen.',
+      'Sketch: btSerial.read() → Zeichen 1 = LED ein, Zeichen 0 = LED aus.',
+    ],
+    note:'HC-05 im AT-Modus konfigurieren: Name und PIN ändern indem man EN-Pin HIGH hält beim Einschalten.'
+  },
+  42:{
+    pins:[
+      ['Alle SDA-Pins','→','Arduino A4 (gemeinsamer I²C Bus)'],
+      ['Alle SCL-Pins','→','Arduino A5'],
+      ['BME280 VCC','→','3,3V'],
+      ['OLED VCC','→','3,3V oder 5V'],
+      ['DS3231 VCC','→','3,3V'],
+      ['Alle GND-Pins','→','Arduino GND'],
+    ],
+    steps:[
+      'Alle 3 Module parallel an A4 (SDA) und A5 (SCL) anschließen.',
+      'Jedes Modul hat eine eigene I²C-Adresse: BME280=0x76, OLED=0x3C, DS3231=0x68.',
+      'I²C-Scanner-Sketch hochladen um alle Adressen zu prüfen.',
+      'Libraries: Adafruit_BME280, Adafruit_SSD1306, RTClib installieren.',
+      'Sketch: nacheinander alle Sensoren lesen, Daten strukturiert auf OLED anzeigen.',
+    ]
+  },
+  43:{
+    pins:[
+      ['NEO-6M TX','→','Arduino Pin 4 (SoftwareSerial RX)'],
+      ['NEO-6M RX','→','Arduino Pin 3 (SoftwareSerial TX)'],
+      ['NEO-6M VCC','→','5V'],['NEO-6M GND','→','GND'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'GPS-Modul MUSS draußen oder am Fenster betrieben werden für Satellitenempfang!',
+      'SoftwareSerial: gpsSerial(4, 3) für GPS-Kommunikation.',
+      'Library: TinyGPS++ von Mikal Hart installieren.',
+      'Sketch: GPS-String parsen → Breitengrad und Längengrad extrahieren → auf LCD.',
+      'Erster Fix kann 30–90 Sekunden dauern!',
+    ],
+    note:'GPS-Fix dauert kalt (cold start) bis zu 5 Minuten. Danach bei Neustart schneller (warm start).'
+  },
+  44:{
+    pins:[
+      ['Fingerprint TX','→','Pin 10 (SoftwareSerial RX)'],
+      ['Fingerprint RX','→','Pin 11 (SoftwareSerial TX)'],
+      ['Fingerprint VCC','→','5V'],['Fingerprint GND','→','GND'],
+      ['Servo Signal','→','Pin 9'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'GT-511 per SoftwareSerial(10, 11) anschließen.',
+      'Library: GT511C3 oder FPS_GT511C3 installieren.',
+      'Schritt 1: Enrollment-Sketch hochladen → Finger 3× auf Sensor legen → ID gespeichert.',
+      'Schritt 2: Hauptsketch → Finger erkennen → ID vergleichen → Servo öffnet Schloss.',
+      'LCD zeigt Status: "Scannen...", "Zugang OK!" oder "Abgelehnt!".',
+    ]
+  },
+  45:{
+    pins:[
+      ['RC522 SDA','→','Pin 10'],['RC522 SCK','→','Pin 13'],
+      ['RC522 MOSI','→','Pin 11'],['RC522 MISO','→','Pin 12'],
+      ['RC522 RST','→','Pin 9'],['RC522 VCC','→','3,3V'],
+      ['DS3231 SDA','→','A4'],['DS3231 SCL','→','A5'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'RC522 (SPI) und DS3231 + LCD (I²C) gleichzeitig betreiben – kein Konflikt.',
+      'SD-Karten-Modul (optional) für Datenspeicherung an SPI-Bus.',
+      'Sketch: Karte scannen → UID lesen → Zeitstempel vom RTC → in CSV-Datei schreiben.',
+      'Format: UID,JJJJ-MM-TT,HH:MM:SS,EIN/AUS',
+      'Datei kann direkt in Excel geöffnet werden.',
+    ]
+  },
+  46:{
+    pins:[
+      ['DHT22 DATA','→','ESP8266 D4 + 10kΩ zu 3,3V'],
+      ['DHT22 VCC','→','3,3V'],['DHT22 GND','→','GND'],
+    ],
+    steps:[
+      'ESP8266 NodeMCU in Arduino IDE einstellen: Board "NodeMCU 1.0 (ESP-12E Module)".',
+      'Library: ESP8266WiFi.h + DHT sensor library installieren.',
+      'ThingSpeak-Account erstellen → Channel anlegen → API Write Key kopieren.',
+      'Sketch: WLAN-Zugangsdaten + API Key eintragen.',
+      'Alle 15 Sekunden Messung → WiFiClient → HTTP POST an api.thingspeak.com.',
+    ],
+    note:'ESP8266 läuft auf 3,3V! Niemals 5V anlegen. NodeMCU-Board hat eingebauten 3,3V-Regler.'
+  },
+  47:{
+    pins:[
+      ['DHT22','→','ESP8266 D4 + 10kΩ zu 3,3V'],
+      ['LED/Relais','→','D5'],
+    ],
+    steps:[
+      'MQTT-Broker: Mosquitto auf Raspberry Pi oder broker.hivemq.com (Cloud) nutzen.',
+      'Library: PubSubClient von Nick OLeary installieren.',
+      'Sketch: WiFi verbinden → MQTT-Broker verbinden → Subscribe auf "home/licht".',
+      'Temperatur/Feuchte auf Topic "home/sensor/temp" publishen.',
+      'Home Assistant: MQTT Integration hinzufügen → Gerät erscheint automatisch.',
+    ],
+    note:'MQTT Port: 1883 (unverschlüsselt) oder 8883 (TLS). Für Heimnetz Port 1883 ausreichend.'
+  },
+  48:{
+    pins:[
+      ['LED','→','220Ω → D4'],
+      ['DHT22 (optional)','→','D3 + 10kΩ zu 3,3V'],
+    ],
+    steps:[
+      'Library: ESP8266WebServer.h (bereits enthalten im ESP8266-Paket).',
+      'Sketch: Server auf Port 80 starten → Routen definieren (/ein, /aus, /status).',
+      'HTML-Seite mit Buttons direkt im Arduino-String definieren.',
+      'IP-Adresse im Serial Monitor ablesen nach Verbindung mit WLAN.',
+      'Browser öffnen → http://[IP-Adresse] → Steuerseite erscheint.',
+    ],
+    note:'Statische IP empfehlenswert: WiFi.config(IPAddress(192,168,1,100), gateway, subnet);'
+  },
+  49:{
+    pins:[
+      ['Potentiometer Mitte','→','A0'],
+      ['Poti GND','→','GND'],['Poti VCC','→','5V'],
+    ],
+    steps:[
+      'Nur ein Potentiometer nötig – oder direkt einen Sensor an A0.',
+      'Sketch: Serial.println(analogRead(A0)); in loop() mit delay(10).',
+      'In Arduino IDE: Werkzeuge → Serieller Plotter öffnen.',
+      'Baudrate auf 9600 einstellen → Kurve erscheint in Echtzeit.',
+      'Für mehrere Kanäle: Serial.print(wert1); Serial.print(" "); Serial.println(wert2);',
+    ]
+  },
+  50:{
+    pins:[
+      ['BME280 SDA','→','ESP8266 D2'],['BME280 SCL','→','D1'],
+      ['BME280 VCC','→','3,3V'],['BME280 GND','→','GND'],
+      ['OLED SDA','→','D2 (I²C Bus)'],['OLED SCL','→','D1'],
+      ['GPS TX','→','D7 (SoftwareSerial RX)'],
+      ['GPS RX','→','D6'],
+    ],
+    steps:[
+      'BME280 und OLED am I²C-Bus: D1 (SCL) und D2 (SDA).',
+      'GPS per SoftwareSerial an D6/D7.',
+      'OLED zeigt: Temperatur, Luftfeuchtigkeit, Luftdruck, GPS-Position.',
+      'Sketch: alle 30s Daten an Wetter-API senden (Open-Meteo oder Windy.com).',
+      'OLED-Anzeige wechselt alle 3s zwischen Wetter- und GPS-Ansicht.',
+    ],
+    note:'Alle Komponenten auf 3,3V! ESP8266 ist 3,3V-Logik. Gemeinsamen GND sicherstellen.'
+  },
+};
+
+// ── Wiring-HTML rendern und in Projektkarten einfügen ────────────────────
+function renderWiring(w) {
+  let html = '<div class="wiring">';
+  // Pin-Tabelle
+  html += '<span class="wiring-title">🔌 Verkabelung (Pinbelegung)</span>';
+  html += '<table class="pin-table"><thead><tr><th>Von</th><th></th><th>Nach</th></tr></thead><tbody>';
+  w.pins.forEach(([a,arrow,b]) => {
+    html += `<tr><td>${a}</td><td style="color:var(--accent);text-align:center">${arrow}</td><td>${b}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  // Aufbau-Schritte
+  html += '<span class="wiring-title">🛠 Schritt-für-Schritt Aufbau</span>';
+  html += '<ol class="steps-list">';
+  w.steps.forEach((s, i) => {
+    html += `<li><span class="step-n">${i+1}.</span><span>${s}</span></li>`;
+  });
+  html += '</ol>';
+  // Hinweis
+  if (w.note) {
+    html += `<div class="note-box">💡 ${w.note}</div>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+// ── FORTSCHRITTS-TRACKER ──────────────────────────────────────────────────
+const DONE_KEY = 'arduino_done_v1';
+let done = new Set(JSON.parse(localStorage.getItem(DONE_KEY) || '[]'));
+
+function updateProgress() {
+  const n = done.size;
+  const pct = Math.round(n / 50 * 100);
+  document.getElementById('prog-num').textContent = n;
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.querySelectorAll('.milestone').forEach(m => {
+    m.classList.toggle('achieved', n >= +m.dataset.n);
+  });
+}
+
+function toggleDone(id, cb, e) {
+  e.stopPropagation();
+  if (done.has(id)) { done.delete(id); } else { done.add(id); }
+  localStorage.setItem(DONE_KEY, JSON.stringify([...done]));
+  const project = cb.closest('.project');
+  const isDone = done.has(id);
+  cb.classList.toggle('checked', isDone);
+  cb.textContent = isDone ? '✓' : '';
+  project.classList.toggle('done', isDone);
+  updateProgress();
+}
+
+function resetProgress() {
+  if (!confirm('Fortschritt wirklich zurücksetzen?')) return;
+  done.clear();
+  localStorage.removeItem(DONE_KEY);
+  document.querySelectorAll('.proj-cb').forEach(cb => {
+    cb.classList.remove('checked');
+    cb.textContent = '';
+  });
+  document.querySelectorAll('.project').forEach(p => p.classList.remove('done'));
+  updateProgress();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Wiring-Sektionen einfügen
+  Object.entries(WIRING).forEach(([id, w]) => {
+    const body = document.getElementById('b' + id);
+    if (!body) return;
+    body.insertAdjacentHTML('beforeend', renderWiring(w));
+  });
+
+  // Checkboxen in jeden Projektkopf einbauen
+  document.querySelectorAll('.project-header').forEach(header => {
+    const body = header.nextElementSibling;
+    const id = +body.id.replace('b', '');
+    const cb = document.createElement('div');
+    cb.className = 'proj-cb' + (done.has(id) ? ' checked' : '');
+    cb.textContent = done.has(id) ? '✓' : '';
+    cb.title = 'Als erledigt markieren';
+    cb.onclick = (e) => toggleDone(id, cb, e);
+    header.insertBefore(cb, header.querySelector('.toggle'));
+    if (done.has(id)) header.closest('.project').classList.add('done');
+  });
+
+  updateProgress();
+});
+</script>
+
+<!-- ======================== LICHT ======================== -->
+<div id="licht" class="section-title" style="background:var(--licht)">💡 Licht-Projekte (1–8)</div>
+
+<!-- Projekt 1 -->
+<div class="project" style="border-color:var(--licht)">
+  <div class="project-header" onclick="toggle(1)">
+    <div class="proj-num" style="background:var(--licht)">1</div>
+    <div class="proj-title">LED Blinker</div>
+    <div class="diff" title="Einfach"><span class="on" style="background:var(--licht)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b1">
+    <div class="desc">💡 Lass eine LED in verschiedenen Mustern blinken – der klassische Einstieg in die Arduino-Welt. Du lernst, wie man Strom ein- und ausschaltet und einfache Zeitverzögerungen programmiert.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LED (grün/rot)</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">220 Ω Widerstand</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-breadboard"/></svg></div><div class="comp-name">Breadboard + Kabel</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>digitalWrite() und pinMode() – Pins ein-/ausschalten</li>
+      <li>delay() für Zeitverzögerungen</li>
+      <li>Aufbau eines einfachen Schaltkreises auf dem Breadboard</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 2 -->
+<div class="project" style="border-color:var(--licht)">
+  <div class="project-header" onclick="toggle(2)">
+    <div class="proj-num" style="background:var(--licht)">2</div>
+    <div class="proj-title">Dimmbares Licht (PWM)</div>
+    <div class="diff"><span class="on" style="background:var(--licht)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b2">
+    <div class="desc">🎛 Steuere die Helligkeit einer LED stufenlos per Potentiometer über PWM-Ausgänge. Du drehst am Knopf – die LED wird heller oder dunkler.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LED</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-poti"/></svg></div><div class="comp-name">10kΩ Potentiometer</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">220 Ω Widerstand</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>analogWrite() – Pulsweitenmodulation (PWM)</li>
+      <li>analogRead() für analoge Eingänge (Potentiometer)</li>
+      <li>map()-Funktion zum Skalieren von Messwerten</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 3 -->
+<div class="project" style="border-color:var(--licht)">
+  <div class="project-header" onclick="toggle(3)">
+    <div class="proj-num" style="background:var(--licht)">3</div>
+    <div class="proj-title">RGB-LED Farbmischer</div>
+    <div class="diff"><span class="on" style="background:var(--licht)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b3">
+    <div class="desc">🌈 Mische Rot, Grün und Blau über drei Potis zu jeder beliebigen Farbe in Echtzeit. Wie ein Farbmischer für Licht!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led-rgb"/></svg></div><div class="comp-name">RGB-LED (Common Cathode)</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-poti"/></svg></div><div class="comp-name">3× 10kΩ Potentiometer</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">3× 220 Ω Widerstand</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>RGB-Farbmischprinzip (Rot + Grün + Blau = alle Farben)</li>
+      <li>Mehrere analoge Eingänge gleichzeitig lesen</li>
+      <li>Wertübertragung auf drei PWM-Pins</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 4 -->
+<div class="project" style="border-color:var(--licht)">
+  <div class="project-header" onclick="toggle(4)">
+    <div class="proj-num" style="background:var(--licht)">4</div>
+    <div class="proj-title">Ampelsteuerung</div>
+    <div class="diff"><span class="on" style="background:var(--licht)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b4">
+    <div class="desc">🚦 Simuliere eine vollständige Ampel mit Rot-Gelb-Grün-LEDs und realistischen Phasenzeiten. Einfach aber sehr lehrreich!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led-red"/></svg></div><div class="comp-name">LED rot</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LED gelb + grün</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">3× 220 Ω Widerstand</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-breadboard"/></svg></div><div class="comp-name">Breadboard + Kabel</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Mehrere digitale Ausgänge gleichzeitig steuern</li>
+      <li>Ablauflogik mit Zeitsteuerung programmieren</li>
+      <li>delay()-basiertes Sequencing (Schritt-für-Schritt)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 5 -->
+<div class="project" style="border-color:var(--licht)">
+  <div class="project-header" onclick="toggle(5)">
+    <div class="proj-num" style="background:var(--licht)">5</div>
+    <div class="proj-title">SOS Morse-Blinker</div>
+    <div class="diff"><span class="on" style="background:var(--licht)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b5">
+    <div class="desc">🆘 Sende das internationale Notsignal SOS (··· — — — ···) dauerhaft per LED. Kurze Blinker = Punkte, lange Blinker = Striche.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LED</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">220 Ω Widerstand</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Arrays für Muster-Daten speichern</li>
+      <li>for-Schleifen zum Durchlaufen von Arrays</li>
+      <li>Timing-Differenzierung (kurz vs. lang)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 6 -->
+<div class="project" style="border-color:var(--licht)">
+  <div class="project-header" onclick="toggle(6)">
+    <div class="proj-num" style="background:var(--licht)">6</div>
+    <div class="proj-title">PIR-Bewegungsmelder</div>
+    <div class="diff"><span class="on" style="background:var(--licht)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b6">
+    <div class="desc">🚶 Löse bei Bewegungserkennung automatisch eine LED und einen Buzzer-Alarm aus. Der PIR-Sensor erkennt Körperwärme und reagiert sofort.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-pir"/></svg></div><div class="comp-name">PIR-Sensor HC-SR501</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Piezo-Buzzer</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LED</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Digitalen Eingang mit Interrupt lesen</li>
+      <li>PIR-Sensorempfindlichkeit und Verzögerung einstellen</li>
+      <li>Alarm mit mehreren Ausgaben kombinieren (LED + Ton)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 7 -->
+<div class="project" style="border-color:var(--licht)">
+  <div class="project-header" onclick="toggle(7)">
+    <div class="proj-num" style="background:var(--licht)">7</div>
+    <div class="proj-title">Lichtsensor Nachtlicht</div>
+    <div class="diff"><span class="on" style="background:var(--licht)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b7">
+    <div class="desc">🌙 Schalte eine LED automatisch ein, sobald es dunkel wird – LDR-basiert. Funktioniert wie ein echtes Nachtlicht!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-ldr"/></svg></div><div class="comp-name">LDR Fotowiderstand</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">10 kΩ Widerstand</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LED + 220Ω</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Spannungsteiler mit LDR aufbauen</li>
+      <li>Analogwert in Helligkeit umrechnen</li>
+      <li>Schwellenwert-Logik für automatische Steuerung</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 8 -->
+<div class="project" style="border-color:var(--licht)">
+  <div class="project-header" onclick="toggle(8)">
+    <div class="proj-num" style="background:var(--licht)">8</div>
+    <div class="proj-title">Lauflicht (LED-Array)</div>
+    <div class="diff"><span class="on" style="background:var(--licht)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b8">
+    <div class="desc">✨ Lass 8 LEDs der Reihe nach aufleuchten wie ein Knight-Rider-Lauflicht. Einfach aber sehr beeindruckend!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">8× LED</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">8× 220Ω Widerstand</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-breadboard"/></svg></div><div class="comp-name">Breadboard + Kabel</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Arrays mit Pin-Nummern verwalten</li>
+      <li>for-Schleifen für wiederholte Aktionen</li>
+      <li>Mehrere digitale Ausgänge sequenziell schalten</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================== AUDIO ======================== -->
+<div id="audio" class="section-title" style="background:var(--audio);color:#080c10">🔊 Audio-Projekte (9–12)</div>
+
+<!-- Projekt 9 -->
+<div class="project" style="border-color:var(--audio)">
+  <div class="project-header" onclick="toggle(9)">
+    <div class="proj-num" style="background:var(--audio)">9</div>
+    <div class="proj-title">Sound-VU-Meter</div>
+    <div class="diff"><span class="on" style="background:var(--audio)"></span><span class="on" style="background:var(--audio)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b9">
+    <div class="desc">🎵 Zeige die Lautstärke des Mikrofons als LED-Bargraph an – je lauter, desto mehr LEDs leuchten. Wie ein Equalizer in einem Tonstudio!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-microphone"/></svg></div><div class="comp-name">Mikrofon-Modul KY-038</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">8× LED</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">8× 220Ω Widerstand</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Analogwert eines Mikrofons lesen und auswerten</li>
+      <li>LED-Bargraph-Visualisierung programmieren</li>
+      <li>Echtzeit-Reaktion auf Umgebungsgeräusche</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 10 -->
+<div class="project" style="border-color:var(--audio)">
+  <div class="project-header" onclick="toggle(10)">
+    <div class="proj-num" style="background:var(--audio)">10</div>
+    <div class="proj-title">Buzzer Melodie-Player</div>
+    <div class="diff"><span class="on" style="background:var(--audio)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b10">
+    <div class="desc">🎶 Spiele eine Melodie (z.B. Super Mario, Tetris) über einen passiven Buzzer ab. Der Arduino erzeugt die Töne durch schnelles Ein/Ausschalten.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Passiver Piezo-Buzzer</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>tone()-Funktion für Tonausgabe</li>
+      <li>Notenfrequenzen (C4=262Hz, A4=440Hz, etc.)</li>
+      <li>Melodie als Array aus Noten und Dauern speichern</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 11 -->
+<div class="project" style="border-color:var(--audio)">
+  <div class="project-header" onclick="toggle(11)">
+    <div class="proj-num" style="background:var(--audio)">11</div>
+    <div class="proj-title">Klaviertastatur</div>
+    <div class="diff"><span class="on" style="background:var(--audio)"></span><span class="on" style="background:var(--audio)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b11">
+    <div class="desc">🎹 Baue eine 8-Tasten-Mini-Klaviertastatur, die Töne per Buzzer ausgibt. Jede Taste entspricht einer Note!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-taster"/></svg></div><div class="comp-name">8× Taster</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">8× 10kΩ Widerstand</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Passiver Buzzer</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Mehrere Taster gleichzeitig abfragen (pollen)</li>
+      <li>Tonfrequenzen der Oktave C–C</li>
+      <li>Debounce für schnelle Tasteneingaben</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 12 -->
+<div class="project" style="border-color:var(--audio)">
+  <div class="project-header" onclick="toggle(12)">
+    <div class="proj-num" style="background:var(--audio)">12</div>
+    <div class="proj-title">Distanz-Theremin</div>
+    <div class="diff"><span class="on" style="background:var(--audio)"></span><span class="on" style="background:var(--audio)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b12">
+    <div class="desc">🎵 Erzeuge Töne abhängig vom Abstand zum HC-SR04 – ein berührungsloses Musikinstrument. Näher = höherer Ton, weiter = tiefer Ton!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-hcsr04"/></svg></div><div class="comp-name">HC-SR04 Ultraschall</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Passiver Buzzer</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Sensor-zu-Audio-Mapping mit map()</li>
+      <li>Kontinuierliche Ausgabe ohne delay() (millis())</li>
+      <li>Kreatives Sensorprojekt – Physik als Instrument</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================== SENSOREN ======================== -->
+<div id="sensoren" class="section-title" style="background:var(--sensor);color:#080c10">🌡 Sensor-Projekte (13–20)</div>
+
+<!-- Projekt 13 -->
+<div class="project" style="border-color:var(--sensor)">
+  <div class="project-header" onclick="toggle(13)">
+    <div class="proj-num" style="background:var(--sensor)">13</div>
+    <div class="proj-title">Ultraschall Entfernungsmesser</div>
+    <div class="diff"><span class="on" style="background:var(--sensor)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b13">
+    <div class="desc">📏 Miss Abstände mit dem HC-SR04 und zeige sie im Serial Monitor an. Der Sensor sendet Ultraschallwellen aus und misst die Rückkehrzeit.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-hcsr04"/></svg></div><div class="comp-name">HC-SR04 Ultraschall</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>pulseIn() für Echo-Messung</li>
+      <li>Schallgeschwindigkeit (343 m/s) in der Berechnung nutzen</li>
+      <li>Trigger/Echo-Timing-Prinzip verstehen</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 14 -->
+<div class="project" style="border-color:var(--sensor)">
+  <div class="project-header" onclick="toggle(14)">
+    <div class="proj-num" style="background:var(--sensor)">14</div>
+    <div class="proj-title">Temperatursensor (NTC)</div>
+    <div class="diff"><span class="on" style="background:var(--sensor)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b14">
+    <div class="desc">🌡 Messe Temperatur mit einem NTC-Thermistor und gib den Wert im Serial Monitor aus. Ein billiger Sensor mit überraschend guter Genauigkeit.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">NTC Thermistor 10kΩ</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">10kΩ Widerstand</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-breadboard"/></svg></div><div class="comp-name">Breadboard + Kabel</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Spannungsteiler-Formel anwenden</li>
+      <li>Steinhart-Hart-Gleichung für Thermistoren</li>
+      <li>log()-Funktion in der Arduino-Mathematik</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 15 -->
+<div class="project" style="border-color:var(--sensor)">
+  <div class="project-header" onclick="toggle(15)">
+    <div class="proj-num" style="background:var(--sensor)">15</div>
+    <div class="proj-title">Regensensor Alarm</div>
+    <div class="diff"><span class="on" style="background:var(--sensor)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b15">
+    <div class="desc">🌧 Erkenne Feuchtigkeit auf dem Regensensor-Modul und gib bei Schwellenwert Alarm. Perfekt für Gartenprojekte oder Wetterstationen.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-mq2"/></svg></div><div class="comp-name">Regensensor FC-37</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Piezo-Buzzer</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LED</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Analogwert lesen und auswerten</li>
+      <li>Schwellenwert-Vergleich (if/else Logik)</li>
+      <li>Alarm mit mehreren Ausgaben gleichzeitig</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 16 -->
+<div class="project" style="border-color:var(--sensor)">
+  <div class="project-header" onclick="toggle(16)">
+    <div class="proj-num" style="background:var(--sensor)">16</div>
+    <div class="proj-title">Bodenfeuchtesensor Pflanzenwächter</div>
+    <div class="diff"><span class="on" style="background:var(--sensor)"></span><span class="on" style="background:var(--sensor)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b16">
+    <div class="desc">🌱 Überwache Bodenfeuchtigkeit und gib Alarm – LCD-Ausgabe bei trockenem Boden. Deine Pflanze wird sich bedanken!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-mq2"/></svg></div><div class="comp-name">Kap. Bodenfeuchte-Sensor</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 (I²C)</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Piezo-Buzzer</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Sensor kalibrieren (trocken vs. nass)</li>
+      <li>Mehrere Ausgaben kombinieren (Display + Ton)</li>
+      <li>Einfache Zustandsmaschine: trocken/feucht/nass</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 17 -->
+<div class="project" style="border-color:var(--sensor)">
+  <div class="project-header" onclick="toggle(17)">
+    <div class="proj-num" style="background:var(--sensor)">17</div>
+    <div class="proj-title">Gasdetektor (MQ-2)</div>
+    <div class="diff"><span class="on" style="background:var(--sensor)"></span><span class="on" style="background:var(--sensor)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b17">
+    <div class="desc">💨 Erkenne Rauch und brennbare Gase mit dem MQ-2 Sensor und gib Alarm. Wichtig: Sensor braucht 1–2 Minuten zum Aufwärmen.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-mq2"/></svg></div><div class="comp-name">MQ-2 Gas-Sensor</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Piezo-Buzzer</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led-red"/></svg></div><div class="comp-name">Rote LED</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Analogsensor mit Aufwärmzeit richtig nutzen</li>
+      <li>Schwellenwert-Alarm programmieren</li>
+      <li>Sicherheitssysteme mit Arduino aufbauen</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 18 -->
+<div class="project" style="border-color:var(--sensor)">
+  <div class="project-header" onclick="toggle(18)">
+    <div class="proj-num" style="background:var(--sensor)">18</div>
+    <div class="proj-title">Digitale Waage (HX711)</div>
+    <div class="diff"><span class="on" style="background:var(--sensor)"></span><span class="on" style="background:var(--sensor)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b18">
+    <div class="desc">⚖️ Baue eine präzise digitale Waage mit einer Wägezelle und dem HX711-Verstärker. Genauigkeit bis auf wenige Gramm!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-hx711"/></svg></div><div class="comp-name">HX711 Modul</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-loadcell"/></svg></div><div class="comp-name">Wägezelle (Load Cell)</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 (I²C)</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>HX711-Library installieren und nutzen</li>
+      <li>Sensor kalibrieren mit Referenzgewicht</li>
+      <li>Präzisionsmessung und Mittelwertbildung</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 19 -->
+<div class="project" style="border-color:var(--sensor)">
+  <div class="project-header" onclick="toggle(19)">
+    <div class="proj-num" style="background:var(--sensor)">19</div>
+    <div class="proj-title">Wetterstation (BME280)</div>
+    <div class="diff"><span class="on" style="background:var(--sensor)"></span><span class="on" style="background:var(--sensor)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b19">
+    <div class="desc">🌤 Miss Temperatur, Luftfeuchtigkeit und Luftdruck mit dem BME280 und zeige alles auf dem LCD an. Wie eine Mini-Wetterstation!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-bme280"/></svg></div><div class="comp-name">BME280 Sensor</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 (I²C)</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>I²C-Protokoll (nur 2 Drähte für mehrere Sensoren)</li>
+      <li>BME280-Library nutzen</li>
+      <li>Messdaten formatiert auf LCD ausgeben</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 20 -->
+<div class="project" style="border-color:var(--sensor)">
+  <div class="project-header" onclick="toggle(20)">
+    <div class="proj-num" style="background:var(--sensor)">20</div>
+    <div class="proj-title">DHT22 Thermo-Hygrometer</div>
+    <div class="diff"><span class="on" style="background:var(--sensor)"></span><span class="on" style="background:var(--sensor)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b20">
+    <div class="desc">💧 Miss Temperatur und Luftfeuchtigkeit mit dem DHT22 und zeige den Taupunkt an. Der DHT22 ist sehr beliebt für Heimautomation.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-dht22"/></svg></div><div class="comp-name">DHT22 Sensor</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">10kΩ Pull-up Widerstand</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 (I²C)</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>DHT-Library einbinden und nutzen</li>
+      <li>Taupunkt-Berechnung (Formeln anwenden)</li>
+      <li>Messwerte auf LCD formatiert ausgeben</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================== ANZEIGE ======================== -->
+<div id="anzeige" class="section-title" style="background:var(--anzeige);color:#080c10">📺 Anzeige-Projekte (21–25, 34, 49)</div>
+
+<!-- Projekt 21 -->
+<div class="project" style="border-color:var(--anzeige)">
+  <div class="project-header" onclick="toggle(21)">
+    <div class="proj-num" style="background:var(--anzeige)">21</div>
+    <div class="proj-title">7-Segment-Anzeige</div>
+    <div class="diff"><span class="on" style="background:var(--anzeige)"></span><span class="on" style="background:var(--anzeige)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b21">
+    <div class="desc">🔢 Steuere eine 7-Segment-Anzeige direkt und zeige Zahlen 0–9 an. Du lernst wie jede Ziffer aus 7 einzelnen Segmenten zusammengesetzt wird.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-7seg"/></svg></div><div class="comp-name">7-Segment-Anzeige</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">7× 220Ω Widerstand</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Binärkodierung der Ziffernsegmente</li>
+      <li>Arrays für Segment-Muster nutzen</li>
+      <li>Common-Anode vs. Common-Cathode Displays</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 22 -->
+<div class="project" style="border-color:var(--anzeige)">
+  <div class="project-header" onclick="toggle(22)">
+    <div class="proj-num" style="background:var(--anzeige)">22</div>
+    <div class="proj-title">4-stelliger Zähler (TM1637)</div>
+    <div class="diff"><span class="on" style="background:var(--anzeige)"></span><span class="on" style="background:var(--anzeige)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b22">
+    <div class="desc">⏱ Zeige einen Sekundenzähler oder eine Uhr auf einer 4-stelligen 7-Segment-Anzeige (TM1637-Modul) an. Nur 2 Kabel nötig!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-tm1637"/></svg></div><div class="comp-name">TM1637 4-Digit Display</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>TM1637-Library nutzen</li>
+      <li>millis() statt delay() für präzises Timing</li>
+      <li>Doppelpunkt-LED für Uhranzeige</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 23 -->
+<div class="project" style="border-color:var(--anzeige)">
+  <div class="project-header" onclick="toggle(23)">
+    <div class="proj-num" style="background:var(--anzeige)">23</div>
+    <div class="proj-title">LCD Thermometer (DHT22)</div>
+    <div class="diff"><span class="on" style="background:var(--anzeige)"></span><span class="on" style="background:var(--anzeige)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b23">
+    <div class="desc">🌡 Zeige Temperatur und Luftfeuchtigkeit live auf einem 16×2 LCD-Display an. Das LCD kommuniziert über I²C – nur 4 Kabel!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-dht22"/></svg></div><div class="comp-name">DHT22 Sensor</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 mit I²C-Adapter</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>LCD mit I²C-Adapter ansteuern (LiquidCrystal_I2C)</li>
+      <li>lcd.setCursor() und lcd.print() für positionierte Ausgabe</li>
+      <li>Eigene Sonderzeichen (°C Symbol) erstellen</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 24 -->
+<div class="project" style="border-color:var(--anzeige)">
+  <div class="project-header" onclick="toggle(24)">
+    <div class="proj-num" style="background:var(--anzeige)">24</div>
+    <div class="proj-title">OLED Uhr (RTC DS3231)</div>
+    <div class="diff"><span class="on" style="background:var(--anzeige)"></span><span class="on" style="background:var(--anzeige)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b24">
+    <div class="desc">🕐 Baue eine Echtzeituhr mit OLED-Display und DS3231-Modul. Die Uhr läuft weiter, auch wenn der Arduino ausgeschaltet ist (Batterie)!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-oled"/></svg></div><div class="comp-name">OLED 0.96" (I²C)</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-rtc"/></svg></div><div class="comp-name">RTC DS3231 Modul</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>OLED mit Adafruit SSD1306-Library ansteuern</li>
+      <li>DS3231 RTC (Real-Time Clock) auslesen</li>
+      <li>Uhr-Layout auf OLED gestalten</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 25 -->
+<div class="project" style="border-color:var(--anzeige)">
+  <div class="project-header" onclick="toggle(25)">
+    <div class="proj-num" style="background:var(--anzeige)">25</div>
+    <div class="proj-title">Taschenrechner (Keypad + LCD)</div>
+    <div class="diff"><span class="on" style="background:var(--anzeige)"></span><span class="on" style="background:var(--anzeige)"></span><span class="on" style="background:var(--anzeige)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b25">
+    <div class="desc">🧮 Baue einen funktionierenden Taschenrechner mit 4×4-Keypad und LCD-Display. Eingabe per Tastatur, Ergebnis auf dem Display!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-keypad"/></svg></div><div class="comp-name">4×4 Keypad</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 (I²C)</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Keypad-Library für Matrix-Tastaturen</li>
+      <li>String-zu-Zahl-Konvertierung (atoi, toInt)</li>
+      <li>Zustandsmaschine: Eingabe → Operator → Ergebnis</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 34 (Anzeige) -->
+<div class="project" style="border-color:var(--anzeige)">
+  <div class="project-header" onclick="toggle(34)">
+    <div class="proj-num" style="background:var(--anzeige)">34</div>
+    <div class="proj-title">Druckknopf-Zähler</div>
+    <div class="diff"><span class="on" style="background:var(--anzeige)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b34">
+    <div class="desc">🔢 Zähle Tastendrücke und zeige den Stand auf dem LCD an. Reset-Taste zurück auf Null. Super für Eintrittszähler oder Sporttraining!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-taster"/></svg></div><div class="comp-name">2× Taster</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 (I²C)</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">2× 10kΩ Widerstand</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Debounce für zuverlässige Tastenerkennung</li>
+      <li>Variable inkrementieren / zurücksetzen</li>
+      <li>LCD-Anzeige nur bei Änderung aktualisieren</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 49 (Anzeige) -->
+<div class="project" style="border-color:var(--anzeige)">
+  <div class="project-header" onclick="toggle(49)">
+    <div class="proj-num" style="background:var(--anzeige)">49</div>
+    <div class="proj-title">Oszilloskop (Serial Plotter)</div>
+    <div class="diff"><span class="on" style="background:var(--anzeige)"></span><span class="on" style="background:var(--anzeige)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b49">
+    <div class="desc">📈 Nutze den Arduino IDE Serial Plotter als Echtzeit-Oszilloskop. Zeige Signalverläufe von Sensoren grafisch an – kein extra Hardware nötig!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-poti"/></svg></div><div class="comp-name">Potentiometer oder Sensor</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Serial.println() für Echtzeit-Datenübertragung</li>
+      <li>Arduino IDE Serial Plotter bedienen</li>
+      <li>Signalverläufe analysieren und interpretieren</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================== MOTOR ======================== -->
+<div id="motor" class="section-title" style="background:var(--motor);color:#080c10">⚙️ Motor-Projekte (26–33)</div>
+
+<!-- Projekt 26 -->
+<div class="project" style="border-color:var(--motor)">
+  <div class="project-header" onclick="toggle(26)">
+    <div class="proj-num" style="background:var(--motor)">26</div>
+    <div class="proj-title">Servo-Steuerung per Poti</div>
+    <div class="diff"><span class="on" style="background:var(--motor)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b26">
+    <div class="desc">🔧 Drehe einen Servo-Motor exakt auf einen Winkel (0–180°) per Potentiometer. Perfekte Einführung in Servos für Robotik-Projekte.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-servo"/></svg></div><div class="comp-name">Servo SG90</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-poti"/></svg></div><div class="comp-name">10kΩ Potentiometer</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Servo.h-Library einbinden und nutzen</li>
+      <li>map() zum Skalieren des Analogwerts auf Winkel</li>
+      <li>Smooth-Servo-Bewegung ohne Rucken</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 27 -->
+<div class="project" style="border-color:var(--motor)">
+  <div class="project-header" onclick="toggle(27)">
+    <div class="proj-num" style="background:var(--motor)">27</div>
+    <div class="proj-title">Automatischer Servo-Scanner</div>
+    <div class="diff"><span class="on" style="background:var(--motor)"></span><span class="on" style="background:var(--motor)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b27">
+    <div class="desc">📡 Montiere den HC-SR04 auf einem Servo und erstelle einen 180°-Radar-Scanner. Im Serial Plotter sieht es aus wie ein echtes Radar!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-hcsr04"/></svg></div><div class="comp-name">HC-SR04 Ultraschall</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-servo"/></svg></div><div class="comp-name">Servo SG90</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Sensor und Aktor kombinieren</li>
+      <li>Scan-Algorithmus mit for-Schleife</li>
+      <li>Radar-Visualisierung im Serial Plotter</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 28 -->
+<div class="project" style="border-color:var(--motor)">
+  <div class="project-header" onclick="toggle(28)">
+    <div class="proj-num" style="background:var(--motor)">28</div>
+    <div class="proj-title">DC-Motor Drehzahlregelung</div>
+    <div class="diff"><span class="on" style="background:var(--motor)"></span><span class="on" style="background:var(--motor)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b28">
+    <div class="desc">⚙️ Steuere Geschwindigkeit und Richtung eines DC-Motors über den L298N-Treiber und ein Potentiometer. Motor vorwärts, rückwärts, langsam, schnell!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-l298n"/></svg></div><div class="comp-name">L298N Motortreiber</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-dcmotor"/></svg></div><div class="comp-name">DC-Motor</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-poti"/></svg></div><div class="comp-name">10kΩ Potentiometer</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>H-Brücke verstehen (Drehrichtungsumkehr)</li>
+      <li>PWM-Signal auf Motortreiber anwenden</li>
+      <li>Separate Stromversorgung für Motoren</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 29 -->
+<div class="project" style="border-color:var(--motor)">
+  <div class="project-header" onclick="toggle(29)">
+    <div class="proj-num" style="background:var(--motor)">29</div>
+    <div class="proj-title">Schrittmotor (28BYJ-48)</div>
+    <div class="diff"><span class="on" style="background:var(--motor)"></span><span class="on" style="background:var(--motor)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b29">
+    <div class="desc">🔩 Drehe einen 28BYJ-48 Schrittmotor exakt um beliebige Winkel. Schrittmotoren drehen in präzisen Schritten – ideal für 3D-Drucker, CNC!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-stepper"/></svg></div><div class="comp-name">28BYJ-48 Schrittmotor</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-uln2003"/></svg></div><div class="comp-name">ULN2003 Treiber-Modul</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Stepper.h-Library nutzen</li>
+      <li>Schritt-zu-Grad-Umrechnung (2048 Schritte = 360°)</li>
+      <li>Vor- und Rückwärtslauf programmieren</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 30 -->
+<div class="project" style="border-color:var(--motor)">
+  <div class="project-header" onclick="toggle(30)">
+    <div class="proj-num" style="background:var(--motor)">30</div>
+    <div class="proj-title">Linienfolge-Roboter</div>
+    <div class="diff"><span class="on" style="background:var(--motor)"></span><span class="on" style="background:var(--motor)"></span><span class="on" style="background:var(--motor)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b30">
+    <div class="desc">🤖 Baue einen Roboter, der einem schwarzen Strich auf weißem Untergrund folgt – mit zwei IR-Sensoren und L298N-Motortreiber.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-ir"/></svg></div><div class="comp-name">2× IR-Tracking-Sensor</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-l298n"/></svg></div><div class="comp-name">L298N Motortreiber</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-dcmotor"/></svg></div><div class="comp-name">2× DC-Motor + Räder</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>PID-Grundlagen für Regelung verstehen</li>
+      <li>Differenzialantrieb (2 Motoren unabhängig steuern)</li>
+      <li>Roboter-Chassis mechanisch aufbauen</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 31 -->
+<div class="project" style="border-color:var(--motor)">
+  <div class="project-header" onclick="toggle(31)">
+    <div class="proj-num" style="background:var(--motor)">31</div>
+    <div class="proj-title">Hindernisvermeidungs-Roboter</div>
+    <div class="diff"><span class="on" style="background:var(--motor)"></span><span class="on" style="background:var(--motor)"></span><span class="on" style="background:var(--motor)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b31">
+    <div class="desc">🚗 Fahre autonom und weiche Hindernissen mit HC-SR04 und Servo-Scanner aus. Der Roboter dreht den Sensor und entscheidet, wohin er fährt!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-hcsr04"/></svg></div><div class="comp-name">HC-SR04 Ultraschall</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-servo"/></svg></div><div class="comp-name">Servo SG90</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-l298n"/></svg></div><div class="comp-name">L298N Motortreiber</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-dcmotor"/></svg></div><div class="comp-name">2× DC-Motor</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Autonome Entscheidungslogik (wenn Hindernis → ausweichen)</li>
+      <li>Scan-Entscheidungsbaum für Richtungswahl</li>
+      <li>Grundprinzipien der mobilen Robotik</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 32 -->
+<div class="project" style="border-color:var(--motor)">
+  <div class="project-header" onclick="toggle(32)">
+    <div class="proj-num" style="background:var(--motor)">32</div>
+    <div class="proj-title">Balancier-Roboter (MPU-6050)</div>
+    <div class="diff"><span class="on" style="background:var(--motor)"></span><span class="on" style="background:var(--motor)"></span><span class="on" style="background:var(--motor)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b32">
+    <div class="desc">⚖️ Baue einen selbstbalancierenden 2-Rad-Roboter mit PID-Regler und Gyroskop. Das anspruchsvollste Motorprojekt – aber das Ergebnis ist spektakulär!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-mpugyro"/></svg></div><div class="comp-name">MPU-6050 Gyro+Acc</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-l298n"/></svg></div><div class="comp-name">L298N Motortreiber</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-dcmotor"/></svg></div><div class="comp-name">2× DC-Motor</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>MPU-6050 über I²C auslesen (Neigungswinkel)</li>
+      <li>PID-Regler implementieren (P, I, D abstimmen)</li>
+      <li>Echtzeit-Regelungssysteme verstehen</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 33 -->
+<div class="project" style="border-color:var(--motor)">
+  <div class="project-header" onclick="toggle(33)">
+    <div class="proj-num" style="background:var(--motor)">33</div>
+    <div class="proj-title">CNC-Mini-Plotter</div>
+    <div class="diff"><span class="on" style="background:var(--motor)"></span><span class="on" style="background:var(--motor)"></span><span class="on" style="background:var(--motor)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b33">
+    <div class="desc">✏️ Baue einen Mini-CNC-Plotter mit zwei Schrittmotoren und einem Servo für den Stift. Zeichne automatisch Muster auf Papier!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-stepper"/></svg></div><div class="comp-name">2× Schrittmotor</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-servo"/></svg></div><div class="comp-name">Servo SG90 (Stiftlift)</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-uln2003"/></svg></div><div class="comp-name">2× Motortreiber</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>CNC-Koordinatensystem (X/Y-Achsen)</li>
+      <li>G-Code-ähnliche Befehle verarbeiten</li>
+      <li>Mechanischen Aufbau für präzise Bewegung</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================== SPIEL ======================== -->
+<div id="spiel" class="section-title" style="background:var(--spiel);color:#080c10">🎮 Spiel-Projekte (35–38)</div>
+
+<!-- Projekt 35 -->
+<div class="project" style="border-color:var(--spiel)">
+  <div class="project-header" onclick="toggle(35)">
+    <div class="proj-num" style="background:var(--spiel)">35</div>
+    <div class="proj-title">Joystick Pan-Tilt</div>
+    <div class="diff"><span class="on" style="background:var(--spiel)"></span><span class="on" style="background:var(--spiel)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b35">
+    <div class="desc">🕹 Steuere zwei Servos mit einem Joystick – eine Kamera-Halterung oder Laserpointer schwenkt in X und Y Richtung. Gamepad-Feeling!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-joystick"/></svg></div><div class="comp-name">Joystick-Modul KY-023</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-servo"/></svg></div><div class="comp-name">2× Servo SG90</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Joystick X/Y-Achsen separat auslesen</li>
+      <li>Zwei Servos unabhängig steuern</li>
+      <li>Deadzone für Joystick-Mittelstellung</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 36 -->
+<div class="project" style="border-color:var(--spiel)">
+  <div class="project-header" onclick="toggle(36)">
+    <div class="proj-num" style="background:var(--spiel)">36</div>
+    <div class="proj-title">Reaktionszeitmesser</div>
+    <div class="diff"><span class="on" style="background:var(--spiel)"></span><span class="on" style="background:var(--spiel)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b36">
+    <div class="desc">⚡ Miss deine Reaktionszeit in Millisekunden! LED leuchtet auf → Taste drücken → Zeit anzeigen. Wer ist am schnellsten?</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LED</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-taster"/></svg></div><div class="comp-name">Taster</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 (I²C)</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>millis() für präzise Zeitmessung</li>
+      <li>random() für zufällige Wartezeiten</li>
+      <li>Highscore in Variable speichern und vergleichen</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 37 -->
+<div class="project" style="border-color:var(--spiel)">
+  <div class="project-header" onclick="toggle(37)">
+    <div class="proj-num" style="background:var(--spiel)">37</div>
+    <div class="proj-title">Simon Says Gedächtnisspiel</div>
+    <div class="diff"><span class="on" style="background:var(--spiel)"></span><span class="on" style="background:var(--spiel)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b37">
+    <div class="desc">🧠 Nachahme das klassische Simon Says Spiel – LEDs blinken in einer Reihenfolge, du drückst die entsprechenden Tasten. Jede Runde wird länger!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">4× LED (4 Farben)</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-taster"/></svg></div><div class="comp-name">4× Taster</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Passiver Buzzer</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Spielzustände verwalten (Anzeigen, Eingabe, Prüfen)</li>
+      <li>Sequenzen in Arrays speichern und erweitern</li>
+      <li>Ton-Feedback für richtige/falsche Eingabe</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 38 -->
+<div class="project" style="border-color:var(--spiel)">
+  <div class="project-header" onclick="toggle(38)">
+    <div class="proj-num" style="background:var(--spiel)">38</div>
+    <div class="proj-title">Würfel-Simulator</div>
+    <div class="diff"><span class="on" style="background:var(--spiel)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b38">
+    <div class="desc">🎲 Drücke den Taster – 7 LEDs zeigen die Würfelpunkte 1–6 wie ein echter Würfel an! Inkl. Roll-Animation.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">7× LED</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-taster"/></svg></div><div class="comp-name">Taster</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">7× 220Ω Widerstand</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>random(1,7) für echte Zufallszahlen</li>
+      <li>2D-Array für Würfelpunkt-Muster</li>
+      <li>Roll-Animation mit schnell wechselnden Zahlen</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================== KOMMUNIKATION ======================== -->
+<div id="komm" class="section-title" style="background:var(--komm);color:#080c10">📡 Kommunikations-Projekte (39–45)</div>
+
+<!-- Projekt 39 -->
+<div class="project" style="border-color:var(--komm)">
+  <div class="project-header" onclick="toggle(39)">
+    <div class="proj-num" style="background:var(--komm)">39</div>
+    <div class="proj-title">RFID-Zugangskontrolle</div>
+    <div class="diff"><span class="on" style="background:var(--komm)"></span><span class="on" style="background:var(--komm)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b39">
+    <div class="desc">🔑 Öffne eine "Tür" (Servo oder Relais) nur mit dem richtigen RFID-Chip oder Karte. Grüne LED = Zugang gewährt, rote LED = Zugang verweigert.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-rfid"/></svg></div><div class="comp-name">RFID-Modul RC522</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LED grün + rot</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Piezo-Buzzer</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>SPI-Protokoll für RFID-Kommunikation</li>
+      <li>RFID-Karten-UID lesen und vergleichen</li>
+      <li>Zugangskontrolle mit Whitelist programmieren</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 40 -->
+<div class="project" style="border-color:var(--komm)">
+  <div class="project-header" onclick="toggle(40)">
+    <div class="proj-num" style="background:var(--komm)">40</div>
+    <div class="proj-title">IR-Fernbedienung</div>
+    <div class="diff"><span class="on" style="background:var(--komm)"></span><span class="on" style="background:var(--komm)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b40">
+    <div class="desc">📺 Empfange Signale von jeder IR-Fernbedienung (TV, HiFi) und steuere damit LEDs oder andere Geräte. Deine alte TV-Fernbedienung bekommt neue Tricks!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-ir"/></svg></div><div class="comp-name">IR-Empfänger VS1838B</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LEDs</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>IRremote-Library nutzen</li>
+      <li>IR-Protokolle (NEC, Sony, RC5) unterscheiden</li>
+      <li>Tastencodes einer Fernbedienung auslesen</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 41 -->
+<div class="project" style="border-color:var(--komm)">
+  <div class="project-header" onclick="toggle(41)">
+    <div class="proj-num" style="background:var(--komm)">41</div>
+    <div class="proj-title">Bluetooth LED-Steuerung</div>
+    <div class="diff"><span class="on" style="background:var(--komm)"></span><span class="on" style="background:var(--komm)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b41">
+    <div class="desc">📱 Steuere LEDs vom Smartphone per Bluetooth! HC-05 Modul am Arduino + kostenlose Bluetooth-App auf dem Handy. Kabellos steuern!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-bluetooth"/></svg></div><div class="comp-name">Bluetooth HC-05</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LEDs</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">Spannungsteiler (3,3V)</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>UART/Serial-Kommunikation mit SoftwareSerial</li>
+      <li>HC-05 AT-Kommandos für Konfiguration</li>
+      <li>Smartphone als Steuergerät nutzen</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 42 -->
+<div class="project" style="border-color:var(--komm)">
+  <div class="project-header" onclick="toggle(42)">
+    <div class="proj-num" style="background:var(--komm)">42</div>
+    <div class="proj-title">I²C Multi-Sensor Hub</div>
+    <div class="diff"><span class="on" style="background:var(--komm)"></span><span class="on" style="background:var(--komm)"></span><span class="on" style="background:var(--komm)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b42">
+    <div class="desc">🔗 Verbinde mehrere Sensoren (Temp, OLED, RTC) über nur 2 Kabel per I²C-Bus. Bis zu 127 Geräte an 2 Leitungen!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-bme280"/></svg></div><div class="comp-name">BME280 Sensor</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-oled"/></svg></div><div class="comp-name">OLED 0.96"</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-rtc"/></svg></div><div class="comp-name">DS3231 RTC</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>I²C-Adressen und Bus-Topologie verstehen</li>
+      <li>Wire.h für direkte I²C-Kommunikation</li>
+      <li>I²C-Scanner zur Adressfindung nutzen</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 43 -->
+<div class="project" style="border-color:var(--komm)">
+  <div class="project-header" onclick="toggle(43)">
+    <div class="proj-num" style="background:var(--komm)">43</div>
+    <div class="proj-title">GPS-Tracker (NEO-6M)</div>
+    <div class="diff"><span class="on" style="background:var(--komm)"></span><span class="on" style="background:var(--komm)"></span><span class="on" style="background:var(--komm)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b43">
+    <div class="desc">🗺 Lese GPS-Koordinaten (Breitengrad, Längengrad) aus und zeige sie auf LCD an. Muss draußen betrieben werden für Satellitenempfang.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-gps"/></svg></div><div class="comp-name">GPS Modul NEO-6M</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 (I²C)</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>NMEA-Protokoll (GPS-Datenformat) verstehen</li>
+      <li>TinyGPS++-Library für einfaches GPS-Parsing</li>
+      <li>Koordinaten in Adresse umrechnen (optional)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 44 -->
+<div class="project" style="border-color:var(--komm)">
+  <div class="project-header" onclick="toggle(44)">
+    <div class="proj-num" style="background:var(--komm)">44</div>
+    <div class="proj-title">Fingerprint-Safe (GT-511)</div>
+    <div class="diff"><span class="on" style="background:var(--komm)"></span><span class="on" style="background:var(--komm)"></span><span class="on" style="background:var(--komm)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b44">
+    <div class="desc">👆 Öffne ein Schloss nur per Fingerabdruck-Scan. Fingerabdrücke werden im Sensor gespeichert – bis zu 200 verschiedene Personen!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-ir"/></svg></div><div class="comp-name">Fingerprint-Sensor GT-511</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-servo"/></svg></div><div class="comp-name">Servo (Türöffner)</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 (I²C)</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Fingerprint-Enrollment (Finger anlernen)</li>
+      <li>Biometrische Authentifizierung verstehen</li>
+      <li>Sicherheitssystem mit mehreren Schichten</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 45 -->
+<div class="project" style="border-color:var(--komm)">
+  <div class="project-header" onclick="toggle(45)">
+    <div class="proj-num" style="background:var(--komm)">45</div>
+    <div class="proj-title">NFC-Zeiterfassung</div>
+    <div class="diff"><span class="on" style="background:var(--komm)"></span><span class="on" style="background:var(--komm)"></span><span class="on" style="background:var(--komm)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b45">
+    <div class="desc">⏰ Stempele mit NFC-Karte ein und aus – der Arduino speichert Zeiten auf SD-Karte. Eigenes Zeiterfassungssystem für Zuhause!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-rfid"/></svg></div><div class="comp-name">RFID/NFC RC522</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-rtc"/></svg></div><div class="comp-name">DS3231 RTC</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 (I²C)</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>RTC-Zeitstempel bei jedem Scan speichern</li>
+      <li>SD-Karte mit SD.h-Library beschreiben</li>
+      <li>Daten als CSV-Datei für Excel exportieren</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================== IoT ======================== -->
+<div id="iot" class="section-title" style="background:var(--iot);color:#fff">🌐 IoT-Projekte (46–48, 50)</div>
+
+<!-- Projekt 46 -->
+<div class="project" style="border-color:var(--iot)">
+  <div class="project-header" onclick="toggle(46)">
+    <div class="proj-num" style="background:var(--iot)">46</div>
+    <div class="proj-title">WiFi Datenlogger (ESP8266)</div>
+    <div class="diff"><span class="on" style="background:var(--iot)"></span><span class="on" style="background:var(--iot)"></span><span class="on" style="background:var(--iot)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b46">
+    <div class="desc">📊 Sende Sensordaten (Temperatur, Luftdruck) per WiFi an ThingSpeak oder Google Sheets. Daten in der Cloud speichern und als Grafik anzeigen!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-esp8266"/></svg></div><div class="comp-name">ESP8266 NodeMCU</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-dht22"/></svg></div><div class="comp-name">DHT22 Sensor</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>ESP8266 mit Arduino IDE programmieren</li>
+      <li>HTTP-Requests per WiFi senden (GET/POST)</li>
+      <li>ThingSpeak API für Cloud-Datenlogging</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 47 -->
+<div class="project" style="border-color:var(--iot)">
+  <div class="project-header" onclick="toggle(47)">
+    <div class="proj-num" style="background:var(--iot)">47</div>
+    <div class="proj-title">MQTT Smarthome Node</div>
+    <div class="diff"><span class="on" style="background:var(--iot)"></span><span class="on" style="background:var(--iot)"></span><span class="on" style="background:var(--iot)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b47">
+    <div class="desc">🏠 Verbinde deinen Arduino mit dem Smarthome über MQTT-Protokoll (Home Assistant, ioBroker). Lampen und Sensoren ins Heimnetz integrieren!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-esp8266"/></svg></div><div class="comp-name">ESP8266 NodeMCU</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-dht22"/></svg></div><div class="comp-name">Sensor (DHT22/PIR)</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LEDs / Relais</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>MQTT-Protokoll (Publish/Subscribe-Prinzip)</li>
+      <li>PubSubClient-Library für MQTT</li>
+      <li>Home Assistant Integration (Autodiscovery)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 48 -->
+<div class="project" style="border-color:var(--iot)">
+  <div class="project-header" onclick="toggle(48)">
+    <div class="proj-num" style="background:var(--iot)">48</div>
+    <div class="proj-title">Webserver auf ESP8266</div>
+    <div class="diff"><span class="on" style="background:var(--iot)"></span><span class="on" style="background:var(--iot)"></span><span class="on" style="background:var(--iot)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b48">
+    <div class="desc">🌍 Der ESP8266 wird zum Webserver! Öffne im Browser die IP-Adresse und steuere LEDs oder lies Sensordaten – ohne App, nur mit Browser!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-esp8266"/></svg></div><div class="comp-name">ESP8266 NodeMCU</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LEDs oder Relais</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-dht22"/></svg></div><div class="comp-name">DHT22 (optional)</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>ESP8266WebServer-Library nutzen</li>
+      <li>HTML-Seiten direkt aus dem Arduino ausliefern</li>
+      <li>GET-Parameter für Steuerungsbefehle</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Projekt 50 -->
+<div class="project" style="border-color:var(--iot)">
+  <div class="project-header" onclick="toggle(50)">
+    <div class="proj-num" style="background:var(--iot)">50</div>
+    <div class="proj-title">Mobile Wetterstation</div>
+    <div class="diff"><span class="on" style="background:var(--iot)"></span><span class="on" style="background:var(--iot)"></span><span class="on" style="background:var(--iot)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b50">
+    <div class="desc">🌤 Kombiniere BME280, OLED, GPS und ESP8266 zu einer portablen Wetterstation mit GPS-Standort und Cloud-Upload. Das Meisterprojekt!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components">
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-esp8266"/></svg></div><div class="comp-name">ESP8266 NodeMCU</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-bme280"/></svg></div><div class="comp-name">BME280 Sensor</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-oled"/></svg></div><div class="comp-name">OLED 0.96"</div></div>
+      <div class="comp"><div class="comp-img"><svg><use href="#ic-gps"/></svg></div><div class="comp-name">GPS NEO-6M</div></div>
+    </div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list">
+      <li>Mehrere I²C-Geräte gleichzeitig betreiben</li>
+      <li>GPS-Koordinaten + Wetterdaten kombinieren</li>
+      <li>Daten an Weather Underground / Windy API senden</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<footer>
+  <strong>// 50 Arduino Projekte für Einsteiger</strong> &nbsp;·&nbsp; 2026<br>
+  <span style="color:var(--green)">● Einfach</span> &nbsp;
+  <span style="color:var(--yellow)">●● Mittel</span> &nbsp;
+  <span style="color:var(--red)">●●● Fortgeschritten</span>
+</footer>
+
+<style>
+  .schema-wrap{margin-top:.9rem;}
+  .schema-svg{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:.7rem;overflow:hidden;}
+  .schema-svg svg{display:block;width:100%;height:auto;}
+</style>
+
+<script>
+(function(){
+// ── SVG Helfer ─────────────────────────────────────────────
+const L=(x1,y1,x2,y2,c)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c||'#00e5ff'}" stroke-width="1.3" stroke-linecap="round"/>`;
+const T=(x,y,s,c,sz,a)=>`<text x="${x}" y="${y}" text-anchor="${a||'middle'}" fill="${c||'#556070'}" font-size="${sz||7}" font-family="monospace">${s}</text>`;
+const G=(x,y,c)=>`<g transform="translate(${x},${y})">${c}</g>`;
+const R=(l)=>`${L(-16,0,-6,0)}${L(6,0,16,0)}<rect x="-6" y="-5" width="12" height="10" rx="1" fill="#0d1117" stroke="#ffd740" stroke-width="1.3"/>${T(0,-8,l||'R','#ffd740')}`;
+const LED=(c)=>`${L(-14,0,-6,0)}<polygon points="-6,-6 -6,6 5,0" fill="none" stroke="${c||'#00ff88'}" stroke-width="1.3"/><line x1="5" y1="-6" x2="5" y2="6" stroke="${c||'#00ff88'}" stroke-width="1.8"/>${L(5,0,14,0,'#888')}<line x1="2" y1="-9" x2="-1" y2="-13" stroke="${c||'#00ff88'}" stroke-width="1"/><line x1="6" y1="-9" x2="3" y2="-13" stroke="${c||'#00ff88'}" stroke-width="1"/>`;
+const GND=()=>`${L(0,0,0,5,'#888')}<line x1="-7" y1="5" x2="7" y2="5" stroke="#888" stroke-width="2"/><line x1="-4" y1="8" x2="4" y2="8" stroke="#888" stroke-width="1.5"/><line x1="-1" y1="11" x2="1" y2="11" stroke="#888" stroke-width="1"/>`;
+const VCC=(l)=>T(0,0,l||'+5V','#ff5252',8);
+const BOX=(w,h,l,c,s)=>`<rect x="${-w/2}" y="${-h/2}" width="${w}" height="${h}" rx="3" fill="#0d1117" stroke="${c||'#00e676'}" stroke-width="1.3"/>${T(0,s?-4:3,l,c||'#00e676',8)}${s?T(0,7,s,'#556070',6.5):''}`;
+const BUZ=()=>`<circle r="10" fill="#0d1117" stroke="#c264ff" stroke-width="1.3"/>${T(0,3,'BZ','#c264ff',7)}`;
+const BTN=()=>`${L(-12,0,-4,0)}<circle cx="-4" cy="0" r="2" fill="#ffd740"/><line x1="-2" y1="-6" x2="2" y2="-6" stroke="#ffd740" stroke-width="2" stroke-linecap="round"/><circle cx="4" cy="0" r="2" fill="#ffd740"/>${L(4,0,12,0)}`;
+const POT=()=>`<rect x="-7" y="-7" width="14" height="14" rx="2" fill="#0d1117" stroke="#ffd740" stroke-width="1.3"/>${T(0,3,'P','#ffd740',7)}${L(0,-7,0,-13,'#ffd740')}`;
+const SRV=()=>`<rect x="-14" y="-9" width="28" height="18" rx="2" fill="#0d1117" stroke="#ff6b35" stroke-width="1.3"/>${T(0,3,'Servo','#ff6b35',7)}`;
+const MOT=()=>`<circle r="11" fill="#0d1117" stroke="#ff5252" stroke-width="1.3"/>${T(0,3,'M','#ff5252',8)}`;
+const ARD=(h,pL,pR)=>{
+  let s=`<rect x="0" y="0" width="50" height="${h}" rx="3" fill="#0d1117" stroke="#00e5ff" stroke-width="1.5"/>${T(25,13,'Arduino','#00e5ff',8)}`;
+  (pL||[]).forEach(([yo,l])=>{s+=`${L(0,yo,-14,yo)}<text x="3" y="${yo+3}" fill="#c9d8e8" font-size="6.5" font-family="monospace">${l}</text>`;});
+  (pR||[]).forEach(([yo,l])=>{s+=`${L(50,yo,65,yo)}<text x="47" y="${yo+3}" text-anchor="end" fill="#c9d8e8" font-size="6.5" font-family="monospace">${l}</text>`;});
+  return s;
+};
+const W=(h,b)=>`<svg viewBox="0 0 280 ${h}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px;height:auto;display:block">${b}</svg>`;
+
+// ── Schaltplan-Templates ────────────────────────────────────
+
+// Einfache LED-Schaltung
+const tLED=(pin,rc,lc)=>W(90,
+  G(20,42,ARD(42,[],[[18,pin||'13']]))+L(85,60,105,60)+G(121,60,R(rc||'220Ω'))+G(155,60,LED(lc||'#00ff88'))+G(180,60,GND())+G(175,16,VCC('Pin '+pin))
+);
+
+// PWM + Poti
+const tPWM=(pin,ap)=>W(110,
+  G(20,55,ARD(55,[[25,ap||'A0']],[[20,pin||'9~']]))+
+  G(7,34,POT())+L(7,41,7,70)+L(7,70,20,70)+
+  G(7,18,VCC())+L(7,22,7,27)+G(7,85,GND())+L(7,78,7,85)+
+  L(85,75,105,75)+G(121,75,R('220Ω'))+G(155,75,LED())+G(180,75,GND())+
+  T(140,16,'PWM Dimmer','#c9d8e8',8)
+);
+
+// Mehrere LEDs vertikal
+const tMLED=(pins,colors,title)=>{
+  const n=pins.length, h=40+n*22;
+  let b=G(20,h/2-n*11,ARD(n*22+8,[],pins.map((p,i)=>[8+i*22,p])));
+  pins.forEach((p,i)=>{
+    const y=h/2-n*11+8+i*22;
+    b+=L(85,y,105,y)+G(121,y,R('220Ω'))+G(155,y,LED(colors[i]||'#00ff88'))+L(170,y,190,y);
+  });
+  b+=L(190,h/2-n*11+8,190,h/2+n*11-14)+G(190,h/2+n*11-14,GND());
+  if(title) b+=T(200,h/2,title,'#c9d8e8',7,'start');
+  return W(h,b);
+};
+
+// I2C Bus
+const tI2C=(devices)=>{
+  const h=50+devices.length*50;
+  let b=G(20,h/2-16,ARD(32,[],[[8,'A4 SDA'],[22,'A5 SCL']]))+L(85,h/2-8,240,h/2-8)+L(85,h/2+6,240,h/2+6)+T(165,h/2-12,'SDA','#ffd740',6.5)+T(165,h/2+2,'SCL','#ff9800',6.5);
+  devices.forEach((d,i)=>{
+    const dy=20+i*50+25;
+    b+=G(200,dy,BOX(60,28,d[0],d[1]||'#29b6f6',d[2]||''))+L(170,dy,170,h/2-8)+L(170,h/2+6,170,h/2+6)+L(170,dy+5,175,dy+5)+L(175,dy+5,175,h/2+6);
+  });
+  return W(h,b);
+};
+
+// Sensor + Ausgabe
+const tSensor=(sName,sColor,dPin,outType,outColor)=>W(110,
+  G(140,35,BOX(64,30,sName,sColor||'#00e676'))+
+  L(108,35,90,35)+T(100,30,'OUT','#556070',6)+
+  G(20,50,ARD(55,[],[[15,dPin||'A0'],[35,outType==='buz'?'8':'13']]))+
+  L(85,65,108,65)+L(108,35,108,65)+
+  (outType==='buz'
+    ?L(85,85,110,85)+G(125,85,BUZ())+L(135,85,155,85)+G(155,85,GND())
+    :L(85,85,105,85)+G(121,85,R('220Ω'))+G(155,85,LED(outColor||'#00ff88'))+G(180,85,GND()))
+);
+
+// Ultraschall HC-SR04
+const tHCSR04=(tp,ep)=>W(100,
+  G(20,45,ARD(50,[],[[18,tp||'9 TRIG'],[32,ep||'10 ECHO']]))+
+  L(85,63,105,63)+L(85,77,105,77)+
+  G(175,63,BOX(80,30,'HC-SR04','#29b6f6','Ultraschall'))+
+  L(135,63,135,77)+
+  G(135,20,VCC())+L(135,22,135,48)+G(135,95,GND())+L(135,78,135,95)+
+  T(175,20,'Echozeit messen','#29b6f6',7)
+);
+
+// Spannungsteiler (LDR/NTC)
+const tVdiv=(top,bot,apin)=>W(130,
+  G(145,20,VCC())+L(145,22,145,38)+G(145,55,BOX(44,30,top,'#ffd740'))+
+  L(145,70,145,82)+G(145,99,BOX(44,30,bot,'#888'))+
+  L(145,114,145,124)+G(145,124,GND())+
+  L(123,70,80,70)+G(20,50,ARD(48,[],[[20,apin||'A0']]))+
+  T(145,16,top+' Teiler','#ffd740',7)
+);
+
+// Motor L298N
+const tMotor=(ep,i1,i2)=>W(120,
+  G(18,50,ARD(65,[],[[18,i1||'4 IN1'],[32,i2||'5 IN2'],[46,ep||'3~ ENA']]))+
+  L(83,68,100,68)+L(83,82,100,82)+L(83,96,100,96)+
+  G(155,80,BOX(64,44,'L298N','#ff5252','Motortreiber'))+
+  L(187,80,205,80)+G(220,80,MOT())+G(240,80,GND())+L(231,80,240,80)+
+  G(135,18,VCC('9V ext.'))+T(50,18,'PWM + Richtung','#ff5252',7)
+);
+
+// Stepper ULN2003
+const tStepper=()=>W(100,
+  G(18,45,ARD(48,[],[[20,'8-11']]))+L(83,65,105,65)+
+  G(155,55,BOX(60,34,'ULN2003','#7c4dff','Treiber'))+L(185,55,205,55)+
+  G(235,55,BOX(48,30,'28BYJ','#ffd740','Stepper'))+
+  G(18,20,VCC())+G(18,90,GND())+T(140,18,'Schrittmotor-Steuerung','#7c4dff',7)
+);
+
+// RFID RC522
+const tRFID=()=>W(115,
+  G(18,55,ARD(58,[],[[16,'10 SDA'],[30,'13 SCK'],[44,'11/12 SPI']]))+
+  L(83,71,105,71)+L(83,85,105,85)+L(83,99,105,99)+
+  G(168,75,BOX(72,36,'RC522','#29b6f6','RFID SPI 3.3V'))+
+  L(83,108,105,108)+G(120,108,LED('#44ff44'))+L(134,108,155,108)+G(155,108,GND())+
+  T(168,20,'Karte scannen','#29b6f6',8)
+);
+
+// Bluetooth HC-05
+const tBT=()=>W(100,
+  G(18,48,ARD(52,[],[[18,'10 RX'],[32,'11 TX']]))+
+  L(83,66,105,66)+L(83,80,105,80)+
+  G(168,70,BOX(70,28,'HC-05','#29b6f6','Bluetooth'))+
+  L(83,93,105,93)+G(120,93,R('220Ω'))+G(153,93,LED())+G(175,93,GND())+
+  T(168,20,'→ Smartphone-App','#29b6f6',7)
+);
+
+// ESP8266 IoT
+const tESP=(sensor,sport)=>W(100,
+  G(20,50,BOX(56,42,'ESP8266','#7c4dff','NodeMCU'))+
+  G(170,48,BOX(64,28,sensor||'DHT22','#00e676'))+
+  L(48,29,48,20)+G(48,20,VCC('3.3V'))+L(48,71,48,85)+G(48,85,GND())+
+  L(78,55,138,55)+T(108,50,sport||'D4','#ffd740',7)+
+  T(140,18,'→ WiFi Cloud','#7c4dff',8,'start')
+);
+
+// Servo + Poti
+const tServoPot=(sp,ap)=>W(100,
+  G(18,50,ARD(50,[[20,ap||'A0']],[[20,sp||'9~']]))+
+  G(7,32,POT())+L(7,39,7,65)+L(7,65,18,65)+
+  G(7,18,VCC())+L(7,20,7,25)+G(7,82,GND())+L(7,75,7,82)+
+  L(83,70,110,70)+G(130,68,SRV())+T(130,20,'Servo folgt Poti','#ff6b35',7)
+);
+
+// Einfacher Buzzer
+const tBuzzer=(pin)=>W(80,
+  G(18,38,ARD(36,[],[[15,pin||'8']]))+
+  L(83,53,110,53)+G(126,53,BUZ())+L(136,53,155,53)+G(155,53,GND())+
+  T(140,18,'tone() Funktion','#c264ff',7)
+);
+
+// 7-Segment
+const t7Seg=()=>W(90,
+  G(18,42,ARD(44,[],[[18,'2-8']]))+L(83,62,105,62)+
+  G(200,52,BOX(90,36,'7-Segment','#00e5ff','Display A-G'))+
+  T(155,22,'7 Pins → 7 Segmente','#00e5ff',7)
+);
+
+// CNC / Plotter
+const tCNC=()=>W(100,
+  G(12,48,ARD(55,[],[[18,'2-5 X'],[32,'8-11 Y'],[46,'6 Servo']]))+
+  L(77,66,100,66)+G(148,56,BOX(60,28,'ULN2003-X','#7c4dff'))+
+  L(77,80,100,80)+G(148,84,BOX(60,28,'ULN2003-Y','#7c4dff'))+
+  L(77,94,100,94)+G(125,94,SRV())+T(50,16,'X/Y/Stift-Steuerung','#7c4dff',7)
+);
+
+// Roboter (Linienfolger / Hindernis)
+const tRobot=(sensors,title)=>W(110,
+  G(12,52,ARD(56,[],[[18,'2-3 '+sensors],[32,'4 ENB'],[46,'5-10 L298N']]))+
+  G(155,36,BOX(64,28,sensors,'#00e676','Sensor'))+
+  G(155,72,BOX(64,32,'L298N','#ff5252','+ 2x Motor'))+
+  T(155,16,title||'Roboter','#c9d8e8',8)
+);
+
+// ── Schaltpläne für alle 50 Projekte ───────────────────────
+const SCHEMA={
+  1: tLED('13','220Ω'),
+  2: tPWM('9','A0'),
+  3: tMLED(['9~','10~','11~'],['#ff4444','#44ff44','#4488ff'],'RGB-LED'),
+  4: tMLED(['2','3','4'],['#ff4444','#ffd740','#44ff44'],'Ampel'),
+  5: tLED('13','220Ω'),
+  6: tSensor('PIR HC-SR501','#00e676','2','led','#00ff88'),
+  7: tVdiv('LDR','10kΩ','A0'),
+  8: tMLED(['2','3','4','5','6','7','8','9'],['#00ff88','#00ff88','#ffd740','#ffd740','#ff9944','#ff9944','#ff4444','#ff4444'],'Lauflicht'),
+  9: tSensor('KY-038 Mikro','#c264ff','A0','led','#00ff88'),
+  10: tBuzzer('8'),
+  11: W(110,G(18,55,ARD(56,[],[[18,'2-9 Taster'],[38,'10 Buzzer']]))+G(160,50,BOX(64,30,'8x Taster','#ffd740'))+L(83,93,105,93)+G(120,93,BUZ())+G(145,93,GND())+T(160,20,'Klaviertöne','#c264ff',7)),
+  12: tHCSR04('9 TRIG','10 ECHO'),
+  13: tHCSR04('9 TRIG','10 ECHO'),
+  14: tVdiv('NTC Temp','10kΩ','A0'),
+  15: tSensor('FC-37 Regen','#29b6f6','A0','buz'),
+  16: tI2C([['Feuchte-Sensor','#00e676','Boden'],['LCD I\xB2C','#29b6f6','16x2']]),
+  17: tSensor('MQ-2 Gas','#ff5252','A0','buz'),
+  18: W(105,G(18,50,ARD(52,[],[[18,'2 DT'],[32,'3 SCK']]))+L(83,68,105,68)+G(165,60,BOX(74,30,'HX711','#ffd740','Wiegezelle'))+G(165,95,BOX(74,24,'Load Cell','#888'))+L(165,75,165,83)+G(18,18,VCC())+T(50,18,'Digitale Waage','#ffd740',7)),
+  19: tI2C([['BME280','#00e676','T/Hum/Bar'],['LCD I\xB2C','#29b6f6','16x2']]),
+  20: tI2C([['DHT22','#00e676','T/Hum'],['LCD I\xB2C','#29b6f6','16x2']]),
+  21: t7Seg(),
+  22: W(80,G(18,38,ARD(36,[],[[10,'2 CLK'],[24,'3 DIO']]))+L(83,48,105,48)+L(83,62,105,62)+G(195,53,BOX(84,28,'TM1637','#00e5ff','4-Stellen Display'))),
+  23: tI2C([['DHT22','#00e676','Temp/Hum'],['LCD I\xB2C','#29b6f6','16x2']]),
+  24: tI2C([['OLED','#00e5ff','128x64'],['DS3231','#ffd740','RTC Uhr']]),
+  25: W(100,G(18,48,ARD(52,[],[[18,'2-5 Zeilen'],[32,'6-9 Spalten']]))+G(200,46,BOX(74,30,'Keypad 4x4','#ffd740'))+L(83,66,163,66)+L(83,80,163,80)+T(140,30,'Taschenrechner','#ffd740',7)),
+  26: tServoPot('9','A0'),
+  27: W(105,G(10,50,ARD(52,[],[[18,'9 TRIG'],[32,'10 ECHO'],[46,'11 Servo']]))+G(155,46,BOX(70,26,'HC-SR04','#29b6f6','Ultraschall'))+G(155,84,SRV())+L(83,68,120,68)+L(83,82,120,82)+L(83,96,120,96)+T(155,18,'Radar-Scan','#29b6f6',7)),
+  28: tMotor('3~ ENA','4 IN1','5 IN2'),
+  29: tStepper(),
+  30: tRobot('2x IR','Linienfolger'),
+  31: W(105,G(10,50,ARD(52,[],[[18,'12/13 HC-SR04'],[32,'11 Servo'],[46,'3-10 L298N']]))+G(155,34,BOX(70,24,'HC-SR04','#29b6f6'))+G(155,64,SRV())+G(155,90,BOX(70,24,'L298N + 2M','#ff5252'))+T(155,16,'Hindernisroboter','#c9d8e8',7)),
+  32: W(105,G(10,50,ARD(52,[],[[18,'A4 SDA'],[32,'A5 SCL'],[46,'3-8 L298N']]))+G(165,40,BOX(80,28,'MPU-6050','#7c4dff','Gyro + Accel'))+G(165,80,BOX(80,28,'L298N','#ff5252','PID-Regler'))+T(165,18,'Balance-Roboter','#7c4dff',7)),
+  33: tCNC(),
+  34: W(100,G(18,50,ARD(52,[],[[18,'2 Zählen'],[32,'3 Reset']]))+L(83,68,105,68)+G(120,68,BTN())+L(83,82,105,82)+G(120,82,BTN())+G(200,62,BOX(60,26,'LCD I\xB2C','#29b6f6'))+T(50,18,'Zähler + LCD','#29b6f6',7)),
+  35: W(100,G(18,48,ARD(52,[[20,'A0 VRX'],[34,'A1 VRY']],[[18,'9~ Pan'],[32,'10~ Tilt']]))+G(7,34,BOX(28,26,'Joy​stick','#ffd740'))+L(7,47,7,65)+L(7,65,18,65)+G(168,38,SRV())+G(168,70,SRV())+T(100,16,'Pan-Tilt Kamera','#ff6b35',7)),
+  36: W(100,G(18,48,ARD(52,[],[[18,'13 LED'],[32,'2 Taster']]))+L(83,66,105,66)+G(121,66,R('220Ω'))+G(153,66,LED())+G(175,66,GND())+L(83,80,105,80)+G(120,80,BTN())+G(200,80,GND())+T(140,18,'Reaktionszeit messen','#c9d8e8',7)),
+  37: W(110,G(10,55,ARD(58,[],[[18,'2-5 LED'],[32,'8-11 Btn'],[46,'12 Buz']]))+G(160,43,BOX(64,26,'4x LED','#ffd740','Farben'))+G(160,73,BOX(64,26,'4x Taster','#ffd740'))+L(83,101,105,101)+G(120,101,BUZ())+G(148,101,GND())+T(160,18,'Simon Says','#ff6b35',8)),
+  38: W(90,G(18,45,ARD(44,[],[[18,'2-8 LEDs'],[30,'12 Btn']]))+G(165,48,BOX(74,30,'7x LED','#ffd740','Würfelmuster'))+L(83,75,105,75)+G(120,75,BTN())+G(145,75,GND())+T(165,20,'Würfel-Simulator','#ffd740',7)),
+  39: tRFID(),
+  40: W(100,G(18,48,ARD(52,[],[[18,'11 IR-In'],[32,'3-5 LEDs']]))+L(83,66,105,66)+G(168,60,BOX(74,26,'IR Receiver','#29b6f6','VS1838B'))+G(168,92,BOX(60,22,'3x LED','#00ff88'))+L(83,80,135,80)+L(135,80,135,92)+L(135,92,138,92)),
+  41: tBT(),
+  42: tI2C([['BME280','#00e676','T/H/Bar'],['OLED','#00e5ff','128x64'],['DS3231','#ffd740','RTC']]),
+  43: W(100,G(18,48,ARD(52,[],[[18,'4 RX'],[32,'3 TX']]))+L(83,66,105,66)+L(83,80,105,80)+G(175,70,BOX(80,28,'NEO-6M GPS','#29b6f6','UART'))+G(200,95,GND())+G(175,18,VCC())+T(140,16,'GPS Koordinaten','#29b6f6',7)),
+  44: W(105,G(10,50,ARD(52,[],[[18,'10/11 UART'],[32,'9~ Servo']]))+G(160,40,BOX(76,26,'GT-511','#29b6f6','Fingerprint'))+L(83,68,122,68)+L(83,82,122,82)+G(155,82,SRV())+T(160,18,'Fingerprint-Safe','#29b6f6',7)),
+  45: tI2C([['RC522 RFID','#29b6f6','SPI'],['DS3231','#ffd740','RTC'],['LCD','#00e5ff','16x2']]),
+  46: tESP('DHT22','D4'),
+  47: tESP('DHT22 + Relais','D4/D5'),
+  48: W(95,G(18,48,BOX(56,38,'ESP8266','#7c4dff','NodeMCU'))+L(18,68,8,68)+G(8,68,LED())+G(26,68,GND())+T(160,38,'→ Browser','#7c4dff',11,'start')+L(95,55,130,55)+L(130,55,148,55)+T(140,30,'http://192.168.x.x','#556070',7,'start')+T(140,18,'Webserver Port 80','#7c4dff',8,'start')),
+  49: W(90,G(18,42,ARD(40,[],[[18,'A0']]))+G(7,30,POT())+L(7,37,7,60)+L(7,60,18,60)+G(7,15,VCC())+L(7,17,7,23)+G(7,78,GND())+L(7,70,7,78)+L(83,60,200,60)+T(200,46,'→ Serial Plotter','#00e5ff',8,'start')),
+  50: tESP('BME280 + OLED','D1/D2'),
+};
+
+// Inject schematics into project bodies
+document.addEventListener('DOMContentLoaded',function(){
+  Object.entries(SCHEMA).forEach(function(e){
+    const id=e[0], svg=e[1];
+    const body=document.getElementById('b'+id);
+    if(!body) return;
+    body.insertAdjacentHTML('beforeend',
+      '<span class="wiring-title">📏 Schaltplan</span><div class="schema-svg">'+svg+'</div>'
+    );
+  });
+});
+})();
+</script>
+
+</body>
+</html>
