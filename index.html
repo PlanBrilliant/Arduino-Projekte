@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>50 Arduino Projekte für Anfänger</title>
+<title>100 Arduino Projekte für Anfänger</title>
 <style>
   :root{
     --bg:#080c10;--surface:#0d1117;--card:#111720;
@@ -15,6 +15,9 @@
     --licht:#ffd740;--audio:#c264ff;--sensor:#00e676;
     --anzeige:#00e5ff;--motor:#ff5252;--spiel:#ff6b35;
     --komm:#29b6f6;--iot:#7c4dff;
+    --matrix:#e040fb;--garten:#00c853;--heim:#ff9100;
+    --labor:#00bcd4;--musik:#ab47bc;--sicher:#f44336;
+    --iotpro:#651fff;--energie:#ffd600;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Courier New',monospace;background:var(--bg);color:var(--text);line-height:1.6;}
@@ -260,13 +263,13 @@
 <body>
 <header>
   <div class="hero-eyebrow">// arduino · mikrocontroller · prototyping</div>
-  <h1><span>50</span> Projekte<br>für Einsteiger</h1>
+  <h1><span>100</span> Projekte<br>für Einsteiger</h1>
   <p>Von LED-Blinker bis balancierendem Roboter — sortiert nach Kategorie und Schwierigkeit.<br>Klick auf ein Projekt für Bauteile und Lernziele.</p>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-val">50</div><div class="stat-label">Projekte gesamt</div></div>
-    <div class="stat"><div class="stat-val" style="color:var(--green)">13</div><div class="stat-label">Einfach</div></div>
-    <div class="stat"><div class="stat-val" style="color:var(--yellow)">24</div><div class="stat-label">Mittel</div></div>
-    <div class="stat"><div class="stat-val" style="color:var(--red)">13</div><div class="stat-label">Fortgeschritten</div></div>
+    <div class="stat"><div class="stat-val">100</div><div class="stat-label">Projekte gesamt</div></div>
+    <div class="stat"><div class="stat-val" style="color:var(--green)">19</div><div class="stat-label">Einfach</div></div>
+    <div class="stat"><div class="stat-val" style="color:var(--yellow)">49</div><div class="stat-label">Mittel</div></div>
+    <div class="stat"><div class="stat-val" style="color:var(--red)">32</div><div class="stat-label">Fortgeschritten</div></div>
   </div>
   <div class="badge-row" style="margin-top:1.5rem;">
     <span class="cat-badge" style="background:var(--licht)">💡 Licht (8)</span>
@@ -277,12 +280,21 @@
     <span class="cat-badge" style="background:var(--spiel)">🎮 Spiel (4)</span>
     <span class="cat-badge" style="background:var(--komm);color:#0d1117">📡 Komm. (7)</span>
     <span class="cat-badge" style="background:var(--iot)">🌐 IoT (4)</span>
+    <span class="cat-badge" style="background:var(--matrix)">🎨 Matrix (7)</span>
+    <span class="cat-badge" style="background:var(--garten);color:#0d1117">🌿 Garten (6)</span>
+    <span class="cat-badge" style="background:var(--heim);color:#0d1117">🏠 Heim (7)</span>
+    <span class="cat-badge" style="background:var(--labor);color:#0d1117">🔬 Labor (7)</span>
+    <span class="cat-badge" style="background:var(--musik)">🎵 Musik (6)</span>
+    <span class="cat-badge" style="background:var(--sicher)">🔒 Sicher (6)</span>
+    <span class="cat-badge" style="background:var(--iotpro)">🚀 IoT Pro (6)</span>
+    <span class="cat-badge" style="background:var(--energie);color:#0d1117">🔋 Energie (5)</span>
   </div>
 </header>
 <nav>
   <a href="#licht">💡 Licht</a><a href="#audio">🔊 Audio</a><a href="#sensoren">🌡 Sensoren</a>
   <a href="#anzeige">📺 Anzeige</a><a href="#motor">⚙️ Motor</a><a href="#spiel">🎮 Spiel</a>
   <a href="#komm">📡 Kommunikation</a><a href="#iot">🌐 IoT</a>
+  <a href="#matrix">🎨 Matrix</a><a href="#garten">🌿 Garten</a><a href="#heim">🏠 Heim</a><a href="#labor">🔬 Labor</a><a href="#musik">🎵 Musik</a><a href="#sicher">🔒 Sicherheit</a><a href="#iotpro">🚀 IoT Pro</a><a href="#energie">🔋 Energie</a>
 </nav>
 
 <div class="container">
@@ -292,7 +304,7 @@
   <div class="prog-top">
     <span class="prog-label">// Mein Lernfortschritt</span>
     <span>
-      <span class="prog-count" id="prog-num">0</span><span class="prog-count em" style="font-size:.9rem;color:var(--muted);font-weight:400;"> / 50</span>
+      <span class="prog-count" id="prog-num">0</span><span class="prog-count em" style="font-size:.9rem;color:var(--muted);font-weight:400;"> / 100</span>
       <span class="prog-pct" id="prog-pct">0%</span>
     </span>
   </div>
@@ -300,11 +312,11 @@
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
     <div class="prog-milestones">
       <span class="milestone" data-n="1">🌱 Erstes Projekt</span>
-      <span class="milestone" data-n="5">⚡ 5 Projekte</span>
-      <span class="milestone" data-n="10">🔥 10 Projekte</span>
-      <span class="milestone" data-n="25">🚀 Halbzeit!</span>
-      <span class="milestone" data-n="40">💎 40 Projekte</span>
-      <span class="milestone" data-n="50">🏆 Arduino-Meister!</span>
+      <span class="milestone" data-n="10">⚡ 10 Projekte</span>
+      <span class="milestone" data-n="25">🔥 25 Projekte</span>
+      <span class="milestone" data-n="50">🚀 Halbzeit!</span>
+      <span class="milestone" data-n="75">💎 75 Projekte</span>
+      <span class="milestone" data-n="100">🏆 Arduino-Profi!</span>
     </div>
     <button class="proj-cb-reset" onclick="resetProgress()" title="Fortschritt zurücksetzen">↺ Reset</button>
   </div>
@@ -1797,6 +1809,832 @@ const WIRING = {
     ],
     note:'Alle Komponenten auf 3,3V! ESP8266 ist 3,3V-Logik. Gemeinsamen GND sicherstellen.'
   },
+  51:{
+    pins:[
+      ['Arduino Pin 11 (MOSI)','→','MAX7219 DIN'],
+      ['Arduino Pin 13 (SCK)','→','MAX7219 CLK'],
+      ['Arduino Pin 10 (SS)','→','MAX7219 CS/LOAD'],
+      ['MAX7219 VCC','→','5V'],['MAX7219 GND','→','GND'],
+      ['10µF Kondensator','→','VCC und GND (Entstörung)'],
+    ],
+    steps:[
+      'MAX7219 Modul: DIN → Pin 11, CLK → Pin 13, CS → Pin 10.',
+      '10µF Kondensator zwischen VCC und GND nahe am Modul.',
+      'LedControl-Library im Library-Manager installieren.',
+      'Sketch: LedControl lc(11,13,10,1); – Matrize initialisieren.',
+      'Pixelmuster als Byte-Arrays codieren, mit setRow() ausgeben.',
+    ],
+    note:'MAX7219 braucht 5V. Der R_SET-Widerstand (10kΩ–47kΩ) zwischen ISET und VCC stellt die LED-Stromstärke ein.'
+  },
+  52:{
+    pins:[
+      ['Arduino Pin 6 (PWM)','→','470Ω → WS2812B DIN'],
+      ['WS2812B 5V','→','5V direkt (nicht über Arduino!)'],
+      ['WS2812B GND','→','GND'],
+      ['100µF/6,3V Kondensator','→','Zwischen 5V und GND am Strip'],
+    ],
+    steps:[
+      '100µF Kondensator zwischen 5V und GND zum Schutz vor Einschaltströmen.',
+      '470Ω Widerstand in Serie zwischen Pin 6 und DIN des Strips.',
+      'NeoPixel oder FastLED Library installieren.',
+      'Sketch: CRGB leds[NUM]; FastLED.addLeds<WS2812B, 6, GRB>(leds, NUM);',
+      'Regenbogen per fill_rainbow(leds, NUM, startHue, 7);',
+    ],
+    note:'Niemals mehr als 0,5A pro USB-Port: Begrenze helle Strips mit setBrightness(50). Separate 5V-Quelle für >10 LEDs.'
+  },
+  53:{
+    pins:[
+      ['Arduino Pin 6','→','470Ω → WS2812B DIN'],
+      ['KY-038 AO','→','Arduino A0'],
+      ['KY-038 VCC','→','3,3V oder 5V'],['KY-038 GND','→','GND'],
+      ['WS2812B 5V+GND','→','externe 5V-Quelle'],
+    ],
+    steps:[
+      'WS2812B-Strip wie in Projekt 52 anschließen.',
+      'KY-038 Mikrofon: AO → A0, VCC → 3,3V, GND → GND.',
+      'Sketch: analogRead(A0) 50× samplen, Maximum nehmen (Peak-Value).',
+      'Peak auf 0–NUM_LEDS mappen, entsprechend viele LEDs einschalten.',
+      'Rest der LEDs ausschalten: FastLED.show() aufrufen.',
+    ],
+    note:'KY-038 an 3,3V anschließen, um 5V-Pegel an A0 zu vermeiden. Empfindlichkeit per Trimmer auf Modul einstellen.'
+  },
+  54:{
+    pins:[
+      ['Arduino Pin 9 (PWM)','→','MOSFET Gate (via 100Ω)'],
+      ['MOSFET Source','→','GND'],
+      ['MOSFET Drain','→','LED Kathode (−)'],
+      ['LED Anode (+)','→','12V+'],
+      ['DS3231 SDA','→','Arduino A4'],['DS3231 SCL','→','Arduino A5'],
+    ],
+    steps:[
+      'MOSFET IRLZ34N Gate an Pin 9 (mit 100Ω Schutzwiderstand).',
+      'LED+ an 12V, LED− an MOSFET Drain, Source an GND.',
+      'DS3231 RTC per I²C: SDA→A4, SCL→A5, VCC→3,3V, GND→GND.',
+      'RTClib installieren. Sketch: prüfe Uhrzeit, berechne Offset zur Weckzeit.',
+      'analogWrite(9, brightness++) für 30-Minuten-Fade.',
+    ],
+    note:'MOSFET Gate braucht keinen Pull-down beim Arduino (pinMode(9, OUTPUT) stellt Pin auf LOW). 12V-Netzteil für Power-LED verwenden.'
+  },
+  55:{
+    pins:[
+      ['Arduino Pin 9 (PWM)','→','220Ω → RGB Rot'],
+      ['Arduino Pin 10 (PWM)','→','220Ω → RGB Grün'],
+      ['Arduino Pin 11 (PWM)','→','220Ω → RGB Blau'],
+      ['RGB-LED Common Kathode','→','GND'],
+    ],
+    steps:[
+      'RGB-LED Common Kathode (längstes Bein) → GND.',
+      'Rot → 220Ω → Pin 9, Grün → 220Ω → Pin 10, Blau → 220Ω → Pin 11.',
+      'Sketch: random(0,255) für jede Farbe, mit for-Schleife sanft überblenden.',
+      'Ziel-RGB merken, aktuelle Werte schrittweise annähern.',
+    ],
+    note:'Common Anode: Logik umkehren – analogWrite(255) = aus, analogWrite(0) = volle Helligkeit.'
+  },
+  56:{
+    pins:[
+      ['Arduino Pin 11 (MOSI)','→','erstes MAX7219 DIN'],
+      ['Arduino Pin 13 (SCK)','→','alle MAX7219 CLK (parallel)'],
+      ['Arduino Pin 10 (SS)','→','alle MAX7219 LOAD (parallel)'],
+      ['erstes MAX7219 DOUT','→','zweites MAX7219 DIN'],
+      ['zweites DOUT','→','drittes DIN usw.'],
+    ],
+    steps:[
+      'Alle vier MAX7219 hintereinander verbinden: DOUT→DIN (Kaskade).',
+      'CLK und LOAD/CS aller Module parallel an Pin 13 und Pin 10.',
+      'LedControl lc(11,13,10,4); – 4 Module konfigurieren.',
+      'Buchstabenmatrizen als const byte PROGMEM-Array im Flash speichern.',
+      'Scrollfunktion: Spaltendaten byte-weise von rechts nach links schieben.',
+    ],
+    note:'Jedes MAX7219 braucht eigenen 100µF-Kondensator zwischen VCC und GND. PROGMEM nutzen um SRAM zu schonen.'
+  },
+  57:{
+    pins:[
+      ['MAX30102 SDA','→','Arduino A4'],
+      ['MAX30102 SCL','→','Arduino A5'],
+      ['MAX30102 VCC','→','3,3V'],['MAX30102 GND','→','GND'],
+      ['MAX30102 INT','→','Arduino Pin 2 (optional)'],
+    ],
+    steps:[
+      'MAX30102 per I²C: SDA→A4, SCL→A5, VCC→3,3V (nicht 5V!), GND→GND.',
+      'SparkFun MAX3010x Library installieren.',
+      'Sketch: Sensor initialisieren, IR + Red-Wert lesen.',
+      'DC-Anteil entfernen (Hochpassfilter), AC-Anteil = Pulswelle.',
+      'Peak-Detection: Zeitdifferenz zwischen Peaks = Herzrate in BPM.',
+    ],
+    note:'Finger locker auflegen, nicht pressen. Umgebungslicht kann das Signal stören – dunkle Umgebung oder Abdeckung hilft.'
+  },
+  58:{
+    pins:[
+      ['Feuchtigkeitssensor VCC','→','5V'],['GND','→','GND'],
+      ['Feuchtigkeitssensor AO','→','Arduino A0'],
+      ['Relais IN','→','Arduino Pin 7'],
+      ['Relais VCC','→','5V'],['Relais GND','→','GND'],
+      ['Pumpe','→','Relais NO-Kontakt und externe 5V-Quelle'],
+    ],
+    steps:[
+      'Feuchtigkeitssensor: VCC→5V, GND→GND, AO→A0 (analoger Ausgang).',
+      'Relais-Modul: IN→Pin 7, VCC→5V, GND→GND.',
+      'Pumpe: eine Seite an Relais-NO, andere an externe 5V+ Masse.',
+      'Sketch: analogRead(A0) < 400 (trocken) → Pin 7 LOW (Relais an).',
+      'Nach 3 Sekunden Pumpen → Pin 7 HIGH (Relais aus) → 10 Minuten warten.',
+    ],
+    note:'Sensor nicht dauerhaft im Boden lassen (Korrosion). Alle 30min messen. Relais-Freilaufdiode: 1N4007 parallel zur Pumpenspule.'
+  },
+  59:{
+    pins:[
+      ['DS18B20 Daten','→','Arduino Pin 2 (+ 4,7kΩ zu 5V)'],
+      ['DS18B20 VCC','→','5V'],['DS18B20 GND','→','GND'],
+      ['Relais IN','→','Arduino Pin 8'],
+      ['Lüfter','→','Relais NO + externe 5V'],
+    ],
+    steps:[
+      'DS18B20: Datenpin → Pin 2 mit 4,7kΩ Pull-up nach 5V, VCC→5V, GND→GND.',
+      'OneWire + DallasTemperature Libraries installieren.',
+      'Relais IN → Pin 8.',
+      'Sketch: temp > 28°C → Relais EIN, temp < 25°C → Relais AUS (Hysterese!).',
+      'LCD per I²C: Temperatur und Lüfter-Status anzeigen.',
+    ],
+    note:'Hysterese (3°C Differenz) verhindert schnelles An/Aus-Schalten. Ohne Hysterese: Kontakte verschleißen schnell.'
+  },
+  60:{
+    pins:[
+      ['VEML6075 SDA','→','Arduino A4'],
+      ['VEML6075 SCL','→','Arduino A5'],
+      ['VEML6075 VCC','→','3,3V'],['VEML6075 GND','→','GND'],
+      ['OLED SDA','→','A4 (I²C Bus)'],['OLED SCL','→','A5'],
+    ],
+    steps:[
+      'VEML6075 und OLED beide am I²C-Bus: SDA→A4, SCL→A5.',
+      'VEML6075 braucht 3,3V – Spannungsteiler oder 3,3V-Pin.',
+      'Sparkfun VEML6075 Library installieren.',
+      'Sketch: lese UVA und UVB, berechne UV-Index = (UVA × 0,001 + UVB × 0,001).',
+      'UV-Index auf OLED anzeigen mit Farbempfehlung (Texte: niedrig/mittel/hoch...).',
+    ],
+    note:'VEML6075 ist sehr klein und empfindlich. Kein Glas oder Acryl zwischen Sensor und Sonne – filtert UV-Strahlung!'
+  },
+  61:{
+    pins:[
+      ['HC-SR04 VCC','→','5V'],['HC-SR04 GND','→','GND'],
+      ['HC-SR04 TRIG','→','Arduino Pin 9'],
+      ['HC-SR04 ECHO','→','Arduino Pin 10'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+      ['Buzzer+','→','Pin 8'],['Buzzer−','→','GND'],
+    ],
+    steps:[
+      'HC-SR04 montieren, sodass er von oben in den Tank blickt (nach unten zeigend).',
+      'Trig→Pin 9, Echo→Pin 10, VCC→5V, GND→GND.',
+      'Sketch: Abstand messen (cm), Leerfüllstand – Abstand = Wasserstand.',
+      'Volumen berechnen: Wasserstand × Tankfläche (cm²) / 1000 = Liter.',
+      'Buzzer-Alarm wenn Wasserstand unter 10cm.',
+    ],
+    note:'Montiere den Sensor mittig über dem Tank. Schaumstoff um Sensor reduziert Störechos. Mindestabstand HC-SR04: 2cm.'
+  },
+  62:{
+    pins:[
+      ['MH-Z19B TX','→','Arduino Pin 2 (SoftwareSerial RX)'],
+      ['MH-Z19B RX','→','Arduino Pin 3 (SoftwareSerial TX)'],
+      ['MH-Z19B VCC','→','5V'],['MH-Z19B GND','→','GND'],
+      ['OLED SDA','→','A4'],['OLED SCL','→','A5'],
+    ],
+    steps:[
+      'MH-Z19B: TX→Pin 2, RX→Pin 3, VCC→5V, GND→GND.',
+      'SoftwareSerial mySerial(2,3) einrichten.',
+      'MH-Z19B Library (von WifWaf oder ähnlich) installieren.',
+      'Sketch: co2 = myMHZ19.getCO2(); – Wert in ppm.',
+      'OLED: grün < 1000 ppm, gelb < 2000 ppm, rot > 2000 ppm.',
+    ],
+    note:'MH-Z19B braucht 3 Minuten Aufwärmzeit. Kalibrierung: 20 Minuten in Frischluft (400ppm) für Nullpunkt-Kalibrierung.'
+  },
+  63:{
+    pins:[
+      ['DS3231 SDA','→','Arduino A4'],
+      ['DS3231 SCL','→','Arduino A5'],
+      ['DS3231 VCC','→','5V'],['DS3231 GND','→','GND'],
+      ['Relais IN','→','Arduino Pin 7'],
+      ['Taster (×3)','→','Pins 2/3/4 mit Pull-up'],
+    ],
+    steps:[
+      'DS3231 per I²C anschließen, Uhrzeit mit RTClib einstellen.',
+      'Relais IN → Pin 7.',
+      'Sketch: RTC-Zeit jede Minute lesen, mit Zeitplan vergleichen.',
+      'Zeitplan: um 6:00 → Relais 3min AN, um 18:00 → Relais 3min AN.',
+      'Taster: Stunden/Minuten für Startzeit einstellen, auf LCD anzeigen.',
+    ],
+    note:'Zeitplan in EEPROM speichern, damit er nach Stromausfall erhalten bleibt. DS3231 hat eingebaute CR2032 für Zeiterhalt.'
+  },
+  64:{
+    pins:[
+      ['Relais IN','→','Arduino Pin 7'],
+      ['Relais VCC','→','5V'],['Relais GND','→','GND'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+      ['Taster Up','→','Pin 2 + Pull-up'],
+      ['Taster Down','→','Pin 3 + Pull-up'],
+      ['Taster Start','→','Pin 4 + Pull-up'],
+    ],
+    steps:[
+      'Relais-Modul: IN→Pin 7, VCC→5V, GND→GND.',
+      'LCD per I²C, drei Taster mit internem Pull-up (INPUT_PULLUP).',
+      'Sketch: Taster Up/Down stellen Minuten (1–60), Start-Taster startet Countdown.',
+      'Countdown mit millis(): jede Sekunde Wert verringern, LCD aktualisieren.',
+      'Bei 0: Relais-Pin HIGH (Gerät aus), Buzzer kurz piepen.',
+    ],
+    note:'NIEMALS 230V direkt anlöten – Schraubklemmen oder Stecker verwenden. Relais-Eingangsseite von Hochspannung isolieren!'
+  },
+  65:{
+    pins:[
+      ['Taster 1','→','Arduino Pin 2 (+ 10kΩ nach GND)'],
+      ['Taster 2','→','Arduino Pin 3 (Melodiewahl)'],
+      ['Buzzer+','→','Arduino Pin 8'],
+      ['Buzzer−','→','GND'],
+    ],
+    steps:[
+      'Passiver Buzzer: Plus → Pin 8, Minus → GND.',
+      'Taster 1 (Klingeln): Pin 2 mit 10kΩ Pull-down.',
+      'Taster 2 (Melodie wählen): Pin 3.',
+      'Sketch: tone(8, freq, duration) für jede Note der Melodie.',
+      'Array aus {Frequenz, Dauer} Paaren definieren, der Reihe nach abspielen.',
+    ],
+    note:'Passiver Buzzer (Piezo ohne internen Oszillator) reagiert auf tone()-Frequenz. Aktiver Buzzer piept nur mit HIGH/LOW.'
+  },
+  66:{
+    pins:[
+      ['PIR OUT','→','Arduino Pin 2'],
+      ['PIR VCC','→','5V'],['PIR GND','→','GND'],
+      ['MOSFET Gate','→','Pin 9 (via 100Ω)'],
+      ['MOSFET Source','→','GND'],
+      ['MOSFET Drain','→','LED Kathode'],
+      ['LED Anode','→','12V+'],
+    ],
+    steps:[
+      'PIR HC-SR501: OUT→Pin 2, VCC→5V, GND→GND.',
+      'MOSFET Gate → Pin 9 mit 100Ω-Schutzwiderstand.',
+      'LED an 12V, LED Kathode an MOSFET Drain, Source an GND.',
+      'Sketch: Zustandsmaschine – PIR_AN: Einblenden, WARTEN (30s), Ausblenden.',
+      'Einblenden: analogWrite(9, val++) mit 10ms Pause bis val=255.',
+    ],
+    note:'Einstellrad an PIR: Empfindlichkeit und Haltezeit. Für PIR-Nachtlicht: Haltezeit auf 0 stellen, Arduino übernimmt Timing.'
+  },
+  67:{
+    pins:[
+      ['NTC / DS18B20','→','Arduino A0 oder Pin 2 (OneWire)'],
+      ['MOSFET Gate','→','Arduino Pin 9 (via 100Ω)'],
+      ['MOSFET Source','→','GND'],
+      ['MOSFET Drain','→','Lüfter−'],
+      ['Lüfter+','→','5V externe Quelle'],
+    ],
+    steps:[
+      'NTC: Spannungsteiler (10kΩ + NTC) → A0. Oder DS18B20 an Pin 2.',
+      'MOSFET Gate → Pin 9 mit 100Ω.',
+      'Lüfter+ an 5V (extern), Lüfter− an MOSFET Drain, Source an GND.',
+      'Sketch: temp messen, auf 0–255 mappen (z.B. 20–40°C → 0–255).',
+      'analogWrite(9, fanSpeed) – PWM steuert Drehzahl.',
+    ],
+    note:'Logic-Level MOSFET (IRLZ34N, IRLB8721) funktioniert direkt mit 5V Arduino. Standard-MOSFET braucht 10V am Gate.'
+  },
+  68:{
+    pins:[
+      ['PIR OUT','→','Arduino Pin 2'],
+      ['Reed-Kontakt','→','Pin 3 (+ Pull-up)'],
+      ['SW-420 OUT','→','Pin 4'],
+      ['Buzzer+','→','Pin 8'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+      ['Deaktivier-Taster','→','Pin 5'],
+    ],
+    steps:[
+      'PIR: OUT→Pin 2. Reed-Kontakt: Pin 3 mit INPUT_PULLUP.',
+      'SW-420: OUT→Pin 4. Buzzer→Pin 8.',
+      'LCD per I²C für Statusanzeige.',
+      'Deaktivier-Taster: Alarm scharf/unscharf schalten.',
+      'Sketch: alle Sensoren lesen, bei Auslösung Quelle auf LCD zeigen + Alarm.',
+    ],
+    note:'Alarm mit Speicher: einmal ausgelöst bleibt Alarm aktiv bis Taster gedrückt. Erstellt eine zuverlässigere Lösung als momentanen Buzzer.'
+  },
+  69:{
+    pins:[
+      ['ULN2003 IN1-IN4','→','Arduino Pins 8–11'],
+      ['ULN2003 VCC','→','5V'],['ULN2003 GND','→','GND'],
+      ['28BYJ-48','→','ULN2003 Ausgang'],
+      ['Taster AUF','→','Pin 2 + Pull-up'],
+      ['Taster ZU','→','Pin 3 + Pull-up'],
+      ['LDR','→','A0 (Spannungsteiler mit 10kΩ)'],
+    ],
+    steps:[
+      'ULN2003: IN1–IN4 an Pins 8–11, VCC→5V, GND→GND, Motor anstecken.',
+      'Taster AUF (Pin 2) und ZU (Pin 3) mit INPUT_PULLUP.',
+      'LDR-Spannungsteiler an A0.',
+      'Sketch: Schritte zählen (0 = zu, MAX_STEPS = auf), Endanschlag-Logik.',
+      'Automatik: analogRead(A0) < 200 (dunkel) → Motor ZU fahren.',
+    ],
+    note:'28BYJ-48 braucht genaue Schrittanzahl für Positionierung: 2048 Schritte = 1 Umdrehung (Halbschritt-Modus).'
+  },
+  70:{
+    pins:[
+      ['INA219 SDA','→','Arduino A4'],
+      ['INA219 SCL','→','Arduino A5'],
+      ['INA219 VCC','→','5V'],['INA219 GND','→','GND'],
+      ['INA219 VIN+','→','+ des Verbrauchers (von Quelle)'],
+      ['INA219 VIN−','→','+ des Verbrauchers (zum Gerät)'],
+    ],
+    steps:[
+      'INA219 per I²C: SDA→A4, SCL→A5.',
+      'INA219 in Serie mit dem Verbraucher schalten (VIN+ Richtung Quelle).',
+      'Adafruit INA219 Library installieren.',
+      'Sketch: ina219.getShuntVoltage_mV(), getBusVoltage_V(), getCurrent_mA().',
+      'Leistung (W) = Spannung × Strom, Wh über Zeit akkumulieren.',
+    ],
+    note:'INA219 misst bis 26V und ±3,2A. Für höhere Ströme: externen Shunt-Widerstand verwenden und INA219 kalibrieren.'
+  },
+  71:{
+    pins:[
+      ['30kΩ Widerstand','→','Messklemme + und 5V'],
+      ['Verbindung 30kΩ/7,5kΩ','→','Arduino A0'],
+      ['7,5kΩ Widerstand','→','Verbindung und GND'],
+      ['Messklemme−','→','Arduino GND'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'Spannungsteiler: 30kΩ (oben) + 7,5kΩ (unten), Mitte→A0.',
+      'Messbereich: 0–25V → skaliert auf 0–5V am ADC.',
+      'Sketch: rawVal = analogRead(A0); volt = rawVal * (25.0/1023.0);',
+      'Kalibrierung: bekannte Spannung anlegen, Formel anpassen.',
+      'LCD: Spannung auf 2 Dezimalstellen anzeigen.',
+    ],
+    note:'Messgenauigkeit ±1%. Für ±0,1%: Präzisionswiderstände (1% Toleranz) verwenden und auf 4,096V-Referenz kalibrieren.'
+  },
+  72:{
+    pins:[
+      ['Messsignal','→','Arduino Pin 2 (Interrupt 0)'],
+      ['10kΩ Pull-up','→','Pin 2 und 5V'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      '10kΩ Pull-up zwischen Pin 2 und 5V (Signal ACTIVE LOW).',
+      'Messsignal an Pin 2.',
+      'Sketch: attachInterrupt(0, countPulse, FALLING); – Flanken zählen.',
+      'Alle 1000ms: Frequenz = count; count = 0; LCD anzeigen.',
+      'Autorange: Hz < 100 → Hz, < 100k → kHz anzeigen.',
+    ],
+    note:'Maximale Frequenz: ~50kHz (Timer-Overhead). Für höhere Frequenzen: Timer1 mit Input Capture (ICP1 = Pin 8) verwenden.'
+  },
+  73:{
+    pins:[
+      ['BH1750 SDA','→','Arduino A4'],
+      ['BH1750 SCL','→','Arduino A5'],
+      ['BH1750 VCC','→','3,3V oder 5V'],
+      ['BH1750 GND','→','GND'],
+      ['BH1750 ADDR','→','GND (I²C Adresse 0x23)'],
+    ],
+    steps:[
+      'BH1750 per I²C: SDA→A4, SCL→A5.',
+      'BH1750_WCS oder hp_BH1750 Library installieren.',
+      'Sketch: lightMeter.begin(BH1750::CONTINUOUS_HIGH_RES_MODE);',
+      'float lux = lightMeter.readLightLevel();',
+      'LCD: Lux-Wert anzeigen, Richtwerte: 1 Lux = Mondlicht, 500 Lux = Büro.',
+    ],
+    note:'BH1750 ADDR-Pin bestimmt I²C-Adresse: ADDR→GND = 0x23, ADDR→VCC = 0x5C. Zwei Module am selben Bus möglich!'
+  },
+  74:{
+    pins:[
+      ['KY-038 AO','→','Arduino A0'],
+      ['KY-038 VCC','→','3,3V'],['KY-038 GND','→','GND'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'KY-038 Mikrofon: AO→A0, VCC→3,3V, GND→GND.',
+      'Sketch: 50 Samples in 50ms lesen, Maximum und Minimum bestimmen.',
+      'Peak-to-Peak-Wert berechnen: peakToPeak = maxVal - minVal.',
+      'Spannung: db = 20.0 * log10(peakToPeak / 1024.0 * 5.0);',
+      'LCD: dB-Wert und Balken anzeigen, aktualisieren alle 100ms.',
+    ],
+    note:'Diese Methode misst Schallspitzen, nicht RMS-Pegel. Für kalibrierte dB(SPL)-Messung: kalibrierten Mikrofon-Modul (MAX4466) verwenden.'
+  },
+  75:{
+    pins:[
+      ['1kΩ Referenzwiderstand','→','5V und Arduino A0'],
+      ['A0','→','auch Verbindungspunkt mit unbekanntem Rx'],
+      ['Rx (unbekannt)','→','Verbindungspunkt und GND'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'Referenz-Widerstand (1kΩ) zwischen 5V und A0.',
+      'Unbekannter Rx: zwischen A0 und GND (Spannungsteiler).',
+      'Sketch: val = analogRead(A0); Rx = 1000.0 * val / (1023.0 - val);',
+      'LCD: Rx in Ω, kΩ oder MΩ anzeigen (automatisch).',
+      'Mehrere Referenzwiderstände für verschiedene Bereiche nutzen.',
+    ],
+    note:'Messbereich hängt vom Referenzwiderstand ab: für 10kΩ besser 10kΩ Referenz nehmen. Genauigkeit ±5% durch ADC-Auflösung.'
+  },
+  76:{
+    pins:[
+      ['10kΩ Widerstand','→','Arduino Pin 7 (Discharge) und Kondensator'],
+      ['Kondensator','→','Widerstand und GND'],
+      ['Verbindung R+C','→','Arduino A0 und Pin 8 (Charge)'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'Pin 7: Kondensator entladen (LOW), Pin 8: Kondensator laden (HIGH).',
+      'A0: Spannung am Kondensator messen.',
+      'Sketch: Pin 7 LOW (entladen bis A0 < 5), dann Pin 8 HIGH.',
+      'Mit micros() messen bis A0 > 648 (63,2% von 1023 = eine Zeitkonstante τ).',
+      'C = τ / R = gemessene Zeit (µs) / 10000 (Ω) → in Farad → umrechnen in µF.',
+    ],
+    note:'Genauigkeit ±10%. Kondensator vor Messung vollständig entladen! Elektrolytkondensatoren: Polung beachten.'
+  },
+  77:{
+    pins:[
+      ['Messsignal (PWM)','→','Arduino Pin 2'],
+      ['10kΩ Schutzwiderstand','→','In Serie mit Pin 2'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      '10kΩ Schutzwiderstand zwischen Messsignal und Pin 2.',
+      'Sketch: highTime = pulseIn(2, HIGH); lowTime = pulseIn(2, LOW);',
+      'Periode = highTime + lowTime; Frequenz = 1000000.0 / periode;',
+      'Duty-Cycle = highTime * 100.0 / periode;',
+      'LCD: Frequenz (Hz/kHz) und Duty-Cycle (%) anzeigen.',
+    ],
+    note:'pulseIn() hat Timeout (Standard: 1s). Bei sehr niedriger Frequenz (<1Hz) Timeout erhöhen. Maximal: ca. 50kHz zuverlässig.'
+  },
+  78:{
+    pins:[
+      ['DFPlayer RX','→','Arduino Pin 11 (via 1kΩ)'],
+      ['DFPlayer TX','→','Arduino Pin 10'],
+      ['DFPlayer VCC','→','5V'],['DFPlayer GND','→','GND'],
+      ['DFPlayer SPK1/SPK2','→','Lautsprecher 8Ω'],
+      ['Taster Play/Pause','→','Pin 2'],['Taster Next','→','Pin 3'],
+    ],
+    steps:[
+      'DFPlayer: RX→Pin 11 (via 1kΩ), TX→Pin 10, VCC→5V, GND→GND.',
+      'Lautsprecher (8Ω/0,5W) an SPK1 und SPK2.',
+      'SoftwareSerial mySoftwareSerial(10, 11); initialisieren.',
+      'DFRobotDFPlayerMini Library installieren.',
+      'Taster: Play/Pause → myDFPlayer.start() / .pause(), Next → .next()',
+    ],
+    note:'MP3-Dateien müssen als 0001.mp3, 0002.mp3 usw. im Ordner "mp3" auf der SD-Karte gespeichert sein.'
+  },
+  79:{
+    pins:[
+      ['MSGEQ7 IN','→','Audio-Eingang (via 100nF Kondensator)'],
+      ['MSGEQ7 STROBE','→','Arduino Pin 4'],
+      ['MSGEQ7 RESET','→','Arduino Pin 5'],
+      ['MSGEQ7 DCOUT','→','Arduino A0'],
+      ['7× LEDs','→','Pins 6–12 via 220Ω'],
+    ],
+    steps:[
+      'MSGEQ7: Stromversorgung 5V+GND, Audio via 100nF-Kondensator an IN.',
+      'STROBE→Pin 4, RESET→Pin 5, DCOUT→A0.',
+      'Sketch: RESET-Puls senden, dann 7× STROBE mit analogRead nach jedem.',
+      'Jeder Read = ein Frequenzband (63Hz bis 16kHz).',
+      'Wert 0–1023 auf LED-Höhe mappen, mit analogWrite ausgeben.',
+    ],
+    note:'MSGEQ7 braucht genaues Timing (Data-Sheet beachten). 200kHz-Quarz oder Keramikresonator für stabilere Bänder.'
+  },
+  80:{
+    pins:[
+      ['Buzzer+','→','Arduino Pin 8'],
+      ['Buzzer−','→','GND'],
+      ['LED Anode','→','Pin 13 via 220Ω'],
+      ['Taster BPM+','→','Pin 2 + Pull-up'],
+      ['Taster BPM−','→','Pin 3 + Pull-up'],
+    ],
+    steps:[
+      'Buzzer: + → Pin 8, − → GND.',
+      'LED: Anode → 220Ω → Pin 13, Kathode → GND.',
+      'BPM+ und BPM− Taster mit INPUT_PULLUP.',
+      'Sketch: beatInterval = 60000 / bpm; – ms zwischen Schlägen.',
+      'millis()-Vergleich: wenn Zeit > beatInterval → Buzzer + LED kurz an.',
+    ],
+    note:'Kein delay() verwenden – Taster würden nicht reagieren. millis()-basiertes Timing ist non-blocking und präziser.'
+  },
+  81:{
+    pins:[
+      ['MT8870 Q1-Q4','→','Arduino Pins 2–5 (4-Bit Ausgang)'],
+      ['MT8870 StD','→','Arduino Pin 6 (Delayed Steering)'],
+      ['MT8870 IN+','→','3,5mm Buchse (via 10kΩ)'],
+      ['MT8870 VCC','→','5V'],['MT8870 GND','→','GND'],
+    ],
+    steps:[
+      'MT8870: VCC→5V, GND→GND, Q1-Q4→Pins 2-5, StD→Pin 6.',
+      'Audio-Eingang: 3,5mm Buchse Tip → 10kΩ → MT8870 IN+.',
+      'Sketch: StD auf HIGH warten (Ton erkannt), dann Q1-Q4 lesen.',
+      '4-Bit-Wert 0–15 in DTMF-Zeichen (0–9, *, #, A–D) konvertieren.',
+      'Gedrückte Taste auf LCD anzeigen.',
+    ],
+    note:'DTMF-Töne per Smartphone erzeugen: Online-DTMF-Generator oder Telefon-App nutzen. Testsignal in Mikrofonnähe halten.'
+  },
+  82:{
+    pins:[
+      ['8× Taster','→','Arduino Pins 2–9 (je Pull-down 10kΩ)'],
+      ['Buzzer+','→','Arduino Pin 11'],
+      ['Buzzer−','→','GND'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      '8 Taster an Pins 2–9, jeweils 10kΩ Pull-down nach GND.',
+      'Passiver Buzzer: + → Pin 11, − → GND.',
+      'Noten definieren: int noten[] = {262, 294, 330, 349, 392, 440, 494, 523}; (C4–C5)',
+      'Sketch: Taster-Scan, bei Druck → tone(11, noten[i], 200);',
+      'LCD: Notenname (C, D, E, F, G, A, H, C) anzeigen.',
+    ],
+    note:'tone() blockiert bei Dauer-Parameter. noTone(11) bei Loslassen aufrufen. Für Mehrstimmigkeit: TMRpcm-Library mit DAC.'
+  },
+  83:{
+    pins:[
+      ['Lautsprecher+','→','Arduino Pin 3 via 1kΩ'],
+      ['Lautsprecher−','→','GND'],
+    ],
+    steps:[
+      'Kleinen Lautsprecher (8Ω/0,5W) via 1kΩ an Pin 3 und GND.',
+      'Talkie Library installieren (GitHub: going-digital/Talkie).',
+      'Sketch: Talkie voice; dann voice.say(&sp_THIS); etc.',
+      'Sprachpakete aus Library: englische Wörter (Digiten, Zahlen usw.).',
+      'Für eigene Wörter: LPC-Kompression mit Python-Tool vocoder.',
+    ],
+    note:'Klangqualität ist 8-Bit, 8kHz – erkennbare, aber „robotische" Sprache. Für bessere Qualität: DFPlayer oder VS1053.'
+  },
+  84:{
+    pins:[
+      ['Keypad Zeilen','→','Arduino Pins 2–5'],
+      ['Keypad Spalten','→','Arduino Pins 6–9'],
+      ['Servo Signal','→','Arduino Pin 10'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+      ['Buzzer+','→','Pin 11'],
+    ],
+    steps:[
+      'Keypad 4×4: Zeilen-Pins 2–5, Spalten-Pins 6–9.',
+      'Servo: Signal → Pin 10, VCC → 5V, GND → GND.',
+      'Keypad Library + Wire Library installieren.',
+      'PIN im Sketch festlegen (EEPROM für Dauerhaftigkeit).',
+      'Richtig: Servo dreht auf 90°, LCD: ZUTRITT. Falsch: Buzzer, Sperrt 10s.',
+    ],
+    note:'PIN änderbar über Master-Code. EEPROM.put/get() für gespeichertes Passwort. Servo auf Mechanismus oder Modell-Schloss montieren.'
+  },
+  85:{
+    pins:[
+      ['Laser-Modul+','→','5V'],['Laser-Modul−','→','GND'],
+      ['LDR','→','A0 (Spannungsteiler 10kΩ)'],
+      ['Buzzer+','→','Pin 8'],
+      ['Alarm-LED','→','Pin 9 via 220Ω'],
+    ],
+    steps:[
+      'Laserdiode permanent einschalten (5V+GND), auf LDR ausrichten.',
+      'LDR: Spannungsteiler 10kΩ→A0, zweites Bein→GND.',
+      'Sketch: Schwellwert kalibrieren (analogRead(A0) im Normalbetrieb ~800).',
+      'Wenn analogRead < Schwellwert - 100 → Alarm (Buzzer + LED).',
+      'Alarm mit 5s Haltezeit auch nach Strahlfreigabe.',
+    ],
+    note:'Niemals Laser auf Augen richten! 5mW-Klasse-3R-Laser ist am Grenzwert der Ungefährlichkeit. Schutzbrille in Reichweite.'
+  },
+  86:{
+    pins:[
+      ['SW-420 DO','→','Arduino Pin 2 (Interrupt)'],
+      ['SW-420 VCC','→','5V'],['SW-420 GND','→','GND'],
+      ['Buzzer+','→','Pin 8'],
+      ['Alarm-LED','→','Pin 9 via 220Ω'],
+      ['Taster Quittierung','→','Pin 3 + Pull-up'],
+    ],
+    steps:[
+      'SW-420: DO→Pin 2, VCC→5V, GND→GND.',
+      'Buzzer→Pin 8, LED→Pin 9 via 220Ω.',
+      'attachInterrupt(0, alarmAuslosen, FALLING) für sofortige Reaktion.',
+      'Alarm-Flag setzen, in loop() Buzzer/LED einschalten.',
+      'Taster: Alarm quittieren und zurücksetzen.',
+    ],
+    note:'SW-420 Empfindlichkeit über Trimmer einstellen. Zu empfindlich: Wind löst Alarm aus. Befestigung auf hartem Untergrund.'
+  },
+  87:{
+    pins:[
+      ['Reed-Kontakt Bein 1','→','Arduino Pin 2 (+ Pull-up)'],
+      ['Reed-Kontakt Bein 2','→','GND'],
+      ['Buzzer+','→','Pin 8'],
+      ['LED','→','Pin 9 via 220Ω'],
+      ['Scharf/Unscharf Taster','→','Pin 3 + Pull-up'],
+    ],
+    steps:[
+      'Reed-Kontakt: ein Bein → Pin 2 (INPUT_PULLUP), anderes → GND.',
+      'Magnet an Tür/Fenster befestigen, Reed-Kontakt am Rahmen.',
+      'Sketch: wenn Pin 2 HIGH und Alarm scharf → Buzzer+LED an.',
+      'Taster Pin 3: Alarm scharf-/unscharf-schalten.',
+      'Zustand auf LCD anzeigen: SCHARF / UNSCHARF.',
+    ],
+    note:'Reed-Kontakt ist Schließer (geschlossen bei Magnet). Beim Öffnen wird Pin 2 HIGH → Alarm. INPUT_PULLUP verhindert Flatter.'
+  },
+  88:{
+    pins:[
+      ['MFRC522 SDA','→','Arduino Pin 10'],
+      ['MFRC522 SCK','→','Pin 13'],
+      ['MFRC522 MOSI','→','Pin 11'],
+      ['MFRC522 MISO','→','Pin 12'],
+      ['MFRC522 RST','→','Pin 9'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'MFRC522 per SPI: SDA→10, SCK→13, MOSI→11, MISO→12, RST→9.',
+      'MFRC522 Library installieren.',
+      'UID-Whitelist im EEPROM speichern (Byte-Arrays).',
+      'Master-Tag-Modus: 30s nach Start → nächstes Tag wird als Admin gespeichert.',
+      'Normalbetrieb: Tag scannen → UID vergleichen → Zugang gewähren/verweigern.',
+    ],
+    note:'MFRC522 braucht 3,3V! Arduino 5V-Pins und 3,3V-SPI direkt verbinden funktioniert meistens, aber Level-Shifter ist sicherer.'
+  },
+  89:{
+    pins:[
+      ['DS3231 SDA','→','Arduino A4'],
+      ['DS3231 SCL','→','Arduino A5'],
+      ['Servo Signal','→','Pin 9'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+      ['Keypad (optional)','→','Pins 2–9'],
+    ],
+    steps:[
+      'DS3231 RTC per I²C anschließen.',
+      'Servo: Signal → Pin 9, VCC → 5V, GND → GND.',
+      'Sketch: RTC-Zeit lesen, Wochentag und Stunde prüfen.',
+      'Mo-Fr 8:00–17:00 → Servo 90° (offen), sonst 0° (geschlossen).',
+      'LCD: aktuelle Zeit + Status OFFEN/GESCHLOSSEN anzeigen.',
+    ],
+    note:'Fail-Safe: bei ungültiger RTC-Zeit oder Fehler bleibt Schloss geschlossen. DS3231-Backup-Batterie für Zeiterhalt nach Stromausfall.'
+  },
+  90:{
+    pins:[
+      ['DHT22 Data','→','ESP8266 D4 (GPIO2)'],
+      ['DHT22 VCC','→','3,3V'],['DHT22 GND','→','GND'],
+      ['DHT22 Data','→','auch 10kΩ Pull-up nach 3,3V'],
+    ],
+    steps:[
+      'ESP8266 NodeMCU: DHT22 Data → D4, VCC → 3,3V, GND → GND.',
+      '10kΩ Pull-up zwischen DHT22 Data und 3,3V.',
+      'PubSubClient + DHT Library in Arduino IDE installieren.',
+      'MQTT-Broker (z.B. Mosquitto auf Home Assistant) einrichten.',
+      'Sketch: jede 60s Temperatur und Feuchte lesen, per MQTT publishen.',
+    ],
+    note:'Home Assistant MQTT-Discovery: Topic homeassistant/sensor/ESP/config mit JSON-Payload sendet die Sensor-Entität automatisch.'
+  },
+  91:{
+    pins:[
+      ['DHT22 Data','→','ESP8266 D4'],
+      ['Relais IN','→','ESP8266 D1 (GPIO5)'],
+      ['Relais VCC','→','5V (externe Quelle)'],
+      ['Relais GND','→','GND'],
+    ],
+    steps:[
+      'ESP8266: DHT22 an D4, Relais an D1.',
+      'Telegram-Bot erstellen: BotFather → /newbot → Token notieren.',
+      'UniversalTelegramBot + ArduinoJson Libraries installieren.',
+      'Sketch: alle 1s nach neuen Nachrichten pollen.',
+      '/on → Relais EIN, /off → AUS, /temp → DHT22-Werte senden.',
+    ],
+    note:'HTTPS braucht mehr Speicher. ESP8266 in Arduino IDE: Flash-Size auf 4MB (1MB SPIFFS) setzen. Token privat halten!'
+  },
+  92:{
+    pins:[
+      ['SX1278 VCC','→','3,3V'],['SX1278 GND','→','GND'],
+      ['SX1278 SCK','→','Arduino Pin 13'],
+      ['SX1278 MISO','→','Pin 12'],
+      ['SX1278 MOSI','→','Pin 11'],
+      ['SX1278 NSS','→','Pin 10'],
+      ['SX1278 RST','→','Pin 9'],['SX1278 DIO0','→','Pin 2'],
+    ],
+    steps:[
+      'SX1278: SPI-Pins (13/12/11), NSS→10, RST→9, DIO0→2.',
+      'LoRa Library (Sandeep Mistry) installieren.',
+      'Sender-Sketch: LoRa.beginPacket(); LoRa.print(data); LoRa.endPacket();',
+      'Empfänger-Sketch: if(LoRa.parsePacket()) { data = LoRa.readString(); }',
+      'RSSI anzeigen: LoRa.packetRssi() – zeigt Signalstärke in dBm.',
+    ],
+    note:'SX1278 braucht 3,3V – Arduino 5V direkt anschließen zerstört den Chip! Level-Shifter oder 3,3V-Arduino (z.B. Pro Mini 3,3V) verwenden.'
+  },
+  93:{
+    pins:[
+      ['ESP8266','→','Nur USB-Verbindung für ersten Flash'],
+      ['Status-LED','→','D4 (eingebaut bei NodeMCU)'],
+    ],
+    steps:[
+      'ESP8266 einmalig per USB flashen (normaler Sketch mit OTA-Code).',
+      'ArduinoOTA Library ist im ESP8266 Arduino Core enthalten.',
+      'Sketch: WiFi verbinden, ArduinoOTA.begin() aufrufen.',
+      'In Arduino IDE: Werkzeuge → Port → Netzwerk-Port des ESP wählen.',
+      'Hochladen wie gewohnt – Firmware geht jetzt per WiFi rüber.',
+    ],
+    note:'OTA-Passwort setzen: ArduinoOTA.setPassword("MeinPasswort"). Ohne Passwort kann jeder im Netzwerk Firmware hochladen!'
+  },
+  94:{
+    pins:[
+      ['OLED SDA','→','ESP8266 D2'],
+      ['OLED SCL','→','ESP8266 D1'],
+      ['OLED VCC','→','3,3V'],['OLED GND','→','GND'],
+    ],
+    steps:[
+      'OLED per I²C: SDA→D2, SCL→D1, VCC→3,3V, GND→GND.',
+      'Kostenlosen API-Key auf openweathermap.org registrieren.',
+      'ArduinoJson Library installieren.',
+      'Sketch: HTTP GET → api.openweathermap.org/data/2.5/weather?q=STADT&appid=KEY',
+      'JSON parsen: temp, humidity, description extrahieren, auf OLED anzeigen.',
+    ],
+    note:'API-Key: 1000 Anfragen/Tag kostenlos. Aktualisierung alle 10 Minuten ist ausreichend und schont das Kontingent.'
+  },
+  95:{
+    pins:[
+      ['ILI9341 VCC','→','3,3V'],['ILI9341 GND','→','GND'],
+      ['ILI9341 SCK','→','ESP8266 D5'],
+      ['ILI9341 MOSI','→','D7'],
+      ['ILI9341 CS','→','D8'],
+      ['ILI9341 DC','→','D4'],['ILI9341 RST','→','D3'],
+      ['SD CS','→','D2'],
+    ],
+    steps:[
+      'ILI9341 per SPI: SCK→D5, MOSI→D7, CS→D8, DC→D4, RST→D3.',
+      'SD-Karte: CS→D2 (zweiter SPI-CS).',
+      'Adafruit ILI9341 + GFX Library installieren.',
+      'BMP-Bilder (240×320px) auf SD-Karte als 0001.bmp, 0002.bmp usw.',
+      'Sketch: alle 10s nächstes Bild laden und anzeigen.',
+    ],
+    note:'BMP muss 24-Bit RGB sein (kein Alpha). Konvertierung mit IrfanView: Datei → Speichern → BMP, 24 Bit, kein RLE.'
+  },
+  96:{
+    pins:[
+      ['INA219 SDA','→','Arduino A4'],
+      ['INA219 SCL','→','Arduino A5'],
+      ['INA219 VIN+','→','Solar-Panel+'],
+      ['INA219 VIN−','→','Zu Last/Akku+'],
+      ['Solar-Panel−','→','GND'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'INA219 in Serie zwischen Solar-Panel und Verbraucher/Ladeeingang.',
+      'Adafruit INA219 Library installieren.',
+      'Sketch: Spannung und Strom lesen, Watt berechnen.',
+      'Wh akkumulieren: wh += watt * (millis() - lastTime) / 3600000.0;',
+      'LCD: V / A / W / Wh anzeigen, alle 2s aktualisieren.',
+    ],
+    note:'INA219 misst nur Gleichstrom. Solar-Panel: 5V/1W bis 6V/3W für 3,7V-LiPo-Laden mit TP4056 verwenden.'
+  },
+  97:{
+    pins:[
+      ['Reed-Kontakt','→','Arduino Pin 2 (Interrupt + Pull-up)'],
+      ['Magnet','→','am Schalenkreuz befestigt'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      'Reed-Kontakt fest am Gestell montieren, Magnet an einem Schalenarm.',
+      'Reed-Kontakt: Pin 2 INPUT_PULLUP, zweites Bein → GND.',
+      'attachInterrupt(0, countRev, FALLING) zum Zählen der Umdrehungen.',
+      'Alle 2,5s: Umdrehungen zählen, mit Kalibrierungsfaktor (m/s oder km/h).',
+      'Kalibrierung: Schalenradius messen, Umfang berechnen, Windspeed = Umfang × Umdrehungen/s',
+    ],
+    note:'Kalibrierung gegen kommerziellen Anemometer empfohlen. Eigenbauten weichen um 10–30% ab. Faktor im EEPROM speichern.'
+  },
+  98:{
+    pins:[
+      ['30kΩ Widerstand','→','LiPo+ und Arduino A0'],
+      ['10kΩ Widerstand','→','A0 und GND'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+      ['Alarm-LED','→','Pin 8 via 220Ω'],
+      ['Alarm-Buzzer+','→','Pin 9'],
+    ],
+    steps:[
+      'Spannungsteiler (30kΩ + 10kΩ): misst bis 5,5V (LiPo max 4,2V×1,3 → sicher).',
+      'Sketch: Spannung = analogRead(A0) * (5.0/1023.0) * (40.0/10.0);',
+      '4,2V = 100%, 3,7V = 50%, 3,0V = 0% (interpolieren).',
+      'Unter 3,2V: Alarm-LED + Buzzer. Unter 3,0V: System ausschalten (Relais).',
+      'LCD: Spannung, % und Ladebalken anzeigen.',
+    ],
+    note:'LiPo niemals unter 2,7V entladen – irreparabler Schaden! Schutzschaltung (PCB) im Akku vorhanden? Trotzdem Softwareschutz einbauen.'
+  },
+  99:{
+    pins:[
+      ['PZEM-004T TX','→','Arduino Pin 2 (SoftwareSerial)'],
+      ['PZEM-004T RX','→','Arduino Pin 3'],
+      ['PZEM-004T VCC','→','5V (aus USB oder Netzteil)'],
+      ['PZEM-004T GND','→','GND'],
+      ['LCD SDA','→','A4'],['LCD SCL','→','A5'],
+    ],
+    steps:[
+      '⚠️ VORSICHT: PZEM-004T mit 230V AC verbinden – nur durch Fachkräfte!',
+      'PZEM-004T Logik-Seite: TX→Pin 2, RX→Pin 3, VCC→5V.',
+      'PZEM-004T Library (olehs/PZEM-004T-v3.0) installieren.',
+      'Sketch: pzem.voltage(), pzem.current(), pzem.power(), pzem.energy().',
+      'LCD: alle 2s aktualisieren, kWh und geschätzte Kosten berechnen.',
+    ],
+    note:'⚡ GEFAHR LEBENSGEFAHR! 230V AC kann tödlich sein. Niemals ohne Schutzgehäuse und Fachkenntnis an Netzspannung arbeiten!'
+  },
+  100:{
+    pins:[
+      ['DHT22 Data','→','ESP8266 D4'],
+      ['DHT22 VCC','→','3,3V'],['DHT22 GND','→','GND'],
+      ['TP4056 BAT+','→','LiPo+'],['TP4056 BAT−','→','LiPo−'],
+      ['Solar-Panel','→','TP4056 IN+ und IN−'],
+      ['LiPo+','→','ESP8266 3V3 (via Spannungsregler)'],
+    ],
+    steps:[
+      'TP4056 LiPo-Lademodul: Solar-Panel an IN+/IN−, LiPo an BAT+/BAT−.',
+      'DHT22 an ESP8266 D4, VCC→3,3V, Pull-up 10kΩ.',
+      'Sketch: WiFi verbinden, DHT22 lesen, MQTT publishen.',
+      'ESP8266.deepSleep(15 * 60 * 1e6) – 15 Minuten schlafen (900s in µs).',
+      'RST und D0 (GPIO16) verbinden! Deep-Sleep-Aufwachsignal.',
+    ],
+    note:'RST↔D0 Verbindung ist ZWINGEND für Deep-Sleep. Ohne Verbindung wacht der ESP nie auf. Strom im Sleep: ~20µA.'
+  },
+
 };
 
 // ── Wiring-HTML rendern und in Projektkarten einfügen ────────────────────
@@ -1830,7 +2668,7 @@ let done = new Set(JSON.parse(localStorage.getItem(DONE_KEY) || '[]'));
 
 function updateProgress() {
   const n = done.size;
-  const pct = Math.round(n / 50 * 100);
+  const pct = Math.round(n / 100 * 100);
   document.getElementById('prog-num').textContent = n;
   document.getElementById('prog-pct').textContent = pct + '%';
   document.getElementById('prog-fill').style.width = pct + '%';
@@ -3189,10 +4027,836 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 
+
+
+<!-- ======================== MATRIX & LED-ANIMATION ======================== -->
+<div id="matrix" class="section-title" style="background:var(--matrix)">🎨 Matrix &amp; LED-Animation (51–57)</div>
+
+<!-- Projekt 51 -->
+<div class="project" style="border-color:var(--matrix)">
+  <div class="project-header" onclick="toggle(51)">
+    <div class="proj-num" style="background:var(--matrix)">51</div>
+    <div class="proj-title">MAX7219 8×8 LED-Matrix</div>
+    <div class="diff"><span class="on" style="background:var(--matrix)"></span><span class="on" style="background:var(--matrix)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b51">
+    <div class="desc">🎨 Steuere eine 8×8 LED-Matrix per SPI. Zeige Muster, Buchstaben und einfache Animationen – perfekt für Anzeigen und Ticker.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">MAX7219 Modul</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">10µF Kondensator</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-breadboard"/></svg></div><div class="comp-name">Kabel</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>SPI-Protokoll und Chip-Select verstehen</li><li>MAX7219-Library (LedControl) einsetzen</li><li>Pixel-Arrays für Buchstaben codieren</li></ul>
+  </div>
+</div>
+<!-- Projekt 52 -->
+<div class="project" style="border-color:var(--matrix)">
+  <div class="project-header" onclick="toggle(52)">
+    <div class="proj-num" style="background:var(--matrix)">52</div>
+    <div class="proj-title">NeoPixel Regenbogen-Effekt</div>
+    <div class="diff"><span class="on" style="background:var(--matrix)"></span><span class="on" style="background:var(--matrix)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b52">
+    <div class="desc">🌈 WS2812B LED-Streifen erstrahlt in weich animierten Regenbogenfarben. Addressierbare LEDs erlauben jeden Pixel einzeln zu steuern.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">WS2812B Strip</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">470Ω Widerstand</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">100µF Kondensator</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Adafruit NeoPixel / FastLED Library</li><li>HSV-Farbmodell (Hue, Saturation, Value)</li><li>Animationen mit millis() statt delay()</li></ul>
+  </div>
+</div>
+<!-- Projekt 53 -->
+<div class="project" style="border-color:var(--matrix)">
+  <div class="project-header" onclick="toggle(53)">
+    <div class="proj-num" style="background:var(--matrix)">53</div>
+    <div class="proj-title">NeoPixel Sound-Reaktion</div>
+    <div class="diff"><span class="on" style="background:var(--matrix)"></span><span class="on" style="background:var(--matrix)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b53">
+    <div class="desc">🎵 NeoPixel-Streifen tanzt zur Musik – ein Mikrofon erfasst die Lautstärke und übersetzt sie in leuchtende LED-Balken.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">WS2812B Strip</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-microphone"/></svg></div><div class="comp-name">KY-038 Mikrofon</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>analogRead() für Echtzeit-Audio</li><li>VU-Meter-Algorithmus (Peak-Detection)</li><li>Kombinieren von Sound-Eingang und LED-Ausgabe</li></ul>
+  </div>
+</div>
+<!-- Projekt 54 -->
+<div class="project" style="border-color:var(--matrix)">
+  <div class="project-header" onclick="toggle(54)">
+    <div class="proj-num" style="background:var(--matrix)">54</div>
+    <div class="proj-title">Sunrise-Wecker (PWM-Fade)</div>
+    <div class="diff"><span class="on" style="background:var(--matrix)"></span><span class="on" style="background:var(--matrix)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b54">
+    <div class="desc">🌅 Simuliere den Sonnenaufgang: Eine Power-LED dimmt in 30 Minuten von 0% auf 100% – sanfter als jeder Wecker-Alarm.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">Power-LED 3W</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">MOSFET IRLZ34N</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-rtc"/></svg></div><div class="comp-name">DS3231 RTC</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>RTC-Modul auslesen (DS3231-Library)</li><li>MOSFET als steuerbarer Schalter</li><li>Fade-Kurve (linear vs. exponential)</li></ul>
+  </div>
+</div>
+<!-- Projekt 55 -->
+<div class="project" style="border-color:var(--matrix)">
+  <div class="project-header" onclick="toggle(55)">
+    <div class="proj-num" style="background:var(--matrix)">55</div>
+    <div class="proj-title">LED-Stimmungslicht (Zufallsfarben)</div>
+    <div class="diff"><span class="on" style="background:var(--matrix)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b55">
+    <div class="desc">🎲 RGB-LED wechselt sanft und zufällig zwischen Farben – kein Muster wiederholt sich. Entspannendes Ambiente-Licht.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-led-rgb"/></svg></div><div class="comp-name">RGB-LED CC</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">3× 220Ω Widerstand</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>random() für Zufallsfarben</li><li>Software-Crossfade zwischen Farben</li><li>millis()-basiertes Non-blocking Timing</li></ul>
+  </div>
+</div>
+<!-- Projekt 56 -->
+<div class="project" style="border-color:var(--matrix)">
+  <div class="project-header" onclick="toggle(56)">
+    <div class="proj-num" style="background:var(--matrix)">56</div>
+    <div class="proj-title">MAX7219 4× Lauftext</div>
+    <div class="diff"><span class="on" style="background:var(--matrix)"></span><span class="on" style="background:var(--matrix)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b56">
+    <div class="desc">📜 Vier kaskadierte MAX7219-Module bilden ein breites Display. Text läuft von rechts nach links durch – klassischer LED-Ticker.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">4× MAX7219 Modul</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">10µF Kondensator</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>SPI-Kaskade (mehrere ICs verketten)</li><li>Zeichenmatrizen pixel-weise verschieben</li><li>Scrollgeschwindigkeit einstellen</li></ul>
+  </div>
+</div>
+<!-- Projekt 57 -->
+<div class="project" style="border-color:var(--matrix)">
+  <div class="project-header" onclick="toggle(57)">
+    <div class="proj-num" style="background:var(--matrix)">57</div>
+    <div class="proj-title">Herzschlag-Monitor (MAX30102)</div>
+    <div class="diff"><span class="on" style="background:var(--matrix)"></span><span class="on" style="background:var(--matrix)"></span><span class="on" style="background:var(--matrix)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b57">
+    <div class="desc">❤️ Optischer Pulssensor misst Herzschlag über Fingerauflage, visualisiert die Pulskurve im Serial-Plotter.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-bme280"/></svg></div><div class="comp-name">MAX30102 Sensor</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-oled"/></svg></div><div class="comp-name">OLED 0.96"</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>I²C-Biometriesensor auslesen</li><li>Signalverarbeitung: DC-Anteil herausfiltern</li><li>Pulsrate (BPM) berechnen</li></ul>
+  </div>
+</div>
+<!-- ======================== SMART GARDEN ======================== -->
+<div id="garten" class="section-title" style="background:var(--garten)">🌿 Smart Garden (58–63)</div>
+
+<!-- Projekt 58 -->
+<div class="project" style="border-color:var(--garten)">
+  <div class="project-header" onclick="toggle(58)">
+    <div class="proj-num" style="background:var(--garten)">58</div>
+    <div class="proj-title">Automatische Pflanzenbewässerung</div>
+    <div class="diff"><span class="on" style="background:var(--garten)"></span><span class="on" style="background:var(--garten)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b58">
+    <div class="desc">🪴 Bodenfeuchtesensor überwacht deine Pflanze – sobald die Erde zu trocken ist, startet das Relais die Wasserpumpe automatisch.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-ldr"/></svg></div><div class="comp-name">Feuchtigkeits-Sensor</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">5V Relais-Modul</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Mini-Wasserpumpe</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Schwellwert-basierte Steuerung</li><li>Relais für Wechselstromlasten / Pumpen</li><li>Hysterese gegen Flatterschaltung</li></ul>
+  </div>
+</div>
+<!-- Projekt 59 -->
+<div class="project" style="border-color:var(--garten)">
+  <div class="project-header" onclick="toggle(59)">
+    <div class="proj-num" style="background:var(--garten)">59</div>
+    <div class="proj-title">Gewächshaus-Thermostat</div>
+    <div class="diff"><span class="on" style="background:var(--garten)"></span><span class="on" style="background:var(--garten)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b59">
+    <div class="desc">🌡 DS18B20 Temperatursensor schaltet per Relais einen Lüfter ein, wenn es zu warm wird – und aus, wenn es abgekühlt ist.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-dht22"/></svg></div><div class="comp-name">DS18B20 Temp.</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">5V Relais</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-dcmotor"/></svg></div><div class="comp-name">5V Lüfter</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>OneWire + DallasTemperature Library</li><li>Hysterese-Regler (An/Aus-Regler)</li><li>Relais sicher verdrahten (Freilaufdiode)</li></ul>
+  </div>
+</div>
+<!-- Projekt 60 -->
+<div class="project" style="border-color:var(--garten)">
+  <div class="project-header" onclick="toggle(60)">
+    <div class="proj-num" style="background:var(--garten)">60</div>
+    <div class="proj-title">UV-Index Monitor (VEML6075)</div>
+    <div class="diff"><span class="on" style="background:var(--garten)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b60">
+    <div class="desc">☀️ VEML6075 misst UV-A und UV-B Strahlung getrennt, berechnet den UV-Index und gibt eine Schutzempfehlung (niedrig bis extrem) aus.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-bme280"/></svg></div><div class="comp-name">VEML6075 Sensor</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-oled"/></svg></div><div class="comp-name">OLED 0.96"</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>I²C UV-Sensor konfigurieren</li><li>UV-Index nach WHO-Formel berechnen</li><li>Farb-codierte Schutzwarnung darstellen</li></ul>
+  </div>
+</div>
+<!-- Projekt 61 -->
+<div class="project" style="border-color:var(--garten)">
+  <div class="project-header" onclick="toggle(61)">
+    <div class="proj-num" style="background:var(--garten)">61</div>
+    <div class="proj-title">Wasserstand-Sensor für Tanks</div>
+    <div class="diff"><span class="on" style="background:var(--garten)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b61">
+    <div class="desc">💧 Ultraschallsensor blickt von oben in einen Wassertank – der Abstand zur Wasseroberfläche ergibt den Füllstand in Litern.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-hcsr04"/></svg></div><div class="comp-name">HC-SR04</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Buzzer</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Abstand → Volumen umrechnen (Tankhöhe)</li><li>Alarm bei kritisch niedrigem Füllstand</li><li>Messwert glätten (gleitender Mittelwert)</li></ul>
+  </div>
+</div>
+<!-- Projekt 62 -->
+<div class="project" style="border-color:var(--garten)">
+  <div class="project-header" onclick="toggle(62)">
+    <div class="proj-num" style="background:var(--garten)">62</div>
+    <div class="proj-title">CO₂-Monitor (MH-Z19B)</div>
+    <div class="diff"><span class="on" style="background:var(--garten)"></span><span class="on" style="background:var(--garten)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b62">
+    <div class="desc">🏭 NDIR-CO₂-Sensor misst die Raumluftqualität in ppm. Ampelfarben zeigen: grün = gut, gelb = lüften, rot = dringend lüften!</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-mq2"/></svg></div><div class="comp-name">MH-Z19B CO₂</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-oled"/></svg></div><div class="comp-name">OLED 0.96"</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>UART-Kommunikation mit Sensor</li><li>CO₂-Grenzwerte nach DIN EN 13779</li><li>Ampellogik: 3 Farb-LEDs oder OLED-Text</li></ul>
+  </div>
+</div>
+<!-- Projekt 63 -->
+<div class="project" style="border-color:var(--garten)">
+  <div class="project-header" onclick="toggle(63)">
+    <div class="proj-num" style="background:var(--garten)">63</div>
+    <div class="proj-title">Bewässerungs-Timer mit Echtzeituhr</div>
+    <div class="diff"><span class="on" style="background:var(--garten)"></span><span class="on" style="background:var(--garten)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b63">
+    <div class="desc">⏱ Steuere die Gartenbewässerung nach Zeitplan: täglich um 6:00 und 18:00 Uhr öffnet ein Relais das Magnetventil für 3 Minuten.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-rtc"/></svg></div><div class="comp-name">DS3231 RTC</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">5V Relais</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-taster"/></svg></div><div class="comp-name">3× Taster</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Echtzeituhr (RTC) auslesen und stellen</li><li>Zeitplan-basierte Steuerung</li><li>Einstellbarer Timer über Taster-Menü</li></ul>
+  </div>
+</div>
+<!-- ======================== HEIMAUTOMATION ======================== -->
+<div id="heim" class="section-title" style="background:var(--heim)">🏠 Heimautomation (64–70)</div>
+
+<!-- Projekt 64 -->
+<div class="project" style="border-color:var(--heim)">
+  <div class="project-header" onclick="toggle(64)">
+    <div class="proj-num" style="background:var(--heim)">64</div>
+    <div class="proj-title">Steckdosen-Timer (Relais)</div>
+    <div class="diff"><span class="on" style="background:var(--heim)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b64">
+    <div class="desc">🔌 Stelle per Knopfdruck eine Zeit ein (1–60 Min.) – nach Ablauf schaltet das Relais das Gerät ab. Ideal für Heizkissen, Ladegeräte.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">5V Relais-Modul</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-taster"/></svg></div><div class="comp-name">3× Taster</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Countdown-Timer mit millis()</li><li>Relais-Modul richtig verdrahten</li><li>Menü-Navigation mit Tastern</li></ul>
+  </div>
+</div>
+<!-- Projekt 65 -->
+<div class="project" style="border-color:var(--heim)">
+  <div class="project-header" onclick="toggle(65)">
+    <div class="proj-num" style="background:var(--heim)">65</div>
+    <div class="proj-title">Türklingel mit Melodie</div>
+    <div class="diff"><span class="on" style="background:var(--heim)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b65">
+    <div class="desc">🔔 Drückst du den Taster, spielt der Arduino eine mehrstimmige Melodie auf dem Buzzer. Mehrere Melodien per zweitem Taster wählbar.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-taster"/></svg></div><div class="comp-name">2× Taster</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Passiver Buzzer</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>tone() mit Frequenz und Dauer</li><li>Melodien als Noten-Array programmieren</li><li>Entprellung per millis()</li></ul>
+  </div>
+</div>
+<!-- Projekt 66 -->
+<div class="project" style="border-color:var(--heim)">
+  <div class="project-header" onclick="toggle(66)">
+    <div class="proj-num" style="background:var(--heim)">66</div>
+    <div class="proj-title">PIR-Nachtlicht v2 (Fade-Effekt)</div>
+    <div class="diff"><span class="on" style="background:var(--heim)"></span><span class="on" style="background:var(--heim)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b66">
+    <div class="desc">💡 Bewegung erkannt → LED dimmt sanft auf, bleibt 30 Sekunden an und dimmt wieder ab. Kein Schreck-Effekt durch hartes Einschalten.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-pir"/></svg></div><div class="comp-name">PIR HC-SR501</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">Power-LED</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">MOSFET</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>MOSFET als steuerbarer Dimmer</li><li>millis() für Non-blocking Fade</li><li>Zustandsmaschine: Warten / Einblenden / An / Ausblenden</li></ul>
+  </div>
+</div>
+<!-- Projekt 67 -->
+<div class="project" style="border-color:var(--heim)">
+  <div class="project-header" onclick="toggle(67)">
+    <div class="proj-num" style="background:var(--heim)">67</div>
+    <div class="proj-title">Temperaturgesteuerter Lüfter (PWM)</div>
+    <div class="diff"><span class="on" style="background:var(--heim)"></span><span class="on" style="background:var(--heim)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b67">
+    <div class="desc">🌀 DC-Lüfter dreht proportional zur Temperatur – kühler Raum = langsam, warmer Raum = volle Drehzahl. Leisere Alternative zu An/Aus.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-dht22"/></svg></div><div class="comp-name">NTC / DS18B20</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-dcmotor"/></svg></div><div class="comp-name">DC-Lüfter 5V</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">MOSFET IRLZ34N</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Proportionale PWM-Steuerung</li><li>MOSFET als leistungsfähiger Schalter</li><li>Temperaturbereich auf 0–255 mappen</li></ul>
+  </div>
+</div>
+<!-- Projekt 68 -->
+<div class="project" style="border-color:var(--heim)">
+  <div class="project-header" onclick="toggle(68)">
+    <div class="proj-num" style="background:var(--heim)">68</div>
+    <div class="proj-title">Alarm-Zentrale (Multi-Sensor)</div>
+    <div class="diff"><span class="on" style="background:var(--heim)"></span><span class="on" style="background:var(--heim)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b68">
+    <div class="desc">🚨 PIR, Magnetschalter und Vibrationssensor melden Eindringlinge. LCD zeigt ausgelösten Sensor. Buzzer schlägt Alarm. Code zum Deaktivieren.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-pir"/></svg></div><div class="comp-name">PIR Sensor</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Reed-Kontakt</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">SW-420 Vibration</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Buzzer</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD I²C</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Mehrere Sensoren gleichzeitig überwachen</li><li>Alarm-Priorität und Quittierung</li><li>EEPROM-Code speichern</li></ul>
+  </div>
+</div>
+<!-- Projekt 69 -->
+<div class="project" style="border-color:var(--heim)">
+  <div class="project-header" onclick="toggle(69)">
+    <div class="proj-num" style="background:var(--heim)">69</div>
+    <div class="proj-title">Rolladensteuerung (Schrittmotor)</div>
+    <div class="diff"><span class="on" style="background:var(--heim)"></span><span class="on" style="background:var(--heim)"></span><span class="on" style="background:var(--heim)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b69">
+    <div class="desc">🪟 28BYJ-48 Schrittmotor öffnet und schließt einen Modell-Rollladen exakt per Tastendruck – und automatisch bei Dunkelheit (LDR).</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-stepper"/></svg></div><div class="comp-name">28BYJ-48 Motor</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-uln2003"/></svg></div><div class="comp-name">ULN2003 Treiber</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-taster"/></svg></div><div class="comp-name">2× Taster</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-ldr"/></svg></div><div class="comp-name">LDR Sensor</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Schrittmotor-Positionierung (Schritte zählen)</li><li>Endpositions-Logik (Soft-Endanschlag)</li><li>Automatik-Modus mit LDR-Schwellwert</li></ul>
+  </div>
+</div>
+<!-- Projekt 70 -->
+<div class="project" style="border-color:var(--heim)">
+  <div class="project-header" onclick="toggle(70)">
+    <div class="proj-num" style="background:var(--heim)">70</div>
+    <div class="proj-title">Strom- und Leistungsmesser (INA219)</div>
+    <div class="diff"><span class="on" style="background:var(--heim)"></span><span class="on" style="background:var(--heim)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b70">
+    <div class="desc">⚡ INA219 I²C-Chip misst Spannung, Strom und Watt eines Verbrauchers hochpräzise. LCD zeigt alle Werte + berechnete Wattstunden.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-hx711"/></svg></div><div class="comp-name">INA219 Sensor</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>INA219-Library für I²C-Leistungsmessung</li><li>Shunt-Widerstand und Messprinzip</li><li>Wattstunden (Wh) über Zeit akkumulieren</li></ul>
+  </div>
+</div>
+<!-- ======================== MESSUNG & LABOR ======================== -->
+<div id="labor" class="section-title" style="background:var(--labor)">🔬 Messung &amp; Labor (71–77)</div>
+
+<!-- Projekt 71 -->
+<div class="project" style="border-color:var(--labor)">
+  <div class="project-header" onclick="toggle(71)">
+    <div class="proj-num" style="background:var(--labor)">71</div>
+    <div class="proj-title">Digitales Voltmeter (0–25V)</div>
+    <div class="diff"><span class="on" style="background:var(--labor)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b71">
+    <div class="desc">🔋 Spannungsteiler skaliert bis 25V auf 5V für den ADC. Arduino zeigt die Spannung kalibriert auf dem LCD – genauer als viele Multimeter.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">30kΩ + 7,5kΩ Teiler</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Spannungsteiler-Berechnung</li><li>ADC-Kalibrierung mit Referenzspannung</li><li>Messbereichswahl per Vorwiderstand</li></ul>
+  </div>
+</div>
+<!-- Projekt 72 -->
+<div class="project" style="border-color:var(--labor)">
+  <div class="project-header" onclick="toggle(72)">
+    <div class="proj-num" style="background:var(--labor)">72</div>
+    <div class="proj-title">Frequenzzähler (1 Hz – 50 kHz)</div>
+    <div class="diff"><span class="on" style="background:var(--labor)"></span><span class="on" style="background:var(--labor)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b72">
+    <div class="desc">📡 Misst die Frequenz eines Rechtecksignals per externem Interrupt – 1 Hz bis 50 kHz. Zeigt Hz und kHz auf dem LCD.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">10kΩ Pull-up</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>attachInterrupt() auf Pin 2 oder 3</li><li>Flanken pro Sekunde zählen</li><li>Frequenzbereich automatisch umschalten</li></ul>
+  </div>
+</div>
+<!-- Projekt 73 -->
+<div class="project" style="border-color:var(--labor)">
+  <div class="project-header" onclick="toggle(73)">
+    <div class="proj-num" style="background:var(--labor)">73</div>
+    <div class="proj-title">LUX-Meter (BH1750)</div>
+    <div class="diff"><span class="on" style="background:var(--labor)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b73">
+    <div class="desc">☀️ BH1750 Digitalsensor misst Lichtintensität von 1 bis 65535 Lux mit hoher Genauigkeit – kein externer ADC nötig.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-ldr"/></svg></div><div class="comp-name">BH1750 Sensor</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>BH1750 über I²C ansteuern</li><li>Lux-Einheit und praktische Richtwerte</li><li>Messzeit-Modi: Low / High Resolution</li></ul>
+  </div>
+</div>
+<!-- Projekt 74 -->
+<div class="project" style="border-color:var(--labor)">
+  <div class="project-header" onclick="toggle(74)">
+    <div class="proj-num" style="background:var(--labor)">74</div>
+    <div class="proj-title">Schallpegel-Messer (dB)</div>
+    <div class="diff"><span class="on" style="background:var(--labor)"></span><span class="on" style="background:var(--labor)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b74">
+    <div class="desc">🔊 Mikrofon erfasst Schallpeaks, Arduino rechnet auf dB(A) um und zeigt einen Balken auf dem LCD. Ideal für Lärm-Monitoring.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-microphone"/></svg></div><div class="comp-name">KY-038 Mikrofon</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Peak-Detektion im analogen Signal</li><li>Logarithmus (log10) für dB-Berechnung</li><li>Anzeigebalken auf 16×2 LCD</li></ul>
+  </div>
+</div>
+<!-- Projekt 75 -->
+<div class="project" style="border-color:var(--labor)">
+  <div class="project-header" onclick="toggle(75)">
+    <div class="proj-num" style="background:var(--labor)">75</div>
+    <div class="proj-title">Widerstandsmesser (Ohmmeter)</div>
+    <div class="diff"><span class="on" style="background:var(--labor)"></span><span class="on" style="background:var(--labor)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b75">
+    <div class="desc">🧮 Unbekannter Widerstand bildet mit einem Referenzwiderstand einen Teiler. Arduino berechnet den Wert und zeigt ihn an.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">1kΩ Referenz</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Ohmmeter-Prinzip (Spannungsteiler-Methode)</li><li>Automatische Bereichswahl</li><li>Kalibrierung und Messgenauigkeit</li></ul>
+  </div>
+</div>
+<!-- Projekt 76 -->
+<div class="project" style="border-color:var(--labor)">
+  <div class="project-header" onclick="toggle(76)">
+    <div class="proj-num" style="background:var(--labor)">76</div>
+    <div class="proj-title">Kapazitätsmesser (RC-Zeitkonstante)</div>
+    <div class="diff"><span class="on" style="background:var(--labor)"></span><span class="on" style="background:var(--labor)"></span><span class="on" style="background:var(--labor)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b76">
+    <div class="desc">⏱ Die RC-Ladezeit bestimmt die Kapazität: Arduino misst mit pulseIn() wie lange es dauert, den Kondensator aufzuladen.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">10kΩ Referenz</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>RC-Zeitkonstante τ = R × C</li><li>pulseIn() für µs-Zeitmessung</li><li>Messbereich 1nF bis 1000µF</li></ul>
+  </div>
+</div>
+<!-- Projekt 77 -->
+<div class="project" style="border-color:var(--labor)">
+  <div class="project-header" onclick="toggle(77)">
+    <div class="proj-num" style="background:var(--labor)">77</div>
+    <div class="proj-title">PWM-Analyzer (Duty-Cycle + Frequenz)</div>
+    <div class="diff"><span class="on" style="background:var(--labor)"></span><span class="on" style="background:var(--labor)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b77">
+    <div class="desc">📊 Misst gleichzeitig Duty-Cycle und Frequenz eines PWM-Signals – ideal zum Prüfen eigener Sketches oder fremder Mikrocontroller.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">10kΩ Schutzwiderstand</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>pulseIn() für High- und Low-Zeit</li><li>Duty-Cycle und Frequenz berechnen</li><li>Messgrenzen und Auflösung des Timers</li></ul>
+  </div>
+</div>
+<!-- ======================== MUSIK & AUDIO ======================== -->
+<div id="musik" class="section-title" style="background:var(--musik)">🎵 Musik &amp; Audio (78–83)</div>
+
+<!-- Projekt 78 -->
+<div class="project" style="border-color:var(--musik)">
+  <div class="project-header" onclick="toggle(78)">
+    <div class="proj-num" style="background:var(--musik)">78</div>
+    <div class="proj-title">MP3-Player (DFPlayer Mini)</div>
+    <div class="diff"><span class="on" style="background:var(--musik)"></span><span class="on" style="background:var(--musik)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b78">
+    <div class="desc">🎶 DFPlayer Mini spielt MP3s von einer Micro-SD. Taster steuern Play/Pause/Next. LCD zeigt Titel und Lautstärke.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">DFPlayer Mini</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Micro-SD Karte</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Lautsprecher 8Ω</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD I²C</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>UART-Steuerung des DFPlayer-Moduls</li><li>DFPlayerMini_Fast oder MP3-Player Library</li><li>Lautstärke und Wiedergabe-Modi</li></ul>
+  </div>
+</div>
+<!-- Projekt 79 -->
+<div class="project" style="border-color:var(--musik)">
+  <div class="project-header" onclick="toggle(79)">
+    <div class="proj-num" style="background:var(--musik)">79</div>
+    <div class="proj-title">Audio-Spektrum-Analyzer (MSGEQ7)</div>
+    <div class="diff"><span class="on" style="background:var(--musik)"></span><span class="on" style="background:var(--musik)"></span><span class="on" style="background:var(--musik)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b79">
+    <div class="desc">🎼 MSGEQ7-Chip zerlegt Audio in 7 Frequenzbänder (63Hz–16kHz) → 7 LED-Balken oder OLED-Darstellung für Equalizer-Effekt.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-microphone"/></svg></div><div class="comp-name">Aux-Eingang</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">MSGEQ7 Chip</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">7× LEDs</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Analog-Multiplexer auslesen</li><li>Frequenzband-Visualisierung in Echtzeit</li><li>Gain und Offset kalibrieren</li></ul>
+  </div>
+</div>
+<!-- Projekt 80 -->
+<div class="project" style="border-color:var(--musik)">
+  <div class="project-header" onclick="toggle(80)">
+    <div class="proj-num" style="background:var(--musik)">80</div>
+    <div class="proj-title">Metronom mit LED und Buzzer</div>
+    <div class="diff"><span class="on" style="background:var(--musik)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b80">
+    <div class="desc">🥁 Einstellbares BPM-Metronom: Taster erhöhen/verringern das Tempo. Buzzer klickt, LED blinkt – präzise Takt-Vorgabe.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Passiver Buzzer</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LED</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-taster"/></svg></div><div class="comp-name">2× Taster</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>BPM-zu-ms Umrechnung</li><li>millis()-basiertes exaktes Timing</li><li>Button-Debouncing für BPM-Anpassung</li></ul>
+  </div>
+</div>
+<!-- Projekt 81 -->
+<div class="project" style="border-color:var(--musik)">
+  <div class="project-header" onclick="toggle(81)">
+    <div class="proj-num" style="background:var(--musik)">81</div>
+    <div class="proj-title">DTMF-Ton-Decoder (MT8870)</div>
+    <div class="diff"><span class="on" style="background:var(--musik)"></span><span class="on" style="background:var(--musik)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b81">
+    <div class="desc">📞 MT8870-Chip dekodiert Telefon-Wähltöne (DTMF). Arduino liest die 4-Bit-Ausgabe und zeigt die gedrückte Taste auf dem LCD.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">MT8870 Modul</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-microphone"/></svg></div><div class="comp-name">3,5mm Audio-Eingang</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD I²C</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>DTMF-Protokoll verstehen</li><li>4-Bit-Parallelausgang auslesen</li><li>Anwendungsfall: Telefonsteuerung</li></ul>
+  </div>
+</div>
+<!-- Projekt 82 -->
+<div class="project" style="border-color:var(--musik)">
+  <div class="project-header" onclick="toggle(82)">
+    <div class="proj-num" style="background:var(--musik)">82</div>
+    <div class="proj-title">Software-Synthesizer (8 Töne)</div>
+    <div class="diff"><span class="on" style="background:var(--musik)"></span><span class="on" style="background:var(--musik)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b82">
+    <div class="desc">🎹 Acht Taster entsprechen einer C-Dur-Tonleiter. Arduino generiert Töne per tone() und zeigt die Note auf dem LCD.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-taster"/></svg></div><div class="comp-name">8× Taster</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Passiver Buzzer</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD I²C</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>tone()-Funktion mit Noten-Frequenzen</li><li>Mehrstimmig (simultane Töne? nicht möglich → Arpeggios)</li><li>Eigene Skalen und Tonarten programmieren</li></ul>
+  </div>
+</div>
+<!-- Projekt 83 -->
+<div class="project" style="border-color:var(--musik)">
+  <div class="project-header" onclick="toggle(83)">
+    <div class="proj-num" style="background:var(--musik)">83</div>
+    <div class="proj-title">Sprachsynthese (Talkie-Library)</div>
+    <div class="diff"><span class="on" style="background:var(--musik)"></span><span class="on" style="background:var(--musik)"></span><span class="on" style="background:var(--musik)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b83">
+    <div class="desc">🗣 Arduino spricht! Die Talkie-Library verwendet LPC-komprimierte Audiodaten und gibt sie als PWM-Audio aus. Kleiner Lautsprecher genügt.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Lautsprecher 8Ω</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">1kΩ Widerstand</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>PWM-Audio-Ausgabe ohne DAC</li><li>Talkie-Library und Sprachdaten</li><li>Eigene Wörter mit LPC-Compression kodieren</li></ul>
+  </div>
+</div>
+<!-- ======================== SICHERHEIT+ ======================== -->
+<div id="sicher" class="section-title" style="background:var(--sicher)">🔒 Sicherheit+ (84–89)</div>
+
+<!-- Projekt 84 -->
+<div class="project" style="border-color:var(--sicher)">
+  <div class="project-header" onclick="toggle(84)">
+    <div class="proj-num" style="background:var(--sicher)">84</div>
+    <div class="proj-title">Keypad-Code-Schloss</div>
+    <div class="diff"><span class="on" style="background:var(--sicher)"></span><span class="on" style="background:var(--sicher)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b84">
+    <div class="desc">🔑 Gib den richtigen PIN auf dem 4×4-Keypad ein → Servo öffnet das Schloss. Falscher Code → Buzzer-Alarm und 10s Sperrzeit.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-keypad"/></svg></div><div class="comp-name">4×4 Keypad</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-servo"/></svg></div><div class="comp-name">Servo SG90</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD I²C</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Buzzer</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Keypad-Library für Matrizen-Tastaturen</li><li>String-Vergleich für PIN-Prüfung</li><li>Sperr-Timer nach Falscheingabe</li></ul>
+  </div>
+</div>
+<!-- Projekt 85 -->
+<div class="project" style="border-color:var(--sicher)">
+  <div class="project-header" onclick="toggle(85)">
+    <div class="proj-num" style="background:var(--sicher)">85</div>
+    <div class="proj-title">Laser-Strahl-Alarm</div>
+    <div class="diff"><span class="on" style="background:var(--sicher)"></span><span class="on" style="background:var(--sicher)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b85">
+    <div class="desc">🔴 Laserdiode beleuchtet einen LDR. Unterbricht jemand den Strahl → Alarm! Mit Buzzer, LED und optionaler Logging-Funktion.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">5mW Laserdiode 650nm</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-ldr"/></svg></div><div class="comp-name">LDR Sensor</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Buzzer</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>LDR-Schwellwert kalibrieren</li><li>Alarm mit Halte-Zeit (kein Flattern)</li><li>Laser-Sicherheit: niemals in Augen!</li></ul>
+  </div>
+</div>
+<!-- Projekt 86 -->
+<div class="project" style="border-color:var(--sicher)">
+  <div class="project-header" onclick="toggle(86)">
+    <div class="proj-num" style="background:var(--sicher)">86</div>
+    <div class="proj-title">Erschütterungs-Safe (SW-420)</div>
+    <div class="diff"><span class="on" style="background:var(--sicher)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b86">
+    <div class="desc">📦 SW-420 Vibrationssensor erkennt Erschütterungen an einem Behälter. Alarm-LED und Buzzer + Anzeige auf LCD bei Berührung.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">SW-420 Vibration</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Buzzer</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LED</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD I²C</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Digitalen Vibrationssensor auslesen</li><li>Entprellzeit einstellen (Debounce)</li><li>Alarm-Quittierung per Taster</li></ul>
+  </div>
+</div>
+<!-- Projekt 87 -->
+<div class="project" style="border-color:var(--sicher)">
+  <div class="project-header" onclick="toggle(87)">
+    <div class="proj-num" style="background:var(--sicher)">87</div>
+    <div class="proj-title">Magnetschalter-Türalarm</div>
+    <div class="diff"><span class="on" style="background:var(--sicher)"></span><span></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b87">
+    <div class="desc">🚪 Reed-Kontakt an Tür/Fenster: Wird die Verbindung durch Öffnen unterbrochen, löst der Alarm sofort aus. Einfach und zuverlässig.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Reed-Kontakt (magnetisch)</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Buzzer</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">LED</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Reed-Schalter mit Pull-up-Widerstand</li><li>Interrupt-gesteuerter Alarm (sofort)</li><li>Scharf-/Unscharf-Schalten per Taster</li></ul>
+  </div>
+</div>
+<!-- Projekt 88 -->
+<div class="project" style="border-color:var(--sicher)">
+  <div class="project-header" onclick="toggle(88)">
+    <div class="proj-num" style="background:var(--sicher)">88</div>
+    <div class="proj-title">RFID-Mehrbenutzer-System</div>
+    <div class="diff"><span class="on" style="background:var(--sicher)"></span><span class="on" style="background:var(--sicher)"></span><span class="on" style="background:var(--sicher)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b88">
+    <div class="desc">🏷 Mehrere RFID-Tags mit verschiedenen Zugangsleveln – Admin, User, Gast. UIDs im EEPROM gespeichert, per Mastertag verwaltbar.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-rfid"/></svg></div><div class="comp-name">MFRC522 RFID</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD I²C</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-buzzer"/></svg></div><div class="comp-name">Buzzer</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>RFID UIDs im EEPROM speichern</li><li>Mehrere Benutzerrollen (Zugangslevel)</li><li>Tag hinzufügen/entfernen mit Master-Tag</li></ul>
+  </div>
+</div>
+<!-- Projekt 89 -->
+<div class="project" style="border-color:var(--sicher)">
+  <div class="project-header" onclick="toggle(89)">
+    <div class="proj-num" style="background:var(--sicher)">89</div>
+    <div class="proj-title">Zeitgesteuertes Schloss (RTC)</div>
+    <div class="diff"><span class="on" style="background:var(--sicher)"></span><span class="on" style="background:var(--sicher)"></span><span class="on" style="background:var(--sicher)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b89">
+    <div class="desc">⏰ Servo-Schloss öffnet nur Mo–Fr zwischen 8:00 und 17:00 Uhr. Außerhalb der Zeiten: kein Zugang, auch nicht mit korrektem PIN.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-rtc"/></svg></div><div class="comp-name">DS3231 RTC</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-servo"/></svg></div><div class="comp-name">Servo SG90</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD I²C</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-keypad"/></svg></div><div class="comp-name">Keypad</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>RTC: Uhrzeit und Wochentag auslesen</li><li>Zeitfenster-Logik (Öffnungszeiten)</li><li>Fail-Safe Design: Standardmäßig gesperrt</li></ul>
+  </div>
+</div>
+<!-- ======================== IOT PRO ======================== -->
+<div id="iotpro" class="section-title" style="background:var(--iotpro)">🚀 IoT Pro (90–95)</div>
+
+<!-- Projekt 90 -->
+<div class="project" style="border-color:var(--iotpro)">
+  <div class="project-header" onclick="toggle(90)">
+    <div class="proj-num" style="background:var(--iotpro)">90</div>
+    <div class="proj-title">Home Assistant MQTT-Sensor</div>
+    <div class="diff"><span class="on" style="background:var(--iotpro)"></span><span class="on" style="background:var(--iotpro)"></span><span class="on" style="background:var(--iotpro)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b90">
+    <div class="desc">🏡 ESP8266 sendet DHT22-Daten per MQTT mit Auto-Discovery an Home Assistant – erscheint automatisch als Sensor-Entität.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-esp8266"/></svg></div><div class="comp-name">ESP8266 NodeMCU</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-dht22"/></svg></div><div class="comp-name">DHT22 Sensor</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>MQTT mit PubSubClient Library</li><li>Home Assistant MQTT-Discovery-Protokoll</li><li>WiFi-Reconnect und Fehlerbehandlung</li></ul>
+  </div>
+</div>
+<!-- Projekt 91 -->
+<div class="project" style="border-color:var(--iotpro)">
+  <div class="project-header" onclick="toggle(91)">
+    <div class="proj-num" style="background:var(--iotpro)">91</div>
+    <div class="proj-title">Telegram-Bot Steuerung</div>
+    <div class="diff"><span class="on" style="background:var(--iotpro)"></span><span class="on" style="background:var(--iotpro)"></span><span class="on" style="background:var(--iotpro)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b91">
+    <div class="desc">📱 Steuere Relais und lese Sensordaten direkt per Telegram-Chat. Der Arduino antwortet auf /on, /off, /temp und mehr.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-esp8266"/></svg></div><div class="comp-name">ESP8266 NodeMCU</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">5V Relais</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-dht22"/></svg></div><div class="comp-name">DHT22 Sensor</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Telegram Bot-API mit HTTPS</li><li>Universal Telegram Bot Library</li><li>Polling vs. Webhook – Unterschied verstehen</li></ul>
+  </div>
+</div>
+<!-- Projekt 92 -->
+<div class="project" style="border-color:var(--iotpro)">
+  <div class="project-header" onclick="toggle(92)">
+    <div class="proj-num" style="background:var(--iotpro)">92</div>
+    <div class="proj-title">LoRa Langstrecken-Sender (SX1278)</div>
+    <div class="diff"><span class="on" style="background:var(--iotpro)"></span><span class="on" style="background:var(--iotpro)"></span><span class="on" style="background:var(--iotpro)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b92">
+    <div class="desc">📡 Zwei Arduinos tauschen Sensordaten über LoRa aus – mehrere Kilometer Reichweite ohne Internet oder Router nötig.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">2× Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">2× SX1278 LoRa</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-dht22"/></svg></div><div class="comp-name">DHT22 Sensor</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>LoRa-Protokoll: Sender und Empfänger</li><li>LoRa Library (LoRa.h) konfigurieren</li><li>RSSI und SNR für Signalqualität</li></ul>
+  </div>
+</div>
+<!-- Projekt 93 -->
+<div class="project" style="border-color:var(--iotpro)">
+  <div class="project-header" onclick="toggle(93)">
+    <div class="proj-num" style="background:var(--iotpro)">93</div>
+    <div class="proj-title">OTA Firmware-Update (ESP)</div>
+    <div class="diff"><span class="on" style="background:var(--iotpro)"></span><span class="on" style="background:var(--iotpro)"></span><span class="on" style="background:var(--iotpro)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b93">
+    <div class="desc">🔄 Flashe neue Firmware per WiFi – kein USB-Kabel nötig. ArduinoOTA läuft als Hintergrundprozess auf dem ESP8266.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-esp8266"/></svg></div><div class="comp-name">ESP8266 NodeMCU</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">Status-LED</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>ArduinoOTA Library einrichten</li><li>mDNS für lokale IP-Auflösung</li><li>Sicherheit: Passwortschutz für OTA</li></ul>
+  </div>
+</div>
+<!-- Projekt 94 -->
+<div class="project" style="border-color:var(--iotpro)">
+  <div class="project-header" onclick="toggle(94)">
+    <div class="proj-num" style="background:var(--iotpro)">94</div>
+    <div class="proj-title">Wetter-Display (OpenWeatherMap API)</div>
+    <div class="diff"><span class="on" style="background:var(--iotpro)"></span><span class="on" style="background:var(--iotpro)"></span><span class="on" style="background:var(--iotpro)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b94">
+    <div class="desc">🌤 ESP8266 lädt aktuelle Wetterdaten von OpenWeatherMap per HTTP und zeigt Temperatur, Luftfeuchtigkeit und Wetterbeschreibung auf OLED.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-esp8266"/></svg></div><div class="comp-name">ESP8266 NodeMCU</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-oled"/></svg></div><div class="comp-name">OLED 0.96"</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">API-Key (kostenlos)</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>HTTP GET Request mit WiFiClient</li><li>ArduinoJson für JSON-Parsing</li><li>Kostenloser API-Key bei OpenWeatherMap</li></ul>
+  </div>
+</div>
+<!-- Projekt 95 -->
+<div class="project" style="border-color:var(--iotpro)">
+  <div class="project-header" onclick="toggle(95)">
+    <div class="proj-num" style="background:var(--iotpro)">95</div>
+    <div class="proj-title">Digitaler Bilderrahmen (TFT + SD)</div>
+    <div class="diff"><span class="on" style="background:var(--iotpro)"></span><span class="on" style="background:var(--iotpro)"></span><span class="on" style="background:var(--iotpro)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b95">
+    <div class="desc">🖼 ESP8266 lädt BMP-Bilder von SD-Karte und zeigt sie rotierend auf einem 2,4" TFT-Display – echter Hingucker auf dem Schreibtisch.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-esp8266"/></svg></div><div class="comp-name">ESP8266 NodeMCU</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">ILI9341 2,4" TFT</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Micro-SD Modul</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>SPI-TFT-Display mit Adafruit ILI9341</li><li>BMP-Bilder von SD lesen und anzeigen</li><li>Bildwechsel-Timer und Überblendeffekte</li></ul>
+  </div>
+</div>
+<!-- ======================== ENERGIE & UMWELT ======================== -->
+<div id="energie" class="section-title" style="background:var(--energie);color:#080c10">🔋 Energie &amp; Umwelt (96–100)</div>
+
+<!-- Projekt 96 -->
+<div class="project" style="border-color:var(--energie)">
+  <div class="project-header" onclick="toggle(96)">
+    <div class="proj-num" style="background:var(--energie)">96</div>
+    <div class="proj-title">Solar-Panel Monitor</div>
+    <div class="diff"><span class="on" style="background:var(--energie)"></span><span class="on" style="background:var(--energie)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b96">
+    <div class="desc">☀️ INA219 misst Spannung und Strom des Solarpanels. LCD zeigt Leistung in Watt und Tagesertrag in Wh – optimal für Mini-Solaranlagen.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-hx711"/></svg></div><div class="comp-name">INA219 Stromsensor</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">5V/1W Solarpanel</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>INA219 für gleichzeitige U+I-Messung</li><li>Watt = Volt × Ampere berechnen</li><li>Tages-Wh akkumulieren mit millis()</li></ul>
+  </div>
+</div>
+<!-- Projekt 97 -->
+<div class="project" style="border-color:var(--energie)">
+  <div class="project-header" onclick="toggle(97)">
+    <div class="proj-num" style="background:var(--energie)">97</div>
+    <div class="proj-title">Windstärkemesser (Anemometer)</div>
+    <div class="diff"><span class="on" style="background:var(--energie)"></span><span class="on" style="background:var(--energie)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b97">
+    <div class="desc">💨 Reed-Schalter im selbstgebauten Schalenkreuz-Anemometer zählt Umdrehungen. Arduino berechnet daraus die Windgeschwindigkeit in km/h.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Reed-Kontakt</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Magnet</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>Impulszählung mit Interrupt</li><li>Umdrehungen → Windgeschwindigkeit (Kalibrierung)</li><li>Windböen-Maximum speichern</li></ul>
+  </div>
+</div>
+<!-- Projekt 98 -->
+<div class="project" style="border-color:var(--energie)">
+  <div class="project-header" onclick="toggle(98)">
+    <div class="proj-num" style="background:var(--energie)">98</div>
+    <div class="proj-title">LiPo-Batterie Monitor</div>
+    <div class="diff"><span class="on" style="background:var(--energie)"></span><span class="on" style="background:var(--energie)"></span><span></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b98">
+    <div class="desc">🔋 Spannungsteiler misst LiPo-Zellspannung (2,7–4,2V). LCD zeigt Ladezustand in %, Alarm-LED unter 3V – schützt vor Tiefentladung.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-resistor"/></svg></div><div class="comp-name">Spannungsteiler</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-led"/></svg></div><div class="comp-name">Warn-LED</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>LiPo-Spannungskurve und Ladezustand</li><li>Tiefentladeschutz (unter 3V = Alarm)</li><li>Spannungsreferenz-Kalibrierung</li></ul>
+  </div>
+</div>
+<!-- Projekt 99 -->
+<div class="project" style="border-color:var(--energie)">
+  <div class="project-header" onclick="toggle(99)">
+    <div class="proj-num" style="background:var(--energie)">99</div>
+    <div class="proj-title">Netz-Energiemesser (PZEM-004T)</div>
+    <div class="diff"><span class="on" style="background:var(--energie)"></span><span class="on" style="background:var(--energie)"></span><span class="on" style="background:var(--energie)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b99">
+    <div class="desc">⚡ PZEM-004T misst 230V Netzspannung, Strom (bis 100A), Wirkleistung und Energie in kWh – der Profi-Stromzähler zum Selberbauen.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">Arduino Uno</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">PZEM-004T Modul</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-lcd"/></svg></div><div class="comp-name">LCD 16×2 I²C</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>230V AC – GEFAHR: Sicherheitsregeln!</li><li>PZEM-004T per UART/Modbus auslesen</li><li>Energiekosten berechnen (ct/kWh)</li></ul>
+  </div>
+</div>
+<!-- Projekt 100 -->
+<div class="project" style="border-color:var(--energie)">
+  <div class="project-header" onclick="toggle(100)">
+    <div class="proj-num" style="background:var(--energie)">100</div>
+    <div class="proj-title">Deep-Sleep Wetterstation (ESP + Solar)</div>
+    <div class="diff"><span class="on" style="background:var(--energie)"></span><span class="on" style="background:var(--energie)"></span><span class="on" style="background:var(--energie)"></span></div>
+    <div class="toggle">▼</div>
+  </div>
+  <div class="project-body" id="b100">
+    <div class="desc">😴 ESP8266 misst Temperatur und Luftfeuchtigkeit, sendet die Daten per MQTT, schläft dann 15 Minuten – Solar-Akku hält monatelang.</div>
+    <div class="section-label">Benötigte Bauteile</div>
+    <div class="components"><div class="comp"><div class="comp-img"><svg><use href="#ic-esp8266"/></svg></div><div class="comp-name">ESP8266 NodeMCU</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-dht22"/></svg></div><div class="comp-name">DHT22 Sensor</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">LiPo-Akku + Solar</div></div><div class="comp"><div class="comp-img"><svg><use href="#ic-arduino"/></svg></div><div class="comp-name">TP4056 Lademodul</div></div></div>
+    <div class="section-label">Was du lernst</div>
+    <ul class="learn-list"><li>ESP8266 Deep-Sleep Modus (µA-Verbrauch)</li><li>WiFi-Verbindung und MQTT in unter 3s</li><li>Solar-Ladeschaltung mit TP4056</li></ul>
+  </div>
+</div>
 </div><!-- /container -->
 
 <footer>
-  <strong>// 50 Arduino Projekte für Einsteiger</strong> &nbsp;·&nbsp; 2026<br>
+  <strong>// 100 Arduino Projekte für Einsteiger</strong> &nbsp;·&nbsp; 2026<br>
   <span style="color:var(--green)">● Einfach</span> &nbsp;
   <span style="color:var(--yellow)">●● Mittel</span> &nbsp;
   <span style="color:var(--red)">●●● Fortgeschritten</span>
@@ -3200,248 +4864,748 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <style>
   .schema-wrap{margin-top:.9rem;}
-  .schema-svg{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:.7rem;overflow:hidden;}
+  .schema-svg{background:#080c10;border:1px solid #1c2330;border-radius:8px;padding:.5rem;overflow:hidden;}
   .schema-svg svg{display:block;width:100%;height:auto;}
+  .schema-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#29b6f6;font-family:monospace;margin-bottom:.3rem;display:block;}
 </style>
 
 <script>
 (function(){
-// ── SVG Helfer ─────────────────────────────────────────────
-const L=(x1,y1,x2,y2,c)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c||'#00e5ff'}" stroke-width="1.3" stroke-linecap="round"/>`;
-const T=(x,y,s,c,sz,a)=>`<text x="${x}" y="${y}" text-anchor="${a||'middle'}" fill="${c||'#556070'}" font-size="${sz||7}" font-family="monospace">${s}</text>`;
+// ═══════════════════════════════════════════════════════════
+// PROFESSIONELLES SCHALTPLAN-SYSTEM
+// ═══════════════════════════════════════════════════════════
+const C={
+  sig:'#00e5ff', vcc:'#ff5252', gnd:'#888', comp:'#29b6f6',
+  res:'#ffd740', led:'#00ff88', led_r:'#ff4444', led_b:'#4488ff',
+  pwm:'#ff9800', ard:'#00e5ff', note:'#556070', warn:'#ff6b35',
+  buz:'#c264ff', mot:'#ff5252', iot:'#7c4dff', sensor:'#00e676'
+};
+
+// ── Wire (Leiterbahn) ────────────────────────────────────────
+const W=(x1,y1,x2,y2,c)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c||C.sig}" stroke-width="1.4" stroke-linecap="round"/>`;
+// ── Node dot (Kreuzungspunkt) ────────────────────────────────
+const N=(x,y,c)=>`<circle cx="${x}" cy="${y}" r="2.3" fill="${c||C.sig}"/>`;
+// ── Text ─────────────────────────────────────────────────────
+const T=(x,y,s,c,sz,a)=>`<text x="${x}" y="${y}" text-anchor="${a||'middle'}" fill="${c||C.note}" font-size="${sz||7}" font-family="monospace">${s}</text>`;
+// ── Group ────────────────────────────────────────────────────
 const G=(x,y,c)=>`<g transform="translate(${x},${y})">${c}</g>`;
-const R=(l)=>`${L(-16,0,-6,0)}${L(6,0,16,0)}<rect x="-6" y="-5" width="12" height="10" rx="1" fill="#0d1117" stroke="#ffd740" stroke-width="1.3"/>${T(0,-8,l||'R','#ffd740')}`;
-const LED=(c)=>`${L(-14,0,-6,0)}<polygon points="-6,-6 -6,6 5,0" fill="none" stroke="${c||'#00ff88'}" stroke-width="1.3"/><line x1="5" y1="-6" x2="5" y2="6" stroke="${c||'#00ff88'}" stroke-width="1.8"/>${L(5,0,14,0,'#888')}<line x1="2" y1="-9" x2="-1" y2="-13" stroke="${c||'#00ff88'}" stroke-width="1"/><line x1="6" y1="-9" x2="3" y2="-13" stroke="${c||'#00ff88'}" stroke-width="1"/>`;
-const GND=()=>`${L(0,0,0,5,'#888')}<line x1="-7" y1="5" x2="7" y2="5" stroke="#888" stroke-width="2"/><line x1="-4" y1="8" x2="4" y2="8" stroke="#888" stroke-width="1.5"/><line x1="-1" y1="11" x2="1" y2="11" stroke="#888" stroke-width="1"/>`;
-const VCC=(l)=>T(0,0,l||'+5V','#ff5252',8);
-const BOX=(w,h,l,c,s)=>`<rect x="${-w/2}" y="${-h/2}" width="${w}" height="${h}" rx="3" fill="#0d1117" stroke="${c||'#00e676'}" stroke-width="1.3"/>${T(0,s?-4:3,l,c||'#00e676',8)}${s?T(0,7,s,'#556070',6.5):''}`;
-const BUZ=()=>`<circle r="10" fill="#0d1117" stroke="#c264ff" stroke-width="1.3"/>${T(0,3,'BZ','#c264ff',7)}`;
-const BTN=()=>`${L(-12,0,-4,0)}<circle cx="-4" cy="0" r="2" fill="#ffd740"/><line x1="-2" y1="-6" x2="2" y2="-6" stroke="#ffd740" stroke-width="2" stroke-linecap="round"/><circle cx="4" cy="0" r="2" fill="#ffd740"/>${L(4,0,12,0)}`;
-const POT=()=>`<rect x="-7" y="-7" width="14" height="14" rx="2" fill="#0d1117" stroke="#ffd740" stroke-width="1.3"/>${T(0,3,'P','#ffd740',7)}${L(0,-7,0,-13,'#ffd740')}`;
-const SRV=()=>`<rect x="-14" y="-9" width="28" height="18" rx="2" fill="#0d1117" stroke="#ff6b35" stroke-width="1.3"/>${T(0,3,'Servo','#ff6b35',7)}`;
-const MOT=()=>`<circle r="11" fill="#0d1117" stroke="#ff5252" stroke-width="1.3"/>${T(0,3,'M','#ff5252',8)}`;
-const ARD=(h,pL,pR)=>{
-  let s=`<rect x="0" y="0" width="50" height="${h}" rx="3" fill="#0d1117" stroke="#00e5ff" stroke-width="1.5"/>${T(25,13,'Arduino','#00e5ff',8)}`;
-  (pL||[]).forEach(([yo,l])=>{s+=`${L(0,yo,-14,yo)}<text x="3" y="${yo+3}" fill="#c9d8e8" font-size="6.5" font-family="monospace">${l}</text>`;});
-  (pR||[]).forEach(([yo,l])=>{s+=`${L(50,yo,65,yo)}<text x="47" y="${yo+3}" text-anchor="end" fill="#c9d8e8" font-size="6.5" font-family="monospace">${l}</text>`;});
+
+// ── Hintergrund-Raster ───────────────────────────────────────
+const GRID=(w,h)=>`<defs><pattern id="gr" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10,0 L0,0 L0,10" fill="none" stroke="#111820" stroke-width=".5"/></pattern></defs><rect width="${w}" height="${h}" fill="url(#gr)" opacity=".8"/>`;
+
+// ── SVG Wrapper mit Raster ───────────────────────────────────
+const SVG=(w,h,content)=>`<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;height:auto;display:block">${GRID(w,h)}${content}</svg>`;
+
+// ── Arduino-Block (professionell) ────────────────────────────
+const ARD=(x,y,h,pinsL,pinsR)=>{
+  let s=`<rect x="${x}" y="${y}" width="54" height="${h}" rx="3" fill="#0a1520" stroke="${C.ard}" stroke-width="1.5"/>`;
+  s+=`<rect x="${x}" y="${y}" width="54" height="14" rx="3" fill="#0f1e30"/>`;
+  s+=T(x+27,y+9,'Arduino',C.ard,7.5);
+  (pinsL||[]).forEach(([dy,lbl,c])=>{
+    s+=W(x,y+dy,x-18,y+dy,c||C.sig)+T(x+3,y+dy+3,lbl,C.note,6,'start');
+  });
+  (pinsR||[]).forEach(([dy,lbl,c])=>{
+    s+=W(x+54,y+dy,x+72,y+dy,c||C.sig)+T(x+51,y+dy+3,lbl,C.note,6,'end');
+  });
   return s;
 };
-const W=(h,b)=>`<svg viewBox="0 0 280 ${h}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px;height:auto;display:block">${b}</svg>`;
 
-// ── Schaltplan-Templates ────────────────────────────────────
-
-// Einfache LED-Schaltung
-const tLED=(pin,rc,lc)=>W(90,
-  G(20,42,ARD(42,[],[[18,pin||'13']]))+L(85,60,105,60)+G(121,60,R(rc||'220Ω'))+G(155,60,LED(lc||'#00ff88'))+G(180,60,GND())+G(175,16,VCC('Pin '+pin))
-);
-
-// PWM + Poti
-const tPWM=(pin,ap)=>W(110,
-  G(20,55,ARD(55,[[25,ap||'A0']],[[20,pin||'9~']]))+
-  G(7,34,POT())+L(7,41,7,70)+L(7,70,20,70)+
-  G(7,18,VCC())+L(7,22,7,27)+G(7,85,GND())+L(7,78,7,85)+
-  L(85,75,105,75)+G(121,75,R('220Ω'))+G(155,75,LED())+G(180,75,GND())+
-  T(140,16,'PWM Dimmer','#c9d8e8',8)
-);
-
-// Mehrere LEDs vertikal
-const tMLED=(pins,colors,title)=>{
-  const n=pins.length, h=40+n*22;
-  let b=G(20,h/2-n*11,ARD(n*22+8,[],pins.map((p,i)=>[8+i*22,p])));
-  pins.forEach((p,i)=>{
-    const y=h/2-n*11+8+i*22;
-    b+=L(85,y,105,y)+G(121,y,R('220Ω'))+G(155,y,LED(colors[i]||'#00ff88'))+L(170,y,190,y);
-  });
-  b+=L(190,h/2-n*11+8,190,h/2+n*11-14)+G(190,h/2+n*11-14,GND());
-  if(title) b+=T(200,h/2,title,'#c9d8e8',7,'start');
-  return W(h,b);
+// ── Widerstand ───────────────────────────────────────────────
+const RES=(x,y,lbl)=>{
+  return W(x-18,y,x-8,y,C.res)+`<rect x="${x-8}" y="${y-5}" width="16" height="10" rx="2" fill="#0d1117" stroke="${C.res}" stroke-width="1.3"/>`+T(x,y-8,lbl||'220Ω',C.res,6.5)+W(x+8,y,x+18,y,C.res);
 };
 
-// I2C Bus
-const tI2C=(devices)=>{
-  const h=50+devices.length*50;
-  let b=G(20,h/2-16,ARD(32,[],[[8,'A4 SDA'],[22,'A5 SCL']]))+L(85,h/2-8,240,h/2-8)+L(85,h/2+6,240,h/2+6)+T(165,h/2-12,'SDA','#ffd740',6.5)+T(165,h/2+2,'SCL','#ff9800',6.5);
-  devices.forEach((d,i)=>{
-    const dy=20+i*50+25;
-    b+=G(200,dy,BOX(60,28,d[0],d[1]||'#29b6f6',d[2]||''))+L(170,dy,170,h/2-8)+L(170,h/2+6,170,h/2+6)+L(170,dy+5,175,dy+5)+L(175,dy+5,175,h/2+6);
-  });
-  return W(h,b);
+// ── LED (Diodensymbol) ───────────────────────────────────────
+const LED=(x,y,c)=>{
+  const col=c||C.led;
+  return W(x-16,y,x-7,y,col)+`<polygon points="${x-7},${y-6} ${x-7},${y+6} ${x+5},${y}" fill="none" stroke="${col}" stroke-width="1.4"/><line x1="${x+5}" y1="${y-6}" x2="${x+5}" y2="${y+6}" stroke="${col}" stroke-width="1.8"/>`+W(x+5,y,x+14,y,C.gnd)+`<line x1="${x+2}" y1="${y-9}" x2="${x-1}" y2="${y-13}" stroke="${col}" stroke-width="1.1"/><line x1="${x+6}" y1="${y-9}" x2="${x+3}" y2="${y-13}" stroke="${col}" stroke-width="1.1"/>`;
 };
 
-// Sensor + Ausgabe
-const tSensor=(sName,sColor,dPin,outType,outColor)=>W(110,
-  G(140,35,BOX(64,30,sName,sColor||'#00e676'))+
-  L(108,35,90,35)+T(100,30,'OUT','#556070',6)+
-  G(20,50,ARD(55,[],[[15,dPin||'A0'],[35,outType==='buz'?'8':'13']]))+
-  L(85,65,108,65)+L(108,35,108,65)+
-  (outType==='buz'
-    ?L(85,85,110,85)+G(125,85,BUZ())+L(135,85,155,85)+G(155,85,GND())
-    :L(85,85,105,85)+G(121,85,R('220Ω'))+G(155,85,LED(outColor||'#00ff88'))+G(180,85,GND()))
+// ── GND-Symbol ───────────────────────────────────────────────
+const GND=(x,y)=>`<line x1="${x}" y1="${y}" x2="${x}" y2="${y+7}" stroke="${C.gnd}" stroke-width="1.4"/><line x1="${x-7}" y1="${y+7}" x2="${x+7}" y2="${y+7}" stroke="${C.gnd}" stroke-width="2"/><line x1="${x-4}" y1="${y+10}" x2="${x+4}" y2="${y+10}" stroke="${C.gnd}" stroke-width="1.5"/><line x1="${x-1}" y1="${y+13}" x2="${x+1}" y2="${y+13}" stroke="${C.gnd}" stroke-width="1"/>`;
+
+// ── VCC-Symbol ───────────────────────────────────────────────
+const VCC=(x,y,lbl)=>`<line x1="${x}" y1="${y}" x2="${x}" y2="${y+8}" stroke="${C.vcc}" stroke-width="1.4"/><line x1="${x-6}" y1="${y}" x2="${x+6}" y2="${y}" stroke="${C.vcc}" stroke-width="2"/>`+T(x,y-4,lbl||'+5V',C.vcc,7);
+
+// ── IC / Modul Box ───────────────────────────────────────────
+const BOX=(x,y,w,h,name,sub,col)=>{
+  const c=col||C.comp;
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" fill="#0d1117" stroke="${c}" stroke-width="1.3"/>`+T(x+w/2,y+h/2-2,name,c,7.5)+T(x+w/2,y+h/2+7,sub||'','#444',5.5);
+};
+
+// ── Buzzer ───────────────────────────────────────────────────
+const BUZ=(x,y)=>`<circle cx="${x}" cy="${y}" r="10" fill="#0d1117" stroke="${C.buz}" stroke-width="1.3"/><circle cx="${x}" cy="${y}" r="6" fill="none" stroke="${C.buz}" stroke-width=".7" stroke-dasharray="2,1"/>`+T(x,y+3,'BZ',C.buz,7);
+
+// ── Taster ───────────────────────────────────────────────────
+const BTN=(x,y)=>W(x-12,y,x-3,y,C.res)+`<circle cx="${x-3}" cy="${y}" r="2" fill="${C.res}"/><line x1="${x-3}" y1="${y-6}" x2="${x+3}" y2="${y-6}" stroke="${C.res}" stroke-width="2" stroke-linecap="round"/><circle cx="${x+3}" cy="${y}" r="2" fill="${C.res}"/>`+W(x+3,y,x+12,y,C.res);
+
+// ── Potentiometer ────────────────────────────────────────────
+const POT=(x,y)=>`<rect x="${x-8}" y="${y-8}" width="16" height="16" rx="2" fill="#0d1117" stroke="${C.res}" stroke-width="1.3"/>`+T(x,y+3,'P',C.res,7)+W(x,y-8,x,y-14,C.res);
+
+// ── Motor ─────────────────────────────────────────────────────
+const MOT=(x,y)=>`<circle cx="${x}" cy="${y}" r="12" fill="#0d1117" stroke="${C.mot}" stroke-width="1.5"/>`+T(x,y+4,'M',C.mot,9);
+
+// ── Servo ────────────────────────────────────────────────────
+const SRV=(x,y)=>BOX(x-18,y-11,36,22,'Servo','SG90',C.warn);
+
+// ── Relay ────────────────────────────────────────────────────
+const REL=(x,y)=>BOX(x-20,y-14,40,28,'Relais','5V Module','#ff9800');
+
+// ── NeoPixel Strip ───────────────────────────────────────────
+const NEO=(x,y,n)=>{
+  let s='';
+  const cols=['#ff4444','#44ff88','#4488ff','#ffff44','#ff88ff'];
+  for(let i=0;i<(n||4);i++){
+    s+=`<rect x="${x+i*16}" y="${y-8}" width="14" height="14" rx="2" fill="#0d1117" stroke="${cols[i%cols.length]}" stroke-width="1.2"/>`;
+    s+=`<circle cx="${x+i*16+7}" cy="${y-1}" r="4" fill="${cols[i%cols.length]}" opacity=".7"/>`;
+  }
+  s+=W(x-8,y+4,x,y+4)+W(x+(n||4)*16,y+4,x+(n||4)*16+8,y+4);
+  return s;
+};
+
+// ══════════════════════════════════════════════════════
+// SCHALTPLAN-TEMPLATES (bestehende 50 Projekte)
+// ══════════════════════════════════════════════════════
+
+// P1: LED Blinker
+const p1=SVG(260,95,
+  ARD(20,30,50,[],[[20,'Pin 13']])+
+  RES(115,50)+LED(150,50,C.led)+GND(164,50)+VCC(160,14,'+5V')+
+  T(140,16,'LED Blinker',C.ard,8)
 );
 
-// Ultraschall HC-SR04
-const tHCSR04=(tp,ep)=>W(100,
-  G(20,45,ARD(50,[],[[18,tp||'9 TRIG'],[32,ep||'10 ECHO']]))+
-  L(85,63,105,63)+L(85,77,105,77)+
-  G(175,63,BOX(80,30,'HC-SR04','#29b6f6','Ultraschall'))+
-  L(135,63,135,77)+
-  G(135,20,VCC())+L(135,22,135,48)+G(135,95,GND())+L(135,78,135,95)+
-  T(175,20,'Echozeit messen','#29b6f6',7)
+// P2: PWM Dimmer
+const p2=SVG(280,110,
+  ARD(20,30,60,[[28,'A0']],[[20,'Pin 9~',C.pwm]])+
+  POT(8,42)+W(8,50,8,68)+W(8,68,20,68)+VCC(8,22)+W(8,26,8,34)+GND(8,78)+W(8,72,8,78)+
+  RES(115,50)+LED(150,50,C.led)+GND(164,50)+T(180,14,'PWM',C.pwm,8)
 );
 
-// Spannungsteiler (LDR/NTC)
-const tVdiv=(top,bot,apin)=>W(130,
-  G(145,20,VCC())+L(145,22,145,38)+G(145,55,BOX(44,30,top,'#ffd740'))+
-  L(145,70,145,82)+G(145,99,BOX(44,30,bot,'#888'))+
-  L(145,114,145,124)+G(145,124,GND())+
-  L(123,70,80,70)+G(20,50,ARD(48,[],[[20,apin||'A0']]))+
-  T(145,16,top+' Teiler','#ffd740',7)
+// P3: RGB-LED
+const p3=SVG(280,100,
+  ARD(15,20,65,[],[[18,'9~ R',C.led_r],[33,'10~ G',C.led],[48,'11~ B',C.led_b]])+
+  RES(110,38,'')+LED(148,38,C.led_r)+GND(162,38)+
+  RES(110,53,'')+LED(148,53,C.led)+GND(162,53)+
+  RES(110,68,'')+LED(148,68,C.led_b)+GND(162,68)+
+  T(200,14,'RGB-LED',C.ard,8)
 );
 
-// Motor L298N
-const tMotor=(ep,i1,i2)=>W(120,
-  G(18,50,ARD(65,[],[[18,i1||'4 IN1'],[32,i2||'5 IN2'],[46,ep||'3~ ENA']]))+
-  L(83,68,100,68)+L(83,82,100,82)+L(83,96,100,96)+
-  G(155,80,BOX(64,44,'L298N','#ff5252','Motortreiber'))+
-  L(187,80,205,80)+G(220,80,MOT())+G(240,80,GND())+L(231,80,240,80)+
-  G(135,18,VCC('9V ext.'))+T(50,18,'PWM + Richtung','#ff5252',7)
+// P4: Ampel
+const p4=SVG(260,90,
+  ARD(20,22,54,[],[[18,'Pin 2',C.led_r],[31,'Pin 3',C.res],[44,'Pin 4',C.led]])+
+  RES(115,40,'')+LED(150,40,C.led_r)+GND(164,40)+
+  RES(115,53,'')+LED(150,53,C.res)+GND(164,53)+
+  RES(115,66,'')+LED(150,66,C.led)+GND(164,66)+
+  T(200,14,'Ampel',C.ard,8)
 );
 
-// Stepper ULN2003
-const tStepper=()=>W(100,
-  G(18,45,ARD(48,[],[[20,'8-11']]))+L(83,65,105,65)+
-  G(155,55,BOX(60,34,'ULN2003','#7c4dff','Treiber'))+L(185,55,205,55)+
-  G(235,55,BOX(48,30,'28BYJ','#ffd740','Stepper'))+
-  G(18,20,VCC())+G(18,90,GND())+T(140,18,'Schrittmotor-Steuerung','#7c4dff',7)
+// P5: Morse Blinker
+const p5=SVG(260,80,ARD(20,20,44,[],[[20,'Pin 13']])+RES(115,42)+LED(150,42,C.led)+GND(164,42)+T(140,14,'SOS Blinker',C.ard,8));
+
+// P6: PIR Bewegungsmelder
+const p6=SVG(280,90,
+  ARD(20,22,50,[],[[18,'Pin 2'],[32,'Pin 13']])+
+  BOX(118,14,60,24,'PIR','HC-SR501',C.sensor)+W(90,36,118,36)+
+  RES(185,50,'')+LED(218,50,C.led)+GND(232,50)+T(148,10,'Bewegungsmelder',C.sensor,7.5)
 );
 
-// RFID RC522
-const tRFID=()=>W(115,
-  G(18,55,ARD(58,[],[[16,'10 SDA'],[30,'13 SCK'],[44,'11/12 SPI']]))+
-  L(83,71,105,71)+L(83,85,105,85)+L(83,99,105,99)+
-  G(168,75,BOX(72,36,'RC522','#29b6f6','RFID SPI 3.3V'))+
-  L(83,108,105,108)+G(120,108,LED('#44ff44'))+L(134,108,155,108)+G(155,108,GND())+
-  T(168,20,'Karte scannen','#29b6f6',8)
+// P7: LDR Nachtlicht
+const p7=SVG(270,110,
+  VCC(145,12)+W(145,16,145,28)+BOX(118,28,54,24,'LDR','Sensor',C.res)+
+  W(145,52,145,62)+BOX(118,62,54,24,'10kΩ','Teiler','#888')+W(145,86,145,96)+GND(145,96)+
+  W(100,62,85,62)+ARD(20,30,50,[[30,'A0']],[[20,'Pin 13']])+
+  N(100,62,C.res)+RES(190,50,'')+LED(225,50,C.led)+GND(239,50)+T(145,8,'LDR Teiler',C.res,7.5)
 );
 
-// Bluetooth HC-05
-const tBT=()=>W(100,
-  G(18,48,ARD(52,[],[[18,'10 RX'],[32,'11 TX']]))+
-  L(83,66,105,66)+L(83,80,105,80)+
-  G(168,70,BOX(70,28,'HC-05','#29b6f6','Bluetooth'))+
-  L(83,93,105,93)+G(120,93,R('220Ω'))+G(153,93,LED())+G(175,93,GND())+
-  T(168,20,'→ Smartphone-App','#29b6f6',7)
+// P8: Lauflicht
+const p8=SVG(280,80,
+  ARD(15,18,56,[],[[18,'2-9']])+
+  W(87,36,105,36)+BOX(105,22,90,28,'8× LED','Reihe',C.led)+GND(190,62)
 );
 
-// ESP8266 IoT
-const tESP=(sensor,sport)=>W(100,
-  G(20,50,BOX(56,42,'ESP8266','#7c4dff','NodeMCU'))+
-  G(170,48,BOX(64,28,sensor||'DHT22','#00e676'))+
-  L(48,29,48,20)+G(48,20,VCC('3.3V'))+L(48,71,48,85)+G(48,85,GND())+
-  L(78,55,138,55)+T(108,50,sport||'D4','#ffd740',7)+
-  T(140,18,'→ WiFi Cloud','#7c4dff',8,'start')
+// P9: VU Meter
+const p9=SVG(270,90,
+  BOX(160,22,72,26,'KY-038','Mikrofon',C.buz)+W(120,40,160,40)+
+  ARD(20,22,52,[[28,'A0']],[[18,'Pin 13']])+
+  RES(185,56,'')+LED(218,56,C.led)+GND(232,56)+T(200,16,'VU Meter',C.buz,7)
 );
 
-// Servo + Poti
-const tServoPot=(sp,ap)=>W(100,
-  G(18,50,ARD(50,[[20,ap||'A0']],[[20,sp||'9~']]))+
-  G(7,32,POT())+L(7,39,7,65)+L(7,65,18,65)+
-  G(7,18,VCC())+L(7,20,7,25)+G(7,82,GND())+L(7,75,7,82)+
-  L(83,70,110,70)+G(130,68,SRV())+T(130,20,'Servo folgt Poti','#ff6b35',7)
+// P10: Buzzer Melodie
+const p10=SVG(230,80,ARD(20,22,44,[],[[20,'Pin 8']])+W(92,42,105,42)+BUZ(115,42)+W(125,42,140,42)+GND(140,42)+T(100,16,'Melodie',C.buz,8));
+
+// P11: Klaviertastatur
+const p11=SVG(280,90,
+  ARD(15,18,56,[],[[18,'2-9 Taster'],[38,'10 Buzzer']])+
+  BOX(110,20,72,28,'8× Taster','Keyboards',C.res)+W(90,62,110,62)+BUZ(132,62)+GND(144,62)+T(145,14,'Klavier',C.buz,8)
 );
 
-// Einfacher Buzzer
-const tBuzzer=(pin)=>W(80,
-  G(18,38,ARD(36,[],[[15,pin||'8']]))+
-  L(83,53,110,53)+G(126,53,BUZ())+L(136,53,155,53)+G(155,53,GND())+
-  T(140,18,'tone() Funktion','#c264ff',7)
+// P12: Theremin
+const p12=SVG(280,90,
+  ARD(20,22,52,[],[[18,'Pin 9 TRIG'],[32,'Pin 10 ECHO']])+
+  BOX(140,18,74,28,'HC-SR04','Ultraschall',C.comp)+
+  W(92,40,140,40)+W(92,54,140,54)+BUZ(230,50)+W(214,50,220,50)+T(148,14,'Theremin',C.comp,7.5)
 );
 
-// 7-Segment
-const t7Seg=()=>W(90,
-  G(18,42,ARD(44,[],[[18,'2-8']]))+L(83,62,105,62)+
-  G(200,52,BOX(90,36,'7-Segment','#00e5ff','Display A-G'))+
-  T(155,22,'7 Pins → 7 Segmente','#00e5ff',7)
+// P13: Ultraschall
+const p13=SVG(280,90,ARD(20,22,52,[],[[18,'Pin 9 TRIG'],[32,'Pin 10 ECHO']])+BOX(140,18,74,28,'HC-SR04','Ultraschall',C.comp)+W(92,40,140,40)+W(92,54,140,54)+T(148,80,'cm = Laufzeit × 0,034 / 2',C.note,6.5));
+
+// P14: NTC Temp
+const p14=SVG(270,100,
+  VCC(140,12)+W(140,16,140,28)+BOX(113,28,54,24,'NTC','Temp',C.res)+
+  W(140,52,140,62)+BOX(113,62,54,24,'10kΩ','Teiler','#888')+W(140,86,140,96)+GND(140,96)+
+  W(96,62,80,62)+ARD(20,28,46,[[30,'A0']])+T(140,8,'NTC Teiler',C.res,7.5)
 );
 
-// CNC / Plotter
-const tCNC=()=>W(100,
-  G(12,48,ARD(55,[],[[18,'2-5 X'],[32,'8-11 Y'],[46,'6 Servo']]))+
-  L(77,66,100,66)+G(148,56,BOX(60,28,'ULN2003-X','#7c4dff'))+
-  L(77,80,100,80)+G(148,84,BOX(60,28,'ULN2003-Y','#7c4dff'))+
-  L(77,94,100,94)+G(125,94,SRV())+T(50,16,'X/Y/Stift-Steuerung','#7c4dff',7)
+// P15: Regen Sensor
+const p15=SVG(270,90,BOX(148,22,72,24,'FC-37','Regensensor',C.comp)+W(108,34,148,34)+ARD(20,22,52,[],[[18,'A0'],[32,'Pin 8']])+W(92,54,110,54)+BUZ(120,54)+GND(132,54)+T(185,16,'Alarm bei Regen',C.comp,7));
+
+// P16: Bodenfeuchtigkeit
+const p16=SVG(280,90,
+  BOX(148,14,72,24,'Feuchte','Sensor',C.sensor)+W(108,26,148,26)+
+  ARD(20,18,58,[[28,'A0']],[[18,'Pin 7']])+W(92,50,110,50)+REL(130,50)+T(130,10,'Pflanzenwächter',C.sensor,7.5)
 );
 
-// Roboter (Linienfolger / Hindernis)
-const tRobot=(sensors,title)=>W(110,
-  G(12,52,ARD(56,[],[[18,'2-3 '+sensors],[32,'4 ENB'],[46,'5-10 L298N']]))+
-  G(155,36,BOX(64,28,sensors,'#00e676','Sensor'))+
-  G(155,72,BOX(64,32,'L298N','#ff5252','+ 2x Motor'))+
-  T(155,16,title||'Roboter','#c9d8e8',8)
+// P17: Gas MQ-2
+const p17=SVG(270,90,BOX(148,22,64,24,'MQ-2','Gas-Sensor',C.warn)+W(108,34,148,34)+ARD(20,22,52,[],[[18,'A0'],[32,'Pin 8']])+W(92,54,110,54)+BUZ(120,54)+GND(132,54)+T(180,12,'Gas-Alarm',C.warn,7.5));
+
+// P18: Waage HX711
+const p18=SVG(280,100,
+  ARD(20,28,50,[],[[18,'Pin 2 DT'],[32,'Pin 3 SCK']])+
+  BOX(148,22,64,26,'HX711','Wiegezelle',C.res)+W(92,46,148,46)+W(92,60,148,60)+
+  BOX(148,58,64,24,'Load Cell','Sensor','#888')+T(180,16,'Digitalwaage',C.res,7.5)
 );
 
-// ── Schaltpläne für alle 50 Projekte ───────────────────────
+// P19: Wetterstation BME280
+const p19=SVG(260,90,
+  ARD(20,20,54,[[28,'A4 SDA'],[42,'A5 SCL']])+
+  W(8,48,20,48)+BOX(100,18,72,24,'BME280','T/H/Druck',C.sensor)+
+  W(8,62,20,62)+BOX(100,48,72,24,'LCD I²C','16×2',C.comp)+T(136,90,'I²C Bus',C.note,7)
+);
+
+// P20: DHT22
+const p20=SVG(260,80,ARD(20,20,44,[],[[18,'Pin 2']])+W(92,38,110,38)+BOX(110,24,64,24,'DHT22','Temp/Hum',C.sensor)+T(145,72,'10kΩ Pull-up',C.note,7));
+
+// P21: 7-Segment
+const p21=SVG(270,85,ARD(15,18,54,[],[[18,'Pins 2-8']])+W(87,36,110,36)+BOX(110,22,78,28,'7-Segment','Display A-G',C.comp)+T(150,74,'7 Pins = 7 Segmente',C.note,7));
+
+// P22: TM1637
+const p22=SVG(260,75,ARD(20,18,44,[],[[15,'Pin 2 CLK'],[29,'Pin 3 DIO']])+BOX(140,16,80,30,'TM1637','4-Stellen LCD',C.comp)+W(92,33,140,33)+W(92,47,140,47)+T(180,72,'2-Draht-Bus',C.note,7));
+
+// P23: LCD Thermo
+const p23=SVG(260,85,ARD(20,20,50,[[28,'A4 SDA'],[42,'A5 SCL']])+BOX(100,14,72,24,'DHT22','°C/RH',C.sensor)+W(8,48,20,48)+BOX(100,44,72,24,'LCD I²C','16×2',C.comp)+T(136,84,'I²C Bus',C.note,7));
+
+// P24: OLED Uhr
+const p24=SVG(260,90,ARD(20,20,56,[[24,'A4 SDA'],[38,'A5 SCL']])+W(8,44,20,44)+BOX(100,14,72,24,'OLED','128×64px',C.comp)+W(8,58,20,58)+BOX(100,44,72,24,'DS3231','RTC Uhr',C.res)+T(136,88,'I²C Bus',C.note,7));
+
+// P25: Taschenrechner
+const p25=SVG(270,90,ARD(15,20,56,[],[[18,'Pins 2-5 Zeilen'],[36,'Pins 6-9 Spalten']])+BOX(140,22,76,28,'Keypad 4×4','Matrix',C.res)+W(87,44,140,44)+W(87,62,140,62)+T(178,84,'Matrix-Scan',C.note,7));
+
+// P26: Druckknopf Zähler
+const p26=SVG(260,85,ARD(20,22,48,[],[[18,'Pin 2'],[32,'Pin 3 RST']])+BTN(120,40)+BTN(120,54)+W(92,40,108,40)+W(92,54,108,54)+BOX(170,26,64,24,'LCD I²C','Count',C.comp)+T(140,80,'Zähler',C.note,7));
+
+// P27: Oszilloskop
+const p27=SVG(230,75,POT(8,36)+W(8,44,8,60)+W(8,60,20,60)+ARD(20,22,44,[[30,'A0 Signal']])+VCC(8,18)+GND(8,78)+T(140,16,'→ Serial Plotter',C.ard,8,'start'));
+
+// P28: Servo + Poti
+const p28=SVG(260,90,ARD(20,22,52,[[28,'A0']],[[20,'Pin 9~ Servo']])+POT(8,36)+W(8,44,8,62)+W(8,62,20,62)+VCC(8,18)+GND(8,82)+SRV(195,44)+W(92,42,177,42));
+
+// P29: Automatischer Scanner
+const p29=SVG(270,90,ARD(20,22,52,[],[[18,'Pin 9 TRIG'],[32,'Pin 10 ECHO'],[46,'Pin 11 Servo']])+BOX(148,16,72,24,'HC-SR04','Ultraschall',C.comp)+SRV(200,52)+W(92,40,148,40)+W(92,54,148,54)+W(92,68,182,68));
+
+// P30: DC Motor
+const p30=SVG(270,100,ARD(18,24,62,[],[[18,'IN1 Pin 4'],[32,'IN2 Pin 5'],[46,'ENA Pin 3~',C.pwm]])+BOX(140,18,64,32,'L298N','Motortreiber',C.mot)+MOT(235,40)+W(92,42,140,42)+W(92,56,140,56)+W(92,70,140,70)+W(204,40,222,40));
+
+// P31: Schrittmotor
+const p31=SVG(270,90,ARD(18,20,54,[],[[25,'Pins 8-11']])+W(90,45,110,45)+BOX(110,28,64,26,'ULN2003','Treiber',C.iot)+W(174,41,190,41)+BOX(190,26,60,26,'28BYJ','Stepper',C.res)+VCC(18,8)+T(140,84,'Schrittmotor',C.res,7));
+
+// P32: Linienfolger
+const p32=SVG(280,95,ARD(18,22,58,[],[[18,'Pins 2-3 IR'],[36,'Pins 4-10 L298N']])+BOX(150,14,72,26,'2× IR Sensor','Linie',C.sensor)+BOX(150,50,72,26,'L298N + 2M','Antrieb',C.mot)+W(90,40,150,40)+W(90,63,150,63)+T(186,88,'Linienfolger',C.sensor,7));
+
+// P33: Hindernis Roboter
+const p33=SVG(280,95,ARD(15,22,58,[],[[18,'HC-SR04'],[34,'Servo'],[50,'L298N']])+BOX(148,14,72,22,'HC-SR04','Ultraschall',C.comp)+BOX(148,44,72,22,'Servo','Scan',C.warn)+BOX(148,72,72,22,'L298N + 2M','Antrieb',C.mot)+T(184,90,'Hindernisroboter',C.note,7));
+
+// P34: Balance Roboter
+const p34=SVG(270,90,ARD(18,20,56,[[24,'A4 SDA'],[38,'A5 SCL']],[[32,'L298N']])+BOX(100,14,72,24,'MPU-6050','Gyro/Accel',C.iot)+BOX(190,28,64,24,'L298N','PID-Regler',C.mot)+W(8,44,20,44)+W(8,58,20,58));
+
+// P35: CNC Plotter
+const p35=SVG(280,100,ARD(12,22,58,[],[[18,'Pins 2-5 X'],[32,'Pins 8-11 Y'],[46,'Pin 6 Servo']])+BOX(148,14,72,24,'ULN2003 X','Stepper',C.iot)+BOX(148,44,72,24,'ULN2003 Y','Stepper',C.iot)+SRV(220,68)+W(90,40,148,40)+W(90,56,148,56)+W(90,72,202,72)+T(186,90,'X/Y/Stift',C.note,7));
+
+// P36: Joystick Pan-Tilt
+const p36=SVG(280,90,ARD(18,20,56,[[24,'A0 VRX'],[38,'A1 VRY']],[[18,'Pin 9 Pan'],[36,'Pin 10 Tilt']])+BOX(100,14,60,24,'Joystick','Analog',C.res)+SRV(220,32)+SRV(220,60)+W(8,44,20,44)+W(8,58,20,58));
+
+// P37: Reaktionszeit
+const p37=SVG(260,85,ARD(20,22,48,[],[[18,'Pin 13 LED'],[32,'Pin 2 Btn']])+RES(115,40)+LED(148,40,C.led)+GND(162,40)+BTN(120,54)+GND(140,54)+T(140,80,'Reaktionszeit messen',C.note,7));
+
+// P38: Simon Says
+const p38=SVG(280,100,ARD(15,22,62,[],[[18,'Pins 2-5 LEDs'],[36,'Pins 8-11 Btn'],[52,'Pin 12 Buz']])+BOX(150,14,64,24,'4× LED','Farben',C.led)+BOX(150,44,64,24,'4× Taster','Eingabe',C.res)+BUZ(220,68)+W(90,26,150,26)+W(90,56,150,56)+W(90,72,209,72));
+
+// P39: Würfel
+const p39=SVG(270,85,ARD(18,20,50,[],[[18,'Pins 2-8 LEDs'],[32,'Pin 12 Btn']])+BOX(145,14,80,28,'7× LED','Würfelmuster',C.res)+BTN(198,56)+GND(210,56)+W(90,44,145,44)+W(90,56,186,56)+T(185,80,'Würfel',C.res,7));
+
+// P40: RFID
+const p40=SVG(270,95,ARD(18,20,58,[],[[18,'SDA Pin 10'],[30,'SCK Pin 13'],[44,'MOSI/MISO']])+BOX(148,14,76,30,'RC522','RFID SPI 3.3V',C.comp)+W(90,38,148,38)+W(90,50,148,50)+W(90,64,148,64)+RES(210,74,'')+LED(242,74,C.led)+GND(256,74));
+
+// P41: IR Fernbedienung
+const p41=SVG(270,90,ARD(20,20,56,[],[[18,'Pin 11 IR-In'],[36,'Pins 3-5 LEDs']])+BOX(145,14,74,24,'IR Receiver','VS1838B',C.comp)+BOX(145,50,60,20,'3× LED','Empfang',C.led)+W(92,32,145,32)+W(92,60,145,60));
+
+// P42: Bluetooth
+const p42=SVG(270,90,ARD(20,20,56,[],[[18,'Pin 10 RX'],[34,'Pin 11 TX'],[50,'Pin 13 LED']])+BOX(148,14,72,28,'HC-05','Bluetooth',C.comp)+W(92,38,148,38)+W(92,54,148,54)+RES(210,68,'')+LED(242,68,C.led)+GND(256,68));
+
+// P43: I2C Hub
+const p43=SVG(270,100,ARD(18,22,56,[[24,'A4 SDA'],[38,'A5 SCL']])+BOX(100,14,72,22,'BME280','°C/H/hPa',C.sensor)+W(8,42,20,42)+BOX(100,42,72,22,'OLED','128×64',C.comp)+W(8,56,20,56)+BOX(100,70,72,22,'DS3231','RTC',C.res)+T(136,98,'I²C Bus',C.note,7));
+
+// P44: GPS
+const p44=SVG(270,85,ARD(20,20,50,[],[[18,'Pin 4 RX'],[32,'Pin 3 TX']])+BOX(148,14,78,28,'NEO-6M GPS','UART',C.comp)+W(92,38,148,38)+W(92,52,148,52)+VCC(186,8)+GND(186,72)+T(148,82,'GPS Koordinaten',C.note,7));
+
+// P45: Fingerprint
+const p45=SVG(270,90,ARD(18,20,56,[],[[18,'Pin 10/11 UART'],[36,'Pin 9 Servo']])+BOX(148,14,76,24,'GT-511','Fingerprint',C.comp)+SRV(230,46)+W(90,38,148,38)+W(90,52,148,52)+W(90,66,212,66));
+
+// P46: NFC Zeit
+const p46=SVG(270,90,ARD(18,20,56,[[24,'A4 SDA'],[38,'A5 SCL']],[[20,'SPI Pin 10']])+BOX(148,14,76,22,'RC522 RFID','SPI',C.comp)+BOX(148,44,72,22,'DS3231','RTC',C.res)+BOX(100,44,40,22,'LCD','',C.comp)+W(92,44,100,44)+W(90,54,100,54));
+
+// P47: WiFi Logger
+const p47=SVG(260,80,BOX(18,16,56,38,'ESP8266','NodeMCU',C.iot)+BOX(148,22,72,24,'DHT22','T/Hum',C.sensor)+W(74,36,148,36)+VCC(38,10)+GND(38,58)+T(200,14,'→ WiFi Cloud',C.iot,8,'start'));
+
+// P48: MQTT
+const p48=SVG(260,85,BOX(18,18,56,38,'ESP8266','NodeMCU',C.iot)+REL(160,38)+BOX(218,22,54,28,'Verbraucher','Last','#888')+W(74,37,140,37)+W(180,37,218,37)+T(140,82,'MQTT Smarthome',C.note,7));
+
+// P49: Webserver
+const p49=SVG(260,75,BOX(18,14,56,38,'ESP8266','NodeMCU',C.iot)+LED(150,34,C.led)+GND(164,34)+W(74,33,134,33)+T(190,34,'← http://IP',C.note,7,'start')+T(140,64,'Webserver Port 80',C.note,6.5));
+
+// P50: Mobile Wetterstation
+const p50=SVG(270,90,BOX(18,18,56,40,'ESP8266','NodeMCU',C.iot)+BOX(148,14,72,22,'BME280','°C/H/hPa',C.sensor)+BOX(148,44,72,22,'OLED','128×64',C.comp)+BOX(148,72,72,18,'GPS NEO-6M','UART',C.comp)+W(74,36,148,36)+W(8,52,20,52)+W(8,66,20,66)+T(185,90,'Mobile Wetterwerte',C.note,7));
+
+// ══════════════════════════════════════════════════════
+// NEUE PROJEKTE 51–100
+// ══════════════════════════════════════════════════════
+
+// P51: MAX7219 Matrix
+const p51=SVG(280,85,
+  ARD(20,20,50,[],[[18,'Pin 11 MOSI'],[32,'Pin 13 SCK'],[46,'Pin 10 CS']])+
+  BOX(148,16,80,30,'MAX7219','8×8 Matrix',C.comp)+
+  W(92,38,148,38)+W(92,52,148,52)+W(92,66,148,66)+VCC(186,10)+GND(186,82)+T(188,8,'SPI 5V',C.comp,7)
+);
+
+// P52: NeoPixel Regenbogen
+const p52=SVG(260,85,
+  ARD(20,20,50,[],[[25,'Pin 6']])+
+  RES(110,45,'470Ω')+
+  NEO(145,45,5)+GND(245,49)+VCC(150,18)+T(180,14,'WS2812B Strip',C.led,8)
+);
+
+// P53: NeoPixel Sound
+const p53=SVG(280,85,
+  BOX(148,14,70,26,'KY-038','Mikrofon',C.buz)+W(108,27,148,27)+
+  ARD(20,20,50,[[28,'A0']],[[25,'Pin 6']])+
+  NEO(148,50,4)+T(200,14,'VU-Effekt',C.led,7.5)
+);
+
+// P54: Sunrise Wecker
+const p54=SVG(270,100,
+  ARD(20,22,58,[[24,'A4 SDA'],[38,'A5 SCL']],[[20,'Pin 9~',C.pwm]])+
+  W(8,46,20,46)+BOX(100,30,62,24,'DS3231','RTC Uhr',C.res)+
+  W(92,42,110,42)+BOX(186,18,56,26,'MOSFET','IRLZ34N',C.warn)+
+  W(200,44,200,58)+BOX(164,58,60,24,'Power LED','12V',C.led)+
+  VCC(200,10)+T(148,96,'RTC + PWM Fade',C.note,7)
+);
+
+// P55: Stimmungslicht
+const p55=SVG(250,80,
+  ARD(20,20,48,[],[[18,'Pin 9~',C.led_r],[31,'Pin 10~',C.led],[44,'Pin 11~',C.led_b]])+
+  RES(115,38,'')+LED(148,38,C.led_r)+GND(162,38)+
+  RES(115,51,'')+LED(148,51,C.led)+GND(162,51)+
+  RES(115,64,'')+LED(148,64,C.led_b)+GND(162,64)+
+  T(190,14,'Zufalls-RGB',C.ard,8)
+);
+
+// P56: Lauftext 4x Matrix
+const p56=SVG(280,80,
+  ARD(20,20,48,[],[[18,'Pin 11 MOSI'],[32,'Pin 13 SCK'],[46,'Pin 10 CS']])+
+  BOX(148,16,120,30,'4× MAX7219','Kaskade DIN→DOUT',C.comp)+
+  W(92,38,148,38)+W(92,52,148,52)+W(92,66,148,66)+T(208,84,'Scrolling Text',C.note,6.5)
+);
+
+// P57: Herzschlag
+const p57=SVG(260,80,
+  ARD(20,20,48,[[26,'A4 SDA'],[40,'A5 SCL']])+
+  W(8,46,20,46)+BOX(100,18,72,24,'MAX30102','Puls I²C',C.sensor)+
+  W(8,60,20,60)+BOX(100,48,72,24,'OLED','128×64',C.comp)+
+  T(136,76,'BPM Anzeige',C.sensor,7)
+);
+
+// P58: Bewässerung
+const p58=SVG(270,90,
+  BOX(148,14,72,24,'Feuchte','Sensor AO',C.sensor)+W(108,26,148,26)+
+  ARD(20,20,56,[[28,'A0']],[[18,'Pin 7']])+
+  W(92,42,140,42)+REL(160,42)+
+  BOX(214,28,54,24,'Pumpe','5V ext.',C.mot)+W(180,42,214,40)+
+  T(148,86,'Bewässerung',C.note,7)
+);
+
+// P59: Thermostat
+const p59=SVG(270,90,
+  BOX(148,14,72,24,'DS18B20','OneWire',C.sensor)+W(108,26,148,26)+
+  ARD(20,20,56,[[28,'Pin 2']],[[18,'Pin 8']])+
+  W(92,42,140,42)+REL(160,42)+
+  BOX(214,28,54,24,'Lüfter','5V ext.',C.mot)+W(180,42,214,40)+
+  T(148,86,'Hysterese-Regler',C.note,7)
+);
+
+// P60: UV Index
+const p60=SVG(260,80,
+  ARD(20,20,48,[[24,'A4 SDA'],[38,'A5 SCL']])+
+  W(8,44,20,44)+BOX(100,14,72,24,'VEML6075','UV-A/UV-B',C.sensor)+
+  W(8,58,20,58)+BOX(100,44,72,24,'OLED','128×64',C.comp)+
+  T(136,76,'UV-Index Ampel',C.note,7)
+);
+
+// P61: Wasserstand
+const p61=SVG(270,85,
+  ARD(20,22,48,[],[[18,'Pin 9 TRIG'],[32,'Pin 10 ECHO']])+
+  BOX(148,14,72,24,'HC-SR04','nach unten',C.comp)+
+  W(92,40,148,40)+W(92,54,148,54)+
+  BOX(148,50,72,24,'LCD I²C','Liter',C.comp)+T(185,82,'Tankfüllstand',C.note,7)
+);
+
+// P62: CO2 Monitor
+const p62=SVG(270,80,
+  ARD(20,20,48,[],[[18,'Pin 2 RX'],[32,'Pin 3 TX']])+
+  BOX(148,14,72,26,'MH-Z19B','CO₂ UART',C.sensor)+
+  W(92,38,148,38)+W(92,52,148,52)+
+  BOX(148,48,72,24,'OLED','Ampelfarbe',C.comp)+T(185,76,'ppm Anzeige',C.note,7)
+);
+
+// P63: Bewässerungs-Timer
+const p63=SVG(270,85,
+  ARD(20,20,52,[[24,'A4 SDA'],[38,'A5 SCL']],[[18,'Pin 7']])+
+  W(8,44,20,44)+BOX(100,14,72,24,'DS3231','RTC Zeitplan',C.res)+
+  W(8,58,20,58)+BOX(100,44,72,24,'LCD I²C','Zeitanzeige',C.comp)+
+  W(92,48,115,48)+REL(180,38)+T(185,82,'Zeitplan-Steuerung',C.note,7)
+);
+
+// P64: Steckdosen Timer
+const p64=SVG(270,85,
+  ARD(20,20,52,[[24,'A4 SDA'],[38,'A5 SCL']],[[18,'Pin 7']])+
+  W(8,44,20,44)+BOX(100,14,72,24,'LCD I²C','Countdown',C.comp)+
+  W(8,58,20,58)+BTN(138,58)+BTN(155,58)+
+  W(92,40,150,40)+REL(180,36)+T(185,80,'Countdown Timer',C.note,7)
+);
+
+// P65: Türklingel
+const p65=SVG(230,75,
+  ARD(20,20,42,[],[[18,'Pin 8 Buz'],[32,'Pin 2 Btn']])+
+  W(92,38,110,38)+BUZ(120,38)+GND(132,38)+
+  W(92,52,110,52)+BTN(120,52)+GND(132,52)+
+  T(148,16,'Türklingel',C.buz,8,'start')
+);
+
+// P66: PIR Fade
+const p66=SVG(270,95,
+  ARD(20,22,54,[],[[18,'Pin 2 PIR'],[36,'Pin 9~',C.pwm]])+
+  BOX(148,14,72,22,'PIR','HC-SR501',C.sensor)+W(92,36,148,36)+
+  W(92,52,172,52)+BOX(172,40,56,24,'MOSFET','IRLZ34N',C.warn)+
+  W(200,40,200,30)+BOX(160,16,56,20,'Power LED','12V',C.led)+
+  T(148,92,'Sanfter Fade',C.led,7)
+);
+
+// P67: PWM Lüfter
+const p67=SVG(270,85,
+  ARD(20,22,48,[[28,'A0 NTC']],[[18,'Pin 9~',C.pwm]])+
+  BOX(100,14,64,22,'NTC Temp','Sensor',C.sensor)+N(100,25,C.sensor)+
+  W(92,42,172,42)+BOX(172,30,56,24,'MOSFET','Gate',C.warn)+
+  BOX(240,22,48,24,'Lüfter','5V',C.mot)+W(228,42,240,36)+
+  T(160,82,'PWM proportional',C.note,7)
+);
+
+// P68: Alarm Zentrale
+const p68=SVG(280,95,
+  ARD(18,22,58,[],[[18,'Pin 2 PIR'],[30,'Pin 3 Reed'],[42,'Pin 4 Vib'],[54,'Pin 8 Buz']])+
+  BOX(148,14,72,22,'PIR','HC-SR501',C.sensor)+
+  BOX(148,42,72,22,'Reed-Kontakt','Tür',C.comp)+
+  BOX(148,68,72,22,'SW-420','Vibration',C.warn)+
+  BUZ(240,62)+W(90,36,148,36)+W(90,53,148,53)+W(90,79,148,79)+W(90,66,228,66)
+);
+
+// P69: Rolladen
+const p69=SVG(270,90,
+  ARD(18,20,56,[[28,'Pin 2 Auf'],[42,'Pin 3 Zu']],[[18,'Pins 8-11']])+
+  W(90,38,110,38)+BOX(110,24,64,24,'ULN2003','Treiber',C.iot)+
+  W(174,36,190,36)+BOX(190,22,60,24,'28BYJ','Rolladen',C.res)+
+  BTN(8,38)+BTN(8,52)+W(0,38,8,38)+T(140,88,'Positionssteuerung',C.note,7)
+);
+
+// P70: INA219 Leistung
+const p70=SVG(270,80,
+  ARD(20,20,48,[[24,'A4 SDA'],[38,'A5 SCL']])+
+  W(8,44,20,44)+BOX(100,14,72,24,'INA219','U/I/W',C.sensor)+
+  W(8,58,20,58)+BOX(100,44,72,24,'LCD I²C','Watt',C.comp)+
+  T(136,76,'V×A=W Messung',C.sensor,7)
+);
+
+// P71: Voltmeter
+const p71=SVG(270,80,
+  ARD(20,22,44,[[28,'A0']])+
+  VCC(145,10)+W(145,14,145,26)+BOX(118,26,54,24,'30kΩ','Teiler',C.res)+
+  W(145,50,145,60)+BOX(118,60,54,24,'7,5kΩ','Teiler','#888')+W(145,84,145,94)+GND(145,94)+
+  W(100,62,80,62)+N(100,62,C.res)+
+  BOX(190,26,72,24,'LCD I²C','0-25V',C.comp)+T(145,8,'Spannungsteiler',C.res,7)
+);
+
+// P72: Frequenzzähler
+const p72=SVG(260,75,
+  ARD(20,20,42,[[25,'Pin 2 INT']])+
+  W(8,45,20,45)+T(8,40,'Signal',C.sig,7)+
+  BOX(140,16,72,24,'LCD I²C','Hz / kHz',C.comp)+
+  T(140,70,'attachInterrupt() zählen',C.note,7)
+);
+
+// P73: LUX Meter
+const p73=SVG(260,78,
+  ARD(20,20,46,[[24,'A4 SDA'],[38,'A5 SCL']])+
+  W(8,44,20,44)+BOX(100,14,72,24,'BH1750','I²C Lux',C.sensor)+
+  W(8,58,20,58)+BOX(100,44,72,24,'LCD I²C','Lux-Wert',C.comp)+
+  T(136,74,'Lichtstärke',C.sensor,7)
+);
+
+// P74: Schallpegel
+const p74=SVG(270,80,
+  BOX(148,14,72,24,'KY-038','Mikrofon',C.buz)+W(108,26,148,26)+
+  ARD(20,20,46,[[28,'A0']])+
+  BOX(148,44,72,24,'LCD I²C','dB Anzeige',C.comp)+T(185,76,'Schallpegel dB',C.note,7)
+);
+
+// P75: Ohmmeter
+const p75=SVG(270,80,
+  VCC(145,10)+W(145,14,145,26)+BOX(118,26,54,24,'1kΩ Ref','Teiler',C.res)+
+  W(145,50,145,60)+T(145,68,'Rx unbek.',C.sig,7)+W(145,60,145,80)+GND(145,80)+
+  W(100,52,80,52)+ARD(20,28,36,[[22,'A0']])+N(100,52,C.res)+
+  BOX(190,26,72,24,'LCD I²C','Ohm',C.comp)
+);
+
+// P76: Kapazitätsmesser
+const p76=SVG(270,80,
+  ARD(20,20,48,[[28,'A0']],[[18,'Pin 8 Laden'],[32,'Pin 7 Entladen']])+
+  W(92,38,130,38)+W(92,52,130,52)+
+  BOX(130,24,58,24,'R 10kΩ','Ladewiderstand',C.res)+
+  BOX(200,24,56,22,'Cx','unbekannt',C.warn)+
+  W(188,36,200,36)+GND(228,58)+T(165,78,'RC-Zeitkonstante',C.note,7)
+);
+
+// P77: PWM Analyzer
+const p77=SVG(260,75,
+  ARD(20,20,42,[[25,'Pin 2']])+
+  W(8,45,20,45)+T(8,40,'PWM-In',C.pwm,7)+
+  RES(88,45,'10kΩ')+
+  BOX(138,16,72,24,'LCD I²C','Hz + Duty%',C.comp)+
+  T(140,70,'pulseIn() messen',C.note,7)
+);
+
+// P78: MP3 Player
+const p78=SVG(270,85,
+  ARD(20,22,50,[],[[18,'Pin 11 RX'],[32,'Pin 10 TX']])+
+  W(92,40,120,40)+W(92,54,120,54)+
+  BOX(120,26,72,26,'DFPlayer','Mini MP3',C.buz)+
+  BOX(210,30,54,20,'8Ω Spk','Audio',C.buz)+
+  W(192,39,210,38)+T(165,82,'SD-Karte intern',C.note,7)
+);
+
+// P79: Spektrum Analyzer
+const p79=SVG(280,90,
+  ARD(20,20,54,[],[[18,'Pin 4 STROBE'],[32,'Pin 5 RESET'],[46,'A0 OUT']])+
+  BOX(148,14,72,26,'MSGEQ7','7-Band Audio',C.buz)+
+  W(92,38,148,38)+W(92,52,148,52)+W(92,66,148,66)+
+  BOX(235,26,40,40,'7× LED','Balken',C.led)+T(200,88,'Frequenzspektrum',C.note,7)
+);
+
+// P80: Metronom
+const p80=SVG(240,75,
+  ARD(20,20,42,[],[[18,'Pin 8 Buz'],[30,'Pin 2 BPM+'],[42,'Pin 3 BPM-']])+
+  BUZ(117,38)+GND(129,38)+W(92,38,107,38)+
+  BTN(117,52)+BTN(117,64)+W(92,52,105,52)+W(92,64,105,64)+
+  T(170,20,'BPM Metronom',C.buz,8,'start')
+);
+
+// P81: DTMF Decoder
+const p81=SVG(280,85,
+  ARD(20,20,50,[[28,'Pins 2-6']])+
+  W(8,48,20,48)+BOX(110,14,76,28,'MT8870','DTMF Decoder',C.comp)+
+  W(8,62,10,62)+T(8,58,'Audio',C.sig,7)+
+  BOX(200,22,70,24,'LCD I²C','Taste',C.comp)+T(200,78,'Telefonton-Decoder',C.note,7)
+);
+
+// P82: Synthesizer
+const p82=SVG(250,80,
+  ARD(20,20,50,[],[[18,'Pins 2-9'],[36,'Pin 11 Buz']])+
+  BOX(148,14,72,26,'8× Taster','Matrix',C.res)+
+  BUZ(168,56)+GND(180,56)+W(92,54,157,54)+T(185,14,'8-Ton Klavier',C.buz,8,'start')
+);
+
+// P83: Sprachsynthese
+const p83=SVG(230,70,
+  ARD(20,18,38,[],[[18,'Pin 3 Audio']])+
+  W(92,36,108,36)+RES(118,36,'1kΩ')+
+  BOX(148,24,54,22,'Lautspr.','8Ω',C.buz)+W(136,36,148,36)+GND(162,50)+
+  T(148,66,'Talkie Library',C.note,7)
+);
+
+// P84: Keypad Schloss
+const p84=SVG(280,90,
+  ARD(18,20,56,[],[[18,'Zeilen 2-5'],[36,'Spalten 6-9'],[52,'Pin 10 Servo']])+
+  BOX(148,14,72,26,'Keypad 4×4','PIN-Eingabe',C.res)+
+  SRV(230,48)+W(90,50,212,50)+
+  BOX(148,50,68,24,'LCD I²C','Status',C.comp)+T(200,88,'PIN-Schloss',C.note,7)
+);
+
+// P85: Laser Alarm
+const p85=SVG(280,85,
+  W(20,40,40,40)+BOX(40,28,56,24,'Laser','5mW 650nm','#ff4444')+W(96,40,120,40)+
+  BOX(120,28,54,24,'LDR','Empfänger',C.sensor)+W(147,28,147,20)+
+  ARD(150,10,52,[[18,'A0 LDR']],[[18,'Pin 8 Alarm']])+W(220,38,240,38)+BUZ(250,38)+
+  T(150,82,'Lichtschranke',C.warn,7)
+);
+
+// P86: Vibrations Safe
+const p86=SVG(250,75,
+  BOX(148,14,72,22,'SW-420','Vibration',C.warn)+W(108,25,148,25)+
+  ARD(20,20,42,[],[[18,'Pin 2 INT'],[30,'Pin 8 Buz']])+
+  BUZ(170,52)+GND(182,52)+W(92,42,158,42)+T(148,70,'Erschütterungs-Alarm',C.note,7)
+);
+
+// P87: Türalarm Reed
+const p87=SVG(250,75,
+  BOX(148,14,72,22,'Reed-Kontakt','Tür/Fenster',C.comp)+W(108,25,148,25)+
+  ARD(20,20,42,[],[[18,'Pin 2 Reed'],[30,'Pin 8 Buz']])+
+  BUZ(170,52)+GND(182,52)+W(92,42,158,42)+T(148,70,'Türalarm',C.note,7)
+);
+
+// P88: RFID Multi User
+const p88=SVG(280,90,
+  ARD(18,20,56,[],[[18,'SDA Pin 10'],[30,'SCK Pin 13'],[44,'MOSI/MISO']])+
+  BOX(148,14,76,30,'RC522','RFID Multi-Tag',C.comp)+
+  W(90,38,148,38)+W(90,52,148,52)+W(90,64,148,64)+
+  BOX(148,52,72,24,'LCD I²C','Zugangslevel',C.comp)+T(185,88,'EEPROM UIDs',C.note,7)
+);
+
+// P89: Zeitschloss
+const p89=SVG(270,85,
+  ARD(20,20,52,[[24,'A4 SDA'],[38,'A5 SCL']],[[18,'Pin 9 Servo']])+
+  W(8,44,20,44)+BOX(100,14,72,24,'DS3231','Zeitplan RTC',C.res)+
+  W(8,58,20,58)+BOX(100,44,72,24,'LCD I²C','Status',C.comp)+
+  SRV(230,36)+W(92,39,212,39)+T(185,82,'Mo-Fr 8-17 Uhr',C.note,7)
+);
+
+// P90: Home Assistant MQTT
+const p90=SVG(260,80,
+  BOX(18,16,56,38,'ESP8266','NodeMCU',C.iot)+
+  W(74,28,100,28)+BOX(100,14,72,24,'DHT22','T/Hum',C.sensor)+
+  T(180,42,'→ MQTT Broker',C.iot,8,'start')+T(180,56,'→ Home Assistant',C.note,7,'start')+
+  VCC(38,10)+GND(38,58)+T(140,76,'Auto-Discovery',C.iot,7)
+);
+
+// P91: Telegram Bot
+const p91=SVG(260,80,
+  BOX(18,16,56,38,'ESP8266','NodeMCU',C.iot)+
+  W(74,28,100,28)+BOX(100,14,72,24,'Relais','D1',C.warn)+
+  W(74,42,100,42)+BOX(100,44,72,24,'DHT22','Sensor D4',C.sensor)+
+  T(185,30,'→ Telegram HTTPS',C.iot,7,'start')+T(140,76,'Bot-Token geheim!',C.warn,7)
+);
+
+// P92: LoRa Sender
+const p92=SVG(280,85,
+  ARD(20,20,52,[],[[18,'SCK/MOSI/MISO'],[34,'NSS Pin 10'],[48,'RST/DIO0']])+
+  BOX(148,14,80,30,'SX1278','LoRa 433MHz',C.iot)+
+  W(92,38,148,38)+W(92,52,148,52)+W(92,66,148,66)+
+  T(189,74,'Antenne 17cm Draht',C.note,7)+T(189,14,'km Reichweite!',C.iot,7)
+);
+
+// P93: OTA Update
+const p93=SVG(250,70,
+  BOX(18,14,56,36,'ESP8266','NodeMCU',C.iot)+
+  T(130,32,'⇐ WiFi OTA Update',C.iot,10,'start')+
+  T(130,46,'Kein USB nötig',C.note,7,'start')+VCC(38,8)+GND(38,54)+
+  T(130,60,'ArduinoOTA.begin()',C.note,7,'start')
+);
+
+// P94: Wetter API
+const p94=SVG(260,80,
+  BOX(18,16,56,38,'ESP8266','NodeMCU',C.iot)+
+  W(74,28,100,28)+BOX(100,14,72,24,'OLED','128×64',C.comp)+
+  T(185,34,'→ openweathermap.org',C.iot,7,'start')+T(185,46,'HTTP GET + JSON',C.note,6.5,'start')+
+  VCC(38,10)+GND(38,58)+T(140,76,'API-Key erforderlich',C.warn,7)
+);
+
+// P95: Bilderrahmen TFT
+const p95=SVG(280,85,
+  BOX(18,16,56,38,'ESP8266','NodeMCU',C.iot)+
+  BOX(148,14,80,26,'ILI9341 TFT','2,4" SPI Display',C.comp)+
+  BOX(148,48,80,24,'SD-Karte','BMP Bilder',C.res)+
+  W(74,28,148,28)+W(74,42,148,60)+T(185,82,'Bild-Rotations-Timer',C.note,7)
+);
+
+// P96: Solar Monitor
+const p96=SVG(270,80,
+  ARD(20,20,48,[[24,'A4 SDA'],[38,'A5 SCL']])+
+  W(8,44,20,44)+BOX(100,14,72,24,'INA219','U+I Messung',C.sensor)+
+  W(8,58,20,58)+BOX(100,44,72,24,'LCD I²C','W + Wh',C.comp)+
+  T(180,30,'← Solar+',C.vcc,7)+T(180,46,'→ Akku/Last',C.led,7)+T(136,76,'V×A=Watt',C.sensor,7)
+);
+
+// P97: Anemometer
+const p97=SVG(260,80,
+  ARD(20,20,46,[[28,'Pin 2 INT']])+
+  W(8,48,20,48)+BOX(130,14,72,24,'Reed-Kontakt','Schalenkreuz',C.comp)+
+  BOX(130,44,72,24,'LCD I²C','km/h',C.comp)+
+  T(166,76,'Impulse → km/h',C.note,7)
+);
+
+// P98: LiPo Monitor
+const p98=SVG(270,80,
+  VCC(145,10)+W(145,14,145,26)+BOX(118,26,54,24,'30kΩ','Teiler',C.res)+
+  W(145,50,145,60)+BOX(118,60,54,24,'10kΩ','nach GND','#888')+W(145,84,145,94)+GND(145,94)+
+  W(100,62,80,62)+ARD(20,28,38,[[22,'A0']])+N(100,62,C.res)+
+  BOX(195,26,72,24,'LCD I²C','Ladestand %',C.comp)+T(145,8,'LiPo 3,7V → 4,2V',C.res,7)
+);
+
+// P99: PZEM Energiemesser
+const p99=SVG(270,90,
+  ARD(20,20,52,[],[[18,'Pin 2 RX'],[32,'Pin 3 TX']])+
+  W(92,38,120,38)+W(92,52,120,52)+
+  BOX(120,24,80,28,'PZEM-004T','230V Messung',C.warn)+
+  BOX(215,28,50,20,'LCD I²C','kWh',C.comp)+
+  T(185,80,'⚠️ 230V GEFAHR!',C.vcc,8)
+);
+
+// P100: Deep Sleep
+const p100=SVG(270,85,
+  BOX(18,16,56,38,'ESP8266','NodeMCU',C.iot)+
+  W(74,28,100,28)+BOX(100,14,72,24,'DHT22','Sensor D4',C.sensor)+
+  W(74,42,100,42)+BOX(100,44,72,24,'TP4056','LiPo Laden',C.res)+
+  T(185,30,'15min Deep Sleep',C.iot,8,'start')+T(185,44,'RST ↔ D0!',C.warn,7,'start')+
+  T(185,56,'20μA im Sleep',C.note,7,'start')+T(140,82,'Solar-betrieben',C.res,7)
+);
+
+// ── Alle 100 Projekte ────────────────────────────────────────
 const SCHEMA={
-  1: tLED('13','220Ω'),
-  2: tPWM('9','A0'),
-  3: tMLED(['9~','10~','11~'],['#ff4444','#44ff44','#4488ff'],'RGB-LED'),
-  4: tMLED(['2','3','4'],['#ff4444','#ffd740','#44ff44'],'Ampel'),
-  5: tLED('13','220Ω'),
-  6: tSensor('PIR HC-SR501','#00e676','2','led','#00ff88'),
-  7: tVdiv('LDR','10kΩ','A0'),
-  8: tMLED(['2','3','4','5','6','7','8','9'],['#00ff88','#00ff88','#ffd740','#ffd740','#ff9944','#ff9944','#ff4444','#ff4444'],'Lauflicht'),
-  9: tSensor('KY-038 Mikro','#c264ff','A0','led','#00ff88'),
-  10: tBuzzer('8'),
-  11: W(110,G(18,55,ARD(56,[],[[18,'2-9 Taster'],[38,'10 Buzzer']]))+G(160,50,BOX(64,30,'8x Taster','#ffd740'))+L(83,93,105,93)+G(120,93,BUZ())+G(145,93,GND())+T(160,20,'Klaviertöne','#c264ff',7)),
-  12: tHCSR04('9 TRIG','10 ECHO'),
-  13: tHCSR04('9 TRIG','10 ECHO'),
-  14: tVdiv('NTC Temp','10kΩ','A0'),
-  15: tSensor('FC-37 Regen','#29b6f6','A0','buz'),
-  16: tI2C([['Feuchte-Sensor','#00e676','Boden'],['LCD I\xB2C','#29b6f6','16x2']]),
-  17: tSensor('MQ-2 Gas','#ff5252','A0','buz'),
-  18: W(105,G(18,50,ARD(52,[],[[18,'2 DT'],[32,'3 SCK']]))+L(83,68,105,68)+G(165,60,BOX(74,30,'HX711','#ffd740','Wiegezelle'))+G(165,95,BOX(74,24,'Load Cell','#888'))+L(165,75,165,83)+G(18,18,VCC())+T(50,18,'Digitale Waage','#ffd740',7)),
-  19: tI2C([['BME280','#00e676','T/Hum/Bar'],['LCD I\xB2C','#29b6f6','16x2']]),
-  20: tI2C([['DHT22','#00e676','T/Hum'],['LCD I\xB2C','#29b6f6','16x2']]),
-  21: t7Seg(),
-  22: W(80,G(18,38,ARD(36,[],[[10,'2 CLK'],[24,'3 DIO']]))+L(83,48,105,48)+L(83,62,105,62)+G(195,53,BOX(84,28,'TM1637','#00e5ff','4-Stellen Display'))),
-  23: tI2C([['DHT22','#00e676','Temp/Hum'],['LCD I\xB2C','#29b6f6','16x2']]),
-  24: tI2C([['OLED','#00e5ff','128x64'],['DS3231','#ffd740','RTC Uhr']]),
-  25: W(100,G(18,48,ARD(52,[],[[18,'2-5 Zeilen'],[32,'6-9 Spalten']]))+G(200,46,BOX(74,30,'Keypad 4x4','#ffd740'))+L(83,66,163,66)+L(83,80,163,80)+T(140,30,'Taschenrechner','#ffd740',7)),
-  26: tServoPot('9','A0'),
-  27: W(105,G(10,50,ARD(52,[],[[18,'9 TRIG'],[32,'10 ECHO'],[46,'11 Servo']]))+G(155,46,BOX(70,26,'HC-SR04','#29b6f6','Ultraschall'))+G(155,84,SRV())+L(83,68,120,68)+L(83,82,120,82)+L(83,96,120,96)+T(155,18,'Radar-Scan','#29b6f6',7)),
-  28: tMotor('3~ ENA','4 IN1','5 IN2'),
-  29: tStepper(),
-  30: tRobot('2x IR','Linienfolger'),
-  31: W(105,G(10,50,ARD(52,[],[[18,'12/13 HC-SR04'],[32,'11 Servo'],[46,'3-10 L298N']]))+G(155,34,BOX(70,24,'HC-SR04','#29b6f6'))+G(155,64,SRV())+G(155,90,BOX(70,24,'L298N + 2M','#ff5252'))+T(155,16,'Hindernisroboter','#c9d8e8',7)),
-  32: W(105,G(10,50,ARD(52,[],[[18,'A4 SDA'],[32,'A5 SCL'],[46,'3-8 L298N']]))+G(165,40,BOX(80,28,'MPU-6050','#7c4dff','Gyro + Accel'))+G(165,80,BOX(80,28,'L298N','#ff5252','PID-Regler'))+T(165,18,'Balance-Roboter','#7c4dff',7)),
-  33: tCNC(),
-  34: W(100,G(18,50,ARD(52,[],[[18,'2 Zählen'],[32,'3 Reset']]))+L(83,68,105,68)+G(120,68,BTN())+L(83,82,105,82)+G(120,82,BTN())+G(200,62,BOX(60,26,'LCD I\xB2C','#29b6f6'))+T(50,18,'Zähler + LCD','#29b6f6',7)),
-  35: W(100,G(18,48,ARD(52,[[20,'A0 VRX'],[34,'A1 VRY']],[[18,'9~ Pan'],[32,'10~ Tilt']]))+G(7,34,BOX(28,26,'Joy​stick','#ffd740'))+L(7,47,7,65)+L(7,65,18,65)+G(168,38,SRV())+G(168,70,SRV())+T(100,16,'Pan-Tilt Kamera','#ff6b35',7)),
-  36: W(100,G(18,48,ARD(52,[],[[18,'13 LED'],[32,'2 Taster']]))+L(83,66,105,66)+G(121,66,R('220Ω'))+G(153,66,LED())+G(175,66,GND())+L(83,80,105,80)+G(120,80,BTN())+G(200,80,GND())+T(140,18,'Reaktionszeit messen','#c9d8e8',7)),
-  37: W(110,G(10,55,ARD(58,[],[[18,'2-5 LED'],[32,'8-11 Btn'],[46,'12 Buz']]))+G(160,43,BOX(64,26,'4x LED','#ffd740','Farben'))+G(160,73,BOX(64,26,'4x Taster','#ffd740'))+L(83,101,105,101)+G(120,101,BUZ())+G(148,101,GND())+T(160,18,'Simon Says','#ff6b35',8)),
-  38: W(90,G(18,45,ARD(44,[],[[18,'2-8 LEDs'],[30,'12 Btn']]))+G(165,48,BOX(74,30,'7x LED','#ffd740','Würfelmuster'))+L(83,75,105,75)+G(120,75,BTN())+G(145,75,GND())+T(165,20,'Würfel-Simulator','#ffd740',7)),
-  39: tRFID(),
-  40: W(100,G(18,48,ARD(52,[],[[18,'11 IR-In'],[32,'3-5 LEDs']]))+L(83,66,105,66)+G(168,60,BOX(74,26,'IR Receiver','#29b6f6','VS1838B'))+G(168,92,BOX(60,22,'3x LED','#00ff88'))+L(83,80,135,80)+L(135,80,135,92)+L(135,92,138,92)),
-  41: tBT(),
-  42: tI2C([['BME280','#00e676','T/H/Bar'],['OLED','#00e5ff','128x64'],['DS3231','#ffd740','RTC']]),
-  43: W(100,G(18,48,ARD(52,[],[[18,'4 RX'],[32,'3 TX']]))+L(83,66,105,66)+L(83,80,105,80)+G(175,70,BOX(80,28,'NEO-6M GPS','#29b6f6','UART'))+G(200,95,GND())+G(175,18,VCC())+T(140,16,'GPS Koordinaten','#29b6f6',7)),
-  44: W(105,G(10,50,ARD(52,[],[[18,'10/11 UART'],[32,'9~ Servo']]))+G(160,40,BOX(76,26,'GT-511','#29b6f6','Fingerprint'))+L(83,68,122,68)+L(83,82,122,82)+G(155,82,SRV())+T(160,18,'Fingerprint-Safe','#29b6f6',7)),
-  45: tI2C([['RC522 RFID','#29b6f6','SPI'],['DS3231','#ffd740','RTC'],['LCD','#00e5ff','16x2']]),
-  46: tESP('DHT22','D4'),
-  47: tESP('DHT22 + Relais','D4/D5'),
-  48: W(95,G(18,48,BOX(56,38,'ESP8266','#7c4dff','NodeMCU'))+L(18,68,8,68)+G(8,68,LED())+G(26,68,GND())+T(160,38,'→ Browser','#7c4dff',11,'start')+L(95,55,130,55)+L(130,55,148,55)+T(140,30,'http://192.168.x.x','#556070',7,'start')+T(140,18,'Webserver Port 80','#7c4dff',8,'start')),
-  49: W(90,G(18,42,ARD(40,[],[[18,'A0']]))+G(7,30,POT())+L(7,37,7,60)+L(7,60,18,60)+G(7,15,VCC())+L(7,17,7,23)+G(7,78,GND())+L(7,70,7,78)+L(83,60,200,60)+T(200,46,'→ Serial Plotter','#00e5ff',8,'start')),
-  50: tESP('BME280 + OLED','D1/D2'),
+  1:p1,2:p2,3:p3,4:p4,5:p5,6:p6,7:p7,8:p8,9:p9,10:p10,
+  11:p11,12:p12,13:p13,14:p14,15:p15,16:p16,17:p17,18:p18,19:p19,20:p20,
+  21:p21,22:p22,23:p23,24:p24,25:p25,26:p26,27:p27,28:p28,29:p29,30:p30,
+  31:p31,32:p32,33:p33,34:p34,35:p35,36:p36,37:p37,38:p38,39:p39,40:p40,
+  41:p41,42:p42,43:p43,44:p44,45:p45,46:p46,47:p47,48:p48,49:p49,50:p50,
+  51:p51,52:p52,53:p53,54:p54,55:p55,56:p56,57:p57,58:p58,59:p59,60:p60,
+  61:p61,62:p62,63:p63,64:p64,65:p65,66:p66,67:p67,68:p68,69:p69,70:p70,
+  71:p71,72:p72,73:p73,74:p74,75:p75,76:p76,77:p77,78:p78,79:p79,80:p80,
+  81:p81,82:p82,83:p83,84:p84,85:p85,86:p86,87:p87,88:p88,89:p89,90:p90,
+  91:p91,92:p92,93:p93,94:p94,95:p95,96:p96,97:p97,98:p98,99:p99,100:p100
 };
 
-// Inject schematics into project bodies
+// Schaltpläne in Projektkarten einbauen
 document.addEventListener('DOMContentLoaded',function(){
   Object.entries(SCHEMA).forEach(function(e){
     const id=e[0], svg=e[1];
     const body=document.getElementById('b'+id);
     if(!body) return;
     body.insertAdjacentHTML('beforeend',
-      '<span class="wiring-title">📏 Schaltplan</span><div class="schema-svg">'+svg+'</div>'
+      '<span class="schema-title">📐 Schaltplan</span><div class="schema-svg">'+svg+'</div>'
     );
   });
 });
