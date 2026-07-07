@@ -6488,6 +6488,46 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// ── KATEGORIEN EIN-/AUSKLAPPEN ────────────────────────────
+function toggleSection(titleEl) {
+  var body = titleEl.nextElementSibling;
+  if (!body || !body.classList.contains('section-body')) return;
+  var isCollapsed = body.classList.toggle('collapsed');
+  titleEl.classList.toggle('collapsed', isCollapsed);
+  var id = titleEl.id;
+  if (id) {
+    var saved = JSON.parse(localStorage.getItem('collapsed_sections') || '{}');
+    if (isCollapsed) saved[id] = 1; else delete saved[id];
+    localStorage.setItem('collapsed_sections', JSON.stringify(saved));
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Gespeicherte Zustände wiederherstellen
+  var saved = JSON.parse(localStorage.getItem('collapsed_sections') || '{}');
+  document.querySelectorAll('.section-title[onclick]').forEach(function(t) {
+    if (t.id && saved[t.id]) {
+      var b = t.nextElementSibling;
+      if (b && b.classList.contains('section-body')) {
+        b.classList.add('collapsed');
+        t.classList.add('collapsed');
+      }
+    }
+  });
+  // "Alle ein-/ausklappen" Button
+  var btn = document.getElementById('collapsAllBtn');
+  if (btn) btn.addEventListener('click', function() {
+    var anyOpen = !!document.querySelector('.section-body:not(.collapsed)');
+    document.querySelectorAll('.section-title[onclick]').forEach(function(t) {
+      var b = t.nextElementSibling;
+      if (b && b.classList.contains('section-body')) {
+        b.classList.toggle('collapsed', anyOpen);
+        t.classList.toggle('collapsed', anyOpen);
+      }
+    });
+  });
+});
+
 </script>
 
 
