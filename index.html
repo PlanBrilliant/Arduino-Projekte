@@ -433,6 +433,38 @@
     .fab-btn{border-radius:50%;width:44px;height:44px;padding:0;justify-content:center;}
   }
 
+
+  /* ── EINKLAPPBARE KATEGORIEN ── */
+  .section-title{
+    cursor:pointer;
+    user-select:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.5rem;
+  }
+  .section-title::after{
+    content:'▲';
+    font-size:.75rem;
+    opacity:.7;
+    flex-shrink:0;
+    transition:transform .3s ease;
+    margin-right:.4rem;
+  }
+  .section-title.collapsed::after{
+    transform:rotate(180deg);
+  }
+  .section-body{
+    overflow:hidden;
+    transition:max-height .35s ease, opacity .25s ease;
+    max-height:20000px;
+    opacity:1;
+  }
+  .section-body.collapsed{
+    max-height:0;
+    opacity:0;
+  }
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -468,6 +500,7 @@
   </div>
 </header>
 <nav>
+  <button id="collapsAllBtn" style="font-size:.78rem;font-family:monospace;font-weight:700;padding:.25rem .65rem;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;" title="Alle Kategorien ein-/ausklappen">⊟ Kategorien</button>
   <a href="#licht">💡 Licht</a><a href="#audio">🔊 Audio</a><a href="#sensoren">🌡 Sensoren</a>
   <a href="#anzeige">📺 Anzeige</a><a href="#motor">⚙️ Motor</a><a href="#spiel">🎮 Spiel</a>
   <a href="#komm">📡 Kommunikation</a><a href="#iot">🌐 IoT</a>
@@ -3236,7 +3269,8 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <!-- ======================== LICHT ======================== -->
-<div id="licht" class="section-title" style="background:var(--licht)">💡 Licht-Projekte (1–8)</div>
+<div id="licht" class="section-title" onclick="toggleSection(this)" style="background:var(--licht)">💡 Licht-Projekte (1–8)</div>
+<div class="section-body">
 
 <!-- Projekt 1 -->
 <div class="project" style="border-color:var(--licht)">
@@ -3447,7 +3481,9 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <!-- ======================== AUDIO ======================== -->
-<div id="audio" class="section-title" style="background:var(--audio);color:#080c10">🔊 Audio-Projekte (9–12)</div>
+</div><!-- /section-body -->
+<div id="audio" class="section-title" onclick="toggleSection(this)" style="background:var(--audio);color:#080c10">🔊 Audio-Projekte (9–12)</div>
+<div class="section-body">
 
 <!-- Projekt 9 -->
 <div class="project" style="border-color:var(--audio)">
@@ -3551,7 +3587,9 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <!-- ======================== SENSOREN ======================== -->
-<div id="sensoren" class="section-title" style="background:var(--sensor);color:#080c10">🌡 Sensor-Projekte (13–20)</div>
+</div><!-- /section-body -->
+<div id="sensoren" class="section-title" onclick="toggleSection(this)" style="background:var(--sensor);color:#080c10">🌡 Sensor-Projekte (13–20)</div>
+<div class="section-body">
 
 <!-- Projekt 13 -->
 <div class="project" style="border-color:var(--sensor)">
@@ -3759,7 +3797,9 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <!-- ======================== ANZEIGE ======================== -->
-<div id="anzeige" class="section-title" style="background:var(--anzeige);color:#080c10">📺 Anzeige-Projekte (21–25, 34, 49)</div>
+</div><!-- /section-body -->
+<div id="anzeige" class="section-title" onclick="toggleSection(this)" style="background:var(--anzeige);color:#080c10">📺 Anzeige-Projekte (21–25, 34, 49)</div>
+<div class="section-body">
 
 <!-- Projekt 21 -->
 <div class="project" style="border-color:var(--anzeige)">
@@ -3936,7 +3976,9 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <!-- ======================== MOTOR ======================== -->
-<div id="motor" class="section-title" style="background:var(--motor);color:#080c10">⚙️ Motor-Projekte (26–33)</div>
+</div><!-- /section-body -->
+<div id="motor" class="section-title" onclick="toggleSection(this)" style="background:var(--motor);color:#080c10">⚙️ Motor-Projekte (26–33)</div>
+<div class="section-body">
 
 <!-- Projekt 26 -->
 <div class="project" style="border-color:var(--motor)">
@@ -4145,7 +4187,9 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <!-- ======================== SPIEL ======================== -->
-<div id="spiel" class="section-title" style="background:var(--spiel);color:#080c10">🎮 Spiel-Projekte (35–38)</div>
+</div><!-- /section-body -->
+<div id="spiel" class="section-title" onclick="toggleSection(this)" style="background:var(--spiel);color:#080c10">🎮 Spiel-Projekte (35–38)</div>
+<div class="section-body">
 
 <!-- Projekt 35 -->
 <div class="project" style="border-color:var(--spiel)">
@@ -4251,7 +4295,9 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <!-- ======================== KOMMUNIKATION ======================== -->
-<div id="komm" class="section-title" style="background:var(--komm);color:#080c10">📡 Kommunikations-Projekte (39–45)</div>
+</div><!-- /section-body -->
+<div id="komm" class="section-title" onclick="toggleSection(this)" style="background:var(--komm);color:#080c10">📡 Kommunikations-Projekte (39–45)</div>
+<div class="section-body">
 
 <!-- Projekt 39 -->
 <div class="project" style="border-color:var(--komm)">
@@ -4434,7 +4480,9 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <!-- ======================== IoT ======================== -->
-<div id="iot" class="section-title" style="background:var(--iot);color:#fff">🌐 IoT-Projekte (46–48, 50)</div>
+</div><!-- /section-body -->
+<div id="iot" class="section-title" onclick="toggleSection(this)" style="background:var(--iot);color:#fff">🌐 IoT-Projekte (46–48, 50)</div>
+<div class="section-body">
 
 <!-- Projekt 46 -->
 <div class="project" style="border-color:var(--iot)">
@@ -4539,7 +4587,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <!-- ======================== MATRIX & LED-ANIMATION ======================== -->
-<div id="matrix" class="section-title" style="background:var(--matrix)">🎨 Matrix &amp; LED-Animation (51–57)</div>
+</div><!-- /section-body -->
+<div id="matrix" class="section-title" onclick="toggleSection(this)" style="background:var(--matrix)">🎨 Matrix &amp; LED-Animation (51–57)</div>
+<div class="section-body">
 
 <!-- Projekt 51 -->
 <div class="project" style="border-color:var(--matrix)">
@@ -4654,7 +4704,9 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 <!-- ======================== SMART GARDEN ======================== -->
-<div id="garten" class="section-title" style="background:var(--garten)">🌿 Smart Garden (58–63)</div>
+</div><!-- /section-body -->
+<div id="garten" class="section-title" onclick="toggleSection(this)" style="background:var(--garten)">🌿 Smart Garden (58–63)</div>
+<div class="section-body">
 
 <!-- Projekt 58 -->
 <div class="project" style="border-color:var(--garten)">
@@ -4753,7 +4805,9 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 <!-- ======================== HEIMAUTOMATION ======================== -->
-<div id="heim" class="section-title" style="background:var(--heim)">🏠 Heimautomation (64–70)</div>
+</div><!-- /section-body -->
+<div id="heim" class="section-title" onclick="toggleSection(this)" style="background:var(--heim)">🏠 Heimautomation (64–70)</div>
+<div class="section-body">
 
 <!-- Projekt 64 -->
 <div class="project" style="border-color:var(--heim)">
@@ -4868,7 +4922,9 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 <!-- ======================== MESSUNG & LABOR ======================== -->
-<div id="labor" class="section-title" style="background:var(--labor)">🔬 Messung &amp; Labor (71–77)</div>
+</div><!-- /section-body -->
+<div id="labor" class="section-title" onclick="toggleSection(this)" style="background:var(--labor)">🔬 Messung &amp; Labor (71–77)</div>
+<div class="section-body">
 
 <!-- Projekt 71 -->
 <div class="project" style="border-color:var(--labor)">
@@ -4983,7 +5039,9 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 <!-- ======================== MUSIK & AUDIO ======================== -->
-<div id="musik" class="section-title" style="background:var(--musik)">🎵 Musik &amp; Audio (78–83)</div>
+</div><!-- /section-body -->
+<div id="musik" class="section-title" onclick="toggleSection(this)" style="background:var(--musik)">🎵 Musik &amp; Audio (78–83)</div>
+<div class="section-body">
 
 <!-- Projekt 78 -->
 <div class="project" style="border-color:var(--musik)">
@@ -5082,7 +5140,9 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 <!-- ======================== SICHERHEIT+ ======================== -->
-<div id="sicher" class="section-title" style="background:var(--sicher)">🔒 Sicherheit+ (84–89)</div>
+</div><!-- /section-body -->
+<div id="sicher" class="section-title" onclick="toggleSection(this)" style="background:var(--sicher)">🔒 Sicherheit+ (84–89)</div>
+<div class="section-body">
 
 <!-- Projekt 84 -->
 <div class="project" style="border-color:var(--sicher)">
@@ -5181,7 +5241,9 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 <!-- ======================== IOT PRO ======================== -->
-<div id="iotpro" class="section-title" style="background:var(--iotpro)">🚀 IoT Pro (90–95)</div>
+</div><!-- /section-body -->
+<div id="iotpro" class="section-title" onclick="toggleSection(this)" style="background:var(--iotpro)">🚀 IoT Pro (90–95)</div>
+<div class="section-body">
 
 <!-- Projekt 90 -->
 <div class="project" style="border-color:var(--iotpro)">
@@ -5280,7 +5342,9 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 <!-- ======================== ENERGIE & UMWELT ======================== -->
-<div id="energie" class="section-title" style="background:var(--energie);color:#080c10">🔋 Energie &amp; Umwelt (96–100)</div>
+</div><!-- /section-body -->
+<div id="energie" class="section-title" onclick="toggleSection(this)" style="background:var(--energie);color:#080c10">🔋 Energie &amp; Umwelt (96–100)</div>
+<div class="section-body">
 
 <!-- Projekt 96 -->
 <div class="project" style="border-color:var(--energie)">
@@ -6464,3 +6528,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+</div><!-- /section-body -->
