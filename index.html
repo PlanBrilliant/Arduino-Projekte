@@ -351,6 +351,88 @@
   .compat-active .project.compat-near{border-left-color:var(--yellow)!important;}
   .compat-active .project.compat-no{opacity:.45;}
 
+
+  /* ── FLOATING ACTION BAR ── */
+  .fab-bar{
+    position:fixed;right:1.1rem;bottom:2rem;
+    display:flex;flex-direction:column;gap:.6rem;
+    z-index:150;
+  }
+  .fab-btn{
+    display:flex;align-items:center;gap:.55rem;
+    padding:.52rem .85rem;
+    border-radius:30px;
+    border:1px solid var(--border-hi);
+    background:rgba(13,18,25,.92);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    cursor:pointer;
+    font-family:monospace;font-size:.8rem;font-weight:700;
+    color:var(--muted);
+    box-shadow:0 4px 20px rgba(0,0,0,.55);
+    transition:all .2s;
+    white-space:nowrap;
+  }
+  .fab-btn:hover{
+    color:#fff;
+    border-color:var(--accent);
+    background:rgba(13,18,25,.98);
+    box-shadow:0 4px 24px rgba(0,212,255,.18);
+    transform:translateY(-2px);
+  }
+  .fab-btn.fab-green:hover{
+    border-color:var(--green);
+    box-shadow:0 4px 24px rgba(0,230,118,.18);
+  }
+  .fab-btn svg{flex-shrink:0;opacity:.85;}
+  .fab-label{transition:all .2s;}
+  @media(max-width:600px){
+    .fab-bar{right:.6rem;bottom:1rem;}
+    .fab-label{display:none;}
+    .fab-btn{border-radius:50%;width:44px;height:44px;padding:0;justify-content:center;}
+  }
+
+
+  /* ── FLOATING ACTION BAR ── */
+  .fab-bar{
+    position:fixed;right:1.1rem;bottom:2rem;
+    display:flex;flex-direction:column;gap:.6rem;
+    z-index:150;
+  }
+  .fab-btn{
+    display:flex;align-items:center;gap:.55rem;
+    padding:.52rem .85rem;
+    border-radius:30px;
+    border:1px solid var(--border-hi);
+    background:rgba(13,18,25,.92);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    cursor:pointer;
+    font-family:monospace;font-size:.8rem;font-weight:700;
+    color:var(--muted);
+    box-shadow:0 4px 20px rgba(0,0,0,.55);
+    transition:all .2s;
+    white-space:nowrap;
+  }
+  .fab-btn:hover{
+    color:#fff;
+    border-color:var(--accent);
+    background:rgba(13,18,25,.98);
+    box-shadow:0 4px 24px rgba(0,212,255,.18);
+    transform:translateY(-2px);
+  }
+  .fab-btn.fab-green:hover{
+    border-color:var(--green);
+    box-shadow:0 4px 24px rgba(0,230,118,.18);
+  }
+  .fab-btn svg{flex-shrink:0;opacity:.85;}
+  .fab-label{transition:all .2s;}
+  @media(max-width:600px){
+    .fab-bar{right:.6rem;bottom:1rem;}
+    .fab-label{display:none;}
+    .fab-btn{border-radius:50%;width:44px;height:44px;padding:0;justify-content:center;}
+  }
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -390,9 +472,7 @@
   <a href="#anzeige">📺 Anzeige</a><a href="#motor">⚙️ Motor</a><a href="#spiel">🎮 Spiel</a>
   <a href="#komm">📡 Kommunikation</a><a href="#iot">🌐 IoT</a>
   <a href="#matrix">🎨 Matrix</a><a href="#garten">🌿 Garten</a><a href="#heim">🏠 Heim</a><a href="#labor">🔬 Labor</a><a href="#musik">🎵 Musik</a><a href="#sicher">🔒 Sicherheit</a><a href="#iotpro">🚀 IoT Pro</a><a href="#energie">🔋 Energie</a>
-  <button class="compat-nav-btn" onclick="openCompat()">🔧 Bauteile-Check</button>
-  <button class="shop-nav-btn" onclick="document.getElementById('shopModal').classList.add('open')">🛒 Einkaufsliste</button>
-</nav>
+  </nav>
 
 
 <!-- ── EINKAUFSLISTE MODAL ── -->
@@ -896,6 +976,166 @@
       </svg>
       <span>LCD 16x2</span>
     </div>
+
+      <div class="gallery-item">
+        <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- OLED Display -->
+          <rect x="8" y="8" width="64" height="44" rx="3" fill="#0a0e14" stroke="#00d4ff" stroke-width="1.5"/>
+          <rect x="13" y="13" width="54" height="30" rx="1" fill="#001a26"/>
+          <text x="40" y="23" text-anchor="middle" fill="#00d4ff" font-size="5" font-family="monospace">Hello</text>
+          <text x="40" y="31" text-anchor="middle" fill="#00e676" font-size="4" font-family="monospace">Arduino!</text>
+          <line x1="13" y1="35" x2="67" y2="35" stroke="#00d4ff" stroke-width=".4" opacity=".3"/>
+          <text x="40" y="42" text-anchor="middle" fill="#555" font-size="3" font-family="monospace">0.96" I2C</text>
+          <circle cx="18" cy="52" r="2" fill="#333"/>
+          <circle cx="28" cy="52" r="2" fill="#333"/>
+          <circle cx="38" cy="52" r="2" fill="#333"/>
+          <circle cx="48" cy="52" r="2" fill="#333"/>
+        </svg>
+        <span>OLED 0,96"</span>
+      </div>
+      <div class="gallery-item">
+        <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- DHT22 Sensor -->
+          <rect x="22" y="5" width="36" height="46" rx="4" fill="#1a1a2e" stroke="#7c4dff" stroke-width="1.5"/>
+          <rect x="26" y="9" width="28" height="20" rx="2" fill="#0d0d1a"/>
+          <text x="40" y="22" text-anchor="middle" fill="#7c4dff" font-size="6" font-family="monospace">DHT</text>
+          <text x="40" y="29" text-anchor="middle" fill="#7c4dff" font-size="4" font-family="monospace">22</text>
+          <line x1="30" y1="34" x2="50" y2="34" stroke="#7c4dff" stroke-width=".5" opacity=".5"/>
+          <text x="40" y="42" text-anchor="middle" fill="#e0e0e0" font-size="3.5" font-family="monospace">T+RH</text>
+          <rect x="29" y="51" width="4" height="6" fill="#555"/>
+          <rect x="36" y="51" width="4" height="6" fill="#555"/>
+          <rect x="43" y="51" width="4" height="6" fill="#555"/>
+          <rect x="29" y="51" width="22" height="1" fill="#444"/>
+        </svg>
+        <span>DHT22 Sensor</span>
+      </div>
+      <div class="gallery-item">
+        <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- Relais-Modul -->
+          <rect x="5" y="8" width="70" height="44" rx="3" fill="#1a1200" stroke="#ffd700" stroke-width="1.5"/>
+          <rect x="10" y="13" width="26" height="22" rx="2" fill="#2a1f00" stroke="#ffd700" stroke-width="1"/>
+          <rect x="13" y="16" width="20" height="16" rx="1" fill="#1a1200"/>
+          <ellipse cx="23" cy="24" rx="7" ry="7" fill="none" stroke="#ffd700" stroke-width="1.2"/>
+          <line x1="23" y1="17" x2="23" y2="31" stroke="#ffd700" stroke-width=".8"/>
+          <line x1="16" y1="24" x2="30" y2="24" stroke="#ffd700" stroke-width=".8"/>
+          <rect x="42" y="13" width="28" height="22" rx="2" fill="#0a1a00" stroke="#00e676" stroke-width="1"/>
+          <text x="56" y="26" text-anchor="middle" fill="#00e676" font-size="4.5" font-family="monospace">5V</text>
+          <text x="56" y="32" text-anchor="middle" fill="#00e676" font-size="3.5" font-family="monospace">RELAY</text>
+          <rect x="10" y="40" width="8" height="6" rx="1" fill="#333"/>
+          <rect x="22" y="40" width="8" height="6" rx="1" fill="#333"/>
+          <rect x="34" y="40" width="8" height="6" rx="1" fill="#333"/>
+          <rect x="54" y="40" width="6" height="6" rx="1" fill="#00e676" opacity=".5"/>
+        </svg>
+        <span>Relais-Modul</span>
+      </div>
+      <div class="gallery-item">
+        <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- ESP32 -->
+          <rect x="10" y="5" width="60" height="50" rx="3" fill="#1a0a00" stroke="#ff6d00" stroke-width="1.5"/>
+          <rect x="15" y="10" width="50" height="30" rx="2" fill="#0d0500"/>
+          <rect x="25" y="15" width="30" height="20" rx="1" fill="#1a0800"/>
+          <text x="40" y="26" text-anchor="middle" fill="#ff6d00" font-size="5.5" font-family="monospace">ESP32</text>
+          <text x="40" y="32" text-anchor="middle" fill="#ff9800" font-size="3.5" font-family="monospace">WiFi+BT</text>
+          <rect x="15" y="42" width="4" height="6" fill="#555"/>
+          <rect x="22" y="42" width="4" height="6" fill="#555"/>
+          <rect x="29" y="42" width="4" height="6" fill="#555"/>
+          <rect x="36" y="42" width="4" height="6" fill="#555"/>
+          <rect x="43" y="42" width="4" height="6" fill="#555"/>
+          <rect x="50" y="42" width="4" height="6" fill="#555"/>
+          <rect x="57" y="42" width="4" height="6" fill="#555"/>
+          <rect x="64" y="42" width="4" height="6" fill="#555"/>
+          <circle cx="20" cy="25" r="4" fill="#ff6d00" opacity=".15" stroke="#ff6d00" stroke-width=".5"/>
+        </svg>
+        <span>ESP32</span>
+      </div>
+      <div class="gallery-item">
+        <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- NeoPixel WS2812 Ring -->
+          <circle cx="40" cy="30" r="26" fill="none" stroke="#333" stroke-width="4"/>
+          <circle cx="40" cy="30" r="16" fill="none" stroke="#222" stroke-width="2"/>
+          <!-- 12 LEDs auf Ring -->
+          <circle cx="40" cy="6" r="4" fill="#ff0040" opacity=".9"/>
+          <circle cx="53" cy="10" r="4" fill="#ff8800" opacity=".9"/>
+          <circle cx="62" cy="21" r="4" fill="#ffee00" opacity=".9"/>
+          <circle cx="64" cy="35" r="4" fill="#00e676" opacity=".9"/>
+          <circle cx="57" cy="47" r="4" fill="#00d4ff" opacity=".9"/>
+          <circle cx="44" cy="54" r="4" fill="#7c4dff" opacity=".9"/>
+          <circle cx="30" cy="54" r="4" fill="#ff0040" opacity=".7"/>
+          <circle cx="17" cy="47" r="4" fill="#ff8800" opacity=".7"/>
+          <circle cx="10" cy="35" r="4" fill="#ffee00" opacity=".7"/>
+          <circle cx="12" cy="21" r="4" fill="#00e676" opacity=".7"/>
+          <circle cx="21" cy="10" r="4" fill="#00d4ff" opacity=".7"/>
+          <text x="40" y="33" text-anchor="middle" fill="#888" font-size="4.5" font-family="monospace">WS2812</text>
+        </svg>
+        <span>NeoPixel Ring</span>
+      </div>
+      <div class="gallery-item">
+        <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- HC-05 Bluetooth -->
+          <rect x="8" y="8" width="64" height="44" rx="3" fill="#001233" stroke="#0057ff" stroke-width="1.5"/>
+          <rect x="14" y="14" width="52" height="24" rx="2" fill="#000d26"/>
+          <text x="40" y="26" text-anchor="middle" fill="#0057ff" font-size="6" font-family="monospace">HC-05</text>
+          <text x="40" y="33" text-anchor="middle" fill="#4d8fff" font-size="3.5" font-family="monospace">Bluetooth</text>
+          <!-- BT Symbol -->
+          <path d="M37 38 l5 4 -3 3 3 3 -5 4" fill="none" stroke="#0057ff" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M37 42 l3 -3" fill="none" stroke="#0057ff" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M37 48 l3 3" fill="none" stroke="#0057ff" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="55" cy="44" r="5" fill="#0057ff" opacity=".15" stroke="#0057ff" stroke-width=".8"/>
+          <text x="55" y="46" text-anchor="middle" fill="#4d8fff" font-size="4" font-family="monospace">AT</text>
+          <rect x="14" y="44" width="4" height="7" fill="#555"/>
+          <rect x="20" y="44" width="4" height="7" fill="#555"/>
+          <rect x="26" y="44" width="4" height="7" fill="#555"/>
+          <rect x="32" y="44" width="4" height="7" fill="#555"/>
+        </svg>
+        <span>HC-05 Bluetooth</span>
+      </div>
+      <div class="gallery-item">
+        <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- MPU-6050 -->
+          <rect x="15" y="8" width="50" height="44" rx="3" fill="#0d0d0d" stroke="#e040fb" stroke-width="1.5"/>
+          <rect x="22" y="15" width="36" height="26" rx="2" fill="#1a001a"/>
+          <text x="40" y="27" text-anchor="middle" fill="#e040fb" font-size="5" font-family="monospace">MPU</text>
+          <text x="40" y="34" text-anchor="middle" fill="#e040fb" font-size="4" font-family="monospace">6050</text>
+          <!-- Achsen-Pfeile -->
+          <line x1="40" y1="42" x2="40" y2="36" stroke="#ff4081" stroke-width="1.2"/>
+          <polygon points="40,35 38,38 42,38" fill="#ff4081"/>
+          <line x1="40" y1="42" x2="46" y2="42" stroke="#00e676" stroke-width="1.2"/>
+          <polygon points="47,42 44,40 44,44" fill="#00e676"/>
+          <line x1="40" y1="42" x2="35" y2="47" stroke="#00d4ff" stroke-width="1.2"/>
+          <polygon points="34,48 34,44 37,47" fill="#00d4ff"/>
+          <rect x="15" y="48" width="4" height="6" fill="#555"/>
+          <rect x="22" y="48" width="4" height="6" fill="#555"/>
+          <rect x="29" y="48" width="4" height="6" fill="#555"/>
+          <rect x="36" y="48" width="4" height="6" fill="#555"/>
+          <rect x="43" y="48" width="4" height="6" fill="#555"/>
+          <rect x="50" y="48" width="4" height="6" fill="#555"/>
+          <rect x="57" y="48" width="4" height="6" fill="#555"/>
+        </svg>
+        <span>MPU-6050 Gyro</span>
+      </div>
+      <div class="gallery-item">
+        <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- 28BYJ-48 Schrittmotor -->
+          <circle cx="40" cy="28" r="22" fill="#1a0d00" stroke="#ff9800" stroke-width="1.5"/>
+          <circle cx="40" cy="28" r="14" fill="#0d0700" stroke="#ff9800" stroke-width="1"/>
+          <circle cx="40" cy="28" r="6" fill="#ff9800" opacity=".3"/>
+          <circle cx="40" cy="28" r="3" fill="#ff9800"/>
+          <!-- Schrauben -->
+          <circle cx="40" cy="8" r="3" fill="#333" stroke="#555" stroke-width=".8"/>
+          <circle cx="56" cy="18" r="3" fill="#333" stroke="#555" stroke-width=".8"/>
+          <circle cx="56" cy="38" r="3" fill="#333" stroke="#555" stroke-width=".8"/>
+          <circle cx="40" cy="48" r="3" fill="#333" stroke="#555" stroke-width=".8"/>
+          <circle cx="24" cy="38" r="3" fill="#333" stroke="#555" stroke-width=".8"/>
+          <circle cx="24" cy="18" r="3" fill="#333" stroke="#555" stroke-width=".8"/>
+          <!-- Kabel -->
+          <line x1="40" y1="50" x2="40" y2="58" stroke="#e53935" stroke-width="1.5"/>
+          <line x1="43" y1="50" x2="43" y2="58" stroke="#ff9800" stroke-width="1.5"/>
+          <line x1="46" y1="50" x2="46" y2="58" stroke="#ffff00" stroke-width="1.5"/>
+          <line x1="49" y1="50" x2="49" y2="58" stroke="#e040fb" stroke-width="1.5"/>
+          <line x1="52" y1="50" x2="52" y2="58" stroke="#2196f3" stroke-width="1.5"/>
+        </svg>
+        <span>28BYJ-48 Motor</span>
+      </div>
 
   </div>
 </div>
@@ -6185,6 +6425,42 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
+
+
+<!-- ── FLOATING ACTION BAR ── -->
+<div class="fab-bar">
+  <button class="fab-btn fab-green" onclick="openCompat()" title="Bauteile-Check">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+    </svg>
+    <span class="fab-label">🔧 Bauteile-Check</span>
+  </button>
+  <button class="fab-btn" onclick="document.getElementById('shopModal').classList.add('open')" title="Einkaufsliste">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+    </svg>
+    <span class="fab-label">🛒 Einkaufsliste</span>
+  </button>
+</div>
+
+
+<!-- ── FLOATING ACTION BAR ── -->
+<div class="fab-bar">
+  <button class="fab-btn fab-green" onclick="openCompat()" title="Bauteile-Check">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+    </svg>
+    <span class="fab-label">🔧 Bauteile-Check</span>
+  </button>
+  <button class="fab-btn" onclick="document.getElementById('shopModal').classList.add('open')" title="Einkaufsliste">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+    </svg>
+    <span class="fab-label">🛒 Einkaufsliste</span>
+  </button>
+</div>
 
 </body>
 </html>
